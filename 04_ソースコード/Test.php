@@ -8,7 +8,7 @@
 </head>
 <body>
   <?php
-    echo "Betsunou";
+    echo "Hirata2";
   ?>
 </body>
 </html>
