@@ -1,0 +1,20 @@
+#header {
+  background-color: #B164FF;
+  height: 100px;
+  color: aliceblue;
+}
+
+.card{
+  margin: 20px;
+}
+
+body{
+  background-color: #FAEEFF;
+}
+
+.tag{
+  border: 0.5px solid #989898;
+  border-radius: 5px;
+  padding-right: 4px;
+  padding-left: 4px;
+}
