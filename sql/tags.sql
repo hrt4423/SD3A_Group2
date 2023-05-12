@@ -5,9 +5,9 @@ CREATE TABLE tags(
 );
 
 INSERT INTO tags(tag_id,tag_name) VALUE
-(1,"HTML")
-(2,"css")
-(3,"Javascript")
-(4,"Vue")
-(5,"MySQL")
+(1,"HTML"),
+(2,"css"),
+(3,"Javascript"),
+(4,"Vue"),
+(5,"MySQL"),
 (6,"PHP");

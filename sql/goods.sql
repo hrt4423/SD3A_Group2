@@ -7,6 +7,6 @@ CREATE TABLE goods(
 );
 
 INSERT INTO goods(user_id,post_id) VALUE
-(1,3)
-(1,6)
+(1,3),
+(1,6),
 (1,9);

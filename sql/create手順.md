@@ -5,8 +5,10 @@
     posts.sql
     goods.sql
     tags.sql
-    article_tag_list.sql
-    classes.sql
+    attachedTags.sql
+    emptyClassrooms.sql
     の順にcreate文をコピペして実行をお願いします。
 ３．上のファイルと同じ順番で、書くファイルの下にあるinsert文をコピペして実行
-これをお願いします。
+これをお願いします
+
+ロリポップ　データベース名	LAA1417818-asoda　PASS asodapass
