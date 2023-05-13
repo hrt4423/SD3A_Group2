@@ -7,9 +7,16 @@
 .card{
   margin: 20px;
 }
+.card-title{
+  margin-bottom: 18px;
+}
 
 body{
   background-color: #FAEEFF;
+}
+
+.card-body{
+  padding: 20px 25px 20px 25px;
 }
 
 .tag{
@@ -17,4 +24,47 @@ body{
   border-radius: 5px;
   padding-right: 4px;
   padding-left: 4px;
+}
+
+#good {
+  background-color: #B164FF;
+}
+
+.bi-hand-thumbs-up-fill {
+  color: #ffffff;
+}
+
+#edit{
+  background-color: #E6D0E7;
+}
+
+.reply-area{
+  margin: 20px 10px 10px 10px;
+}
+.reply-area #card-reply-area{
+  margin-top: 10px;
+}
+
+#user-info-post-date{
+  margin-bottom: 17px;
+}
+
+#good-amount{
+  margin-bottom: 0px;
+}
+
+.btn{
+  margin: 5px;
+}
+
+#side-area{
+  padding: 20px;
+}
+
+.card-text{
+  margin: 10px
+}
+
+.reply-write{
+  margin: 20px;
 }

@@ -18,29 +18,68 @@
 
     <div class="card">
       <div class="card-body">
+        <div id="user-info-post-date" class="row">
+          <div name="user-info" class="col-3">
+            <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+            <span name="user-rank"><i class="bi bi-gem"></i></span>
+            <span name="user-name">ユーザー名</span>
+          </div>
+          <div class="col-3 offset-md-6 text-center">yyyy/mm/dd</div>
+        </div>
         <div class="row">
-          <div class="col-8">
+          <div class="col-9">
             <div class="card-title">
-              <h5>質問タイトル</h5>
+              <h4 class="text-center">質問タイトル</h4>
+            </div>
+            <div name="card-tags">
               <i class="bi bi-tags"></i>
               <span class="tag">PHP</span>
               <span class="tag">データベース</span>
-              <p class="card-text">
-                質問内容
-              </p>
+            </div>
+            <p class="card-text">
+              質問内容
+            </p>
+            <div class="reply-area">
+              <h5>--回答--</h5>
+              <div name="reply-card" class="card" id="card-reply-area">
+                <div class="card-body">
+                  <div class="card-title">
+                    <div name="user-info" class="col-3">
+                      <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+                      <span name="user-rank"><i class="bi bi-gem"></i></span>
+                      <span name="user-name">ユーザー名</span>
+                    </div>
+                  </div>
+                  <div class="card-text">
+                    返信内容
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-4">
-            <button>編集</button>
-            <button>
-              
+
+          <div id="side-area" class="col-3 text-center">
+            <button class="btn" id="edit">
+              編集
             </button>
+            <br>
+            <div class="good">
+              <button class="btn" id="good">
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+                <span id="good-amount">13</span>
+              </button>
+            </div>
           </div>
         </div>
-        
       </div>
     </div>
 
+    <div class="reply-write">
+          
+      <p class="mb-0">返信</p>
+      <textarea name="reply" id="" class="form-control" cols="30" rows="10"></textarea>
+      
+    </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
