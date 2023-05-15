@@ -1,0 +1,62 @@
+body{
+  background-color: #FAEEFF;
+}
+
+.rank_title{
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.rank{
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 950px;
+  height: 106px;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 10px; /* 角丸を10pxに設定 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
+}
+
+.rank_img{
+  width: 80px;
+  height: 60px;
+  margin-left: 30px;
+}
+
+.user_icon{
+  width: 60px;
+  height: 60px;
+  background-color: #653A91;
+  border-radius: 50px;
+  margin-left: 50px;
+}
+
+.user_name{
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 60px;
+}
+
+.user_point{
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 350px;
+}
+
+.rank_number{
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 60px;
+}
+
+.user_icon4{
+  width: 60px;
+  height: 60px;
+  background-color: #653A91;
+  border-radius: 50px;
+  margin-left: 83px;
+}
