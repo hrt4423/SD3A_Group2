@@ -68,3 +68,9 @@ body{
 .reply-write{
   margin: 20px;
 }
+
+.form-floating{
+  margin-right: auto;
+  margin-left: auto;
+  width: 60%;
+}
