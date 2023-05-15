@@ -74,3 +74,27 @@ body{
   margin-left: auto;
   width: 60%;
 }
+
+#send{
+  background-color: #FAEEFF;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.text-area-button{
+  position: absolute;
+  right: 250px;
+}
+
+#border-line-reply{
+  margin-top: 50px;
+}
+
+h6{
+  margin-bottom: 1.5rem;
+}
+
+
+
