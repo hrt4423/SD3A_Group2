@@ -22,7 +22,7 @@ $error_message = "※ID、もしくはパスワードが間違っています。
     <title>login</title>
 </head>
 <body>
-  <img src="/images/logo.png">
+  <img src="images/logo.png">
     <?php
     if($error_message) {
       echo $error_message;
