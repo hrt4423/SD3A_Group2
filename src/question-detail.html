@@ -37,21 +37,21 @@
               <span class="tag">データベース</span>
             </div>
             <p class="card-text">
-              質問内容
+              ***質問***
             </p>
             <div class="reply-area">
               <h5>--回答--</h5>
               <div name="reply-card" class="card" id="card-reply-area">
                 <div class="card-body">
-                  <div class="card-title">
-                    <div name="user-info" class="col-3">
-                      <span name="user-icon"><i class="bi bi-person-circle"></i></span>
-                      <span name="user-rank"><i class="bi bi-gem"></i></span>
-                      <span name="user-name">ユーザー名</span>
-                    </div>
+                  <div class="card-title"></div>
+                  
+                  <div name="user-info" class="col-3">
+                    <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+                    <span name="user-rank"><i class="bi bi-gem"></i></span>
+                    <span name="user-name">ユーザー名</span>
                   </div>
                   <div class="card-text">
-                    返信内容
+                    ***返信***
                   </div>
 
                   <hr id="border-line-reply">
@@ -61,8 +61,31 @@
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name">ユーザー名</span>
                   </div>
-
-                </div>
+                  <div class="card-text">
+                    ***コメント***
+                    <hr id="border-line-reply">
+                    <div class="comment-write">
+                      <form action="" method="post" id="comment-form"></form>
+                      <div class="form-floating" id="comment-text-area">
+                        <textarea class="form-control" placeholder="" id="text-area" form="comment-form" style="height: 100px">
+                        </textarea>
+                        <label for="text-area">返信</label>
+                      </div>
+                      
+                      <div class="comment-area-button">
+                        <label id="image-icon">
+                          <input type="file" name="file">
+                          <button class="btn btn-outline-dark">
+                            <i class="bi bi-card-image"></i>
+                          </button>
+                        </label>
+                        <button type="submit" class="btn btn-outline-dark" id="send-icon">
+                          <i class="bi bi-send"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div><!---card-body-->
               </div>
             </div>
           </div>
@@ -98,7 +121,6 @@
             <i class="bi bi-card-image"></i>
           </button>
         </label>
-  
         <button type="submit" class="btn btn-outline-dark" id="send-icon">
           <i class="bi bi-send"></i>
         </button>
