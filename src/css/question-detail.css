@@ -17,6 +17,7 @@ body{
 
 .card-body{
   padding: 20px 25px 20px 25px;
+  position:relative;
 }
 
 .tag{
@@ -44,6 +45,7 @@ body{
 
 #good-amount{
   margin-bottom: 0px;
+  color: #ffffff;
 }
 
 .btn{
@@ -84,4 +86,9 @@ h6{
 .comment-write-area-button{
   position:absolute;
   right: 0px;
+}
+
+.good-button-area{
+  position:absolute;
+  right: 3rem;
 }

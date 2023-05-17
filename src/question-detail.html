@@ -45,12 +45,20 @@
                 <div class="card-body">
                   <div class="card-title"></div>
                   
-                  <div name="user-info" class="col-3">
+                  <div name="user-info"><!--投稿者の情報-->
                     <span name="user-icon"><i class="bi bi-person-circle"></i></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name">ユーザー名</span>
                   </div>
-                  <div class="card-text">
+                  <!--いいねボタン-->
+                  <div class="good-button-area">
+                    <button class="btn" id="good">
+                      <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                      <span id="good-amount">13</span>
+                    </button>
+                  </div>
+
+                  <div class="card-text"><!--回答文-->
                     ***回答1***
                   </div>
 
@@ -62,8 +70,17 @@
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name">ユーザー名</span>
                   </div>
-                  <div class="card-text">
-                    ***コメント***
+
+                  <!--いいねボタン-->
+                  <div class="good-button-area">
+                    <button class="btn" id="good">
+                      <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                      <span id="good-amount">13</span>
+                    </button>
+                  </div>
+
+                  <div class="card-text"><!--コメント文-->
+                    ***コメント1***
 
                     <hr id="border-line-reply">
 
@@ -91,17 +108,26 @@
 
                   </div>
                 </div><!---card-body-->
-              </div>
+              </div><!--/回答１-->
 
               <div name="reply-card" class="card" id="card-reply-area"><!--回答２-->
                 <div class="card-body">
                   <div class="card-title"></div>
                   
-                  <div name="user-info" class="col-3">
+                  <div name="user-info" class="col-3"><!--投稿者の情報-->
                     <span name="user-icon"><i class="bi bi-person-circle"></i></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name">ユーザー名</span>
                   </div>
+
+                  <!--いいねボタン-->
+                  <div class="good-button-area">
+                    <button class="btn" id="good">
+                      <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                      <span id="good-amount">13</span>
+                    </button>
+                  </div>
+
                   <div class="card-text">
                     ***回答２***
                   </div>
@@ -109,13 +135,22 @@
                   <hr id="border-line-reply">
                   
                   <h6 id="reply-comment">コメント</h6>
-                  <div name="user-info" class="col-3">
+                  <div name="user-info" class="col-3"><!--投稿者の情報-->
                     <span name="user-icon"><i class="bi bi-person-circle"></i></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name">ユーザー名</span>
                   </div>
+
+                  <!--いいねボタン-->
+                  <div class="good-button-area">
+                    <button class="btn" id="good">
+                      <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                      <span id="good-amount">13</span>
+                    </button>
+                  </div>
+                  
                   <div class="card-text">
-                    ***コメント***
+                    ***コメント2***
                     
                     <hr id="border-line-reply">
 
@@ -143,7 +178,7 @@
 
                   </div>
                 </div><!---card-body-->
-              </div>
+              </div><!--回答２-->
 
             </div>
           </div>
