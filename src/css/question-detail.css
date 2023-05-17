@@ -38,13 +38,6 @@ body{
   background-color: #E6D0E7;
 }
 
-.reply-area{
-  margin: 20px 10px 10px 10px;
-}
-.reply-area #card-reply-area{
-  margin-top: 10px;
-}
-
 #user-info-post-date{
   margin-bottom: 17px;
 }
@@ -65,29 +58,8 @@ body{
   margin: 10px
 }
 
-.reply-write{
-  margin: 20px;
-}
-
-.form-floating{
-  margin-right: auto;
-  margin-left: auto;
-  width: 60%;
-}
-
-/**
-#send{
-  background-color: #FAEEFF;
-}
-*/
-
 input[type="file"] {
   display: none;
-}
-
-.text-area-button{
-  position: absolute;
-  right: 250px;
 }
 
 #border-line-reply{
@@ -98,16 +70,18 @@ h6{
   margin-bottom: 1.5rem;
 }
 
-#comment-text-area{
-  margin-left: 0;
+.form-floating{
+  
 }
 
-.comment-area-button{
-  position: absolute;
-  right: 300px;
+.comment-write-area{
+  margin: 0.5rem;
+  margin-bottom: 3rem;
+  padding: 3px;
+  position: relative;
 }
 
-.comment-write{
-  margin-bottom: 40px;
+.comment-write-area-button{
+  position:absolute;
+  right: 0px;
 }
-
