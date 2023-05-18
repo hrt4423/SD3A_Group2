@@ -118,7 +118,6 @@
       margin-top: 20px;
       background-color: #fffdfd;
       width: 600px;
-      color: #757575;
       padding-top: 8px;
       padding-left: 8px;
     }
