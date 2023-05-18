@@ -42,7 +42,7 @@ $error_message = "※ID、もしくはパスワードが間違っています。
     text-align:center
   }
   p{
-    font-size:20px;
+    font-size:40px;
     text-align:center
   }
 </style>
