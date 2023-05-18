@@ -39,7 +39,9 @@ $error_message = "※ID、もしくはパスワードが間違っています。
 </body>
 <style>
   body{
-    background:#93f
+  }
+  p{
+    text-align:center
   }
 </style>
 </html>
