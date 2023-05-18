@@ -92,3 +92,20 @@ h6{
   position:absolute;
   right: 3rem;
 }
+
+.answer-write-area{
+  position: relative;
+  width: 860px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.answer-write-area-button{
+  position: absolute;
+  right: 0px;
+}
+
+
+.answer-write-area-button button{
+  background-color: #ffffff;
+}
+
