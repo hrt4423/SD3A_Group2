@@ -118,6 +118,9 @@
       margin-top: 20px;
       background-color: #fffdfd;
       width: 600px;
+      color: #757575;
+      padding-top: 8px;
+      padding-left: 8px;
     }
 
     .yoko {
@@ -258,7 +261,7 @@
 
 <div class="yoko">
   <textarea class="form-control main" rows="8" placeholder="本文"></textarea>
-  <div class="preview"></div>
+  <div class="preview">プレビュー</div>
 </div>
 
 
