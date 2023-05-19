@@ -2,7 +2,7 @@ CREATE TABLE users(
   user_id       INT AUTO_INCREMENT,
   user_name     VARCHAR(128) NOT NULL,
   user_icon     VARCHAR(128) DEFAULT 'aaa',
-  user_mail     VARCHAR(128) NOT NULL,
+  user_mail     VARCHAR(128) NOT NULL ,
   user_pass     VARCHAR(128) NOT NULL,
   user_point    INT NOT NULL DEFAULT 0,
   user_level    INT NOT NULL DEFAULT 0,
@@ -18,3 +18,6 @@ INSERT INTO users(user_id,user_name,user_icon,user_mail,user_pass,user_point,use
 (4,"野村","icon4","nomura@gmail.com","nomura",70,1,"helllo"),
 (5,"別納","icon5","betuno@gmail.com","betuno",60,1,"helllo"),
 (6,"糸山","icon6","itoyama@gmail.com","itoyama",50,1,"helllo");
+
+ALTER TABLE users
+ADD CONSTRAINT  UNIQUE (user_mail);
