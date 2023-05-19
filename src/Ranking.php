@@ -94,7 +94,7 @@
 
   </style>
 </head>
-<body>
+<body class="body">
 
     <div class="header_size">
       <div class="horizontal">
@@ -134,35 +134,44 @@
 <!-- ↑ヘッダー -->
  <div class="allrank_area">
   <p class="rank_title">ユーザランキング</p>
-  <div class="rank_area">
-    <div class="rank">
-      <img src="./images/rank1.png" alt="" class="rank_img">
-      <div class="user_icon"></div>
-      <img src="./images/medaru1.png" alt="" class="img">
-      <p class="user_name">平田</p>
-      <p class="user_point">999pt</p>
-    </div>
-    <div class="rank">
-      <img src="./images/rank2.png" alt="" class="rank_img">
-      <div class="user_icon"></div>
-      <p class="user_name">平田</p>
-      <p class="user_point">999pt</p>
-    </div>
-    <div class="rank">
-      <img src="./images/rank3.png" alt="" class="rank_img">
-      <div class="user_icon"></div>
-      <img src="./images/medaru2.png" alt="" class="img">
-      <p class="user_name">平田</p>
-      <p class="user_point">999pt</p>
-    </div>
-    <div class="rank">
-      <p class="rank_number">4</p>
-      <div class="user_icon4"></div>
-      <img src="./images/medaru3.png" alt="" class="img">
-      <p class="user_name">平田</p>
-      <p class="user_point">999pt</p>
-    </div>
-  </div>
+    <div class="area">
+        <div class="rank_area">
+          <div class="rank">
+            <img src="./images/rank1.png" alt="" class="rank_img">
+            <div class="user_icon"></div>
+            <img src="./images/medaru1.png" alt="" class="img">
+            <p class="user_name">平田</p>
+            <p class="user_point">999pt</p>
+          </div>
+          <div class="rank">
+            <img src="./images/rank2.png" alt="" class="rank_img">
+            <div class="user_icon"></div>
+            <p class="user_name">平田</p>
+            <p class="user_point">999pt</p>
+          </div>
+          <div class="rank">
+            <img src="./images/rank3.png" alt="" class="rank_img">
+            <div class="user_icon"></div>
+            <img src="./images/medaru2.png" alt="" class="img">
+            <p class="user_name">平田</p>
+            <p class="user_point">999pt</p>
+          </div>
+          <div class="rank">
+            <p class="rank_number">4</p>
+            <div class="user_icon4"></div>
+            <img src="./images/medaru3.png" alt="" class="img">
+            <p class="user_name">平田</p>
+            <p class="user_point">999pt</p>
+          </div>
+          <div class="rank">
+            <p class="rank_number">5</p>
+            <div class="user_icon4"></div>
+            <img src="./images/medaru3.png" alt="" class="img">
+            <p class="user_name">平田</p>
+            <p class="user_point">999pt</p>
+          </div>
+        </div>
+      </div>
   </div>
 
   <script>
