@@ -35,4 +35,19 @@ $error_message = "※ID、もしくはパスワードが間違っています。
         <a harf="">新規登録</a>
     </form>
 </body>
+<style>
+    body{
+        text-align:center
+        background:#B164FF
+    }
+    p{
+        font-size:40px;
+    }
+    input{
+        font-size:30px;
+    }
+    a{
+        font-size:30px;
+    }
+</style>
 </html>
