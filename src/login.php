@@ -31,7 +31,7 @@ $error_message = "※ID、もしくはパスワードが間違っています。
     <form action="index.php" method="POST">
         <p>ログインID：<input type="text" name="user_name"></p>
         <p>パスワード：<input type="password" name="password"></p>
-        <input type="submit" name="login" value="ログイン">
+        <input type="submit" name="login" value="ログイン"><br>
         <a harf="">新規登録</a>
     </form>
 </body>
