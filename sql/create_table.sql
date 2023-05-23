@@ -7,7 +7,7 @@ CREATE TABLE thema_colors(
   PRIMARY KEY (thema_color_id)
 );
 
-CREATE TABLE post_categorys(
+CREATE TABLE post_categories(
   post_category_id    INT AUTO_INCREMENT,
   category_name  VARCHAR(4) NOT NULL,
   PRIMARY KEY (post_category_id)
@@ -40,7 +40,8 @@ CREATE TABLE posts(
   destination_user_id   INT,
   PRIMARY KEY (post_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
-  FOREIGN KEY (post_category_id) REFERENCES post_categorys(post_category_id),
+  FOREIGN KEY (post_category_id) REFERENCES post_categories
+(post_category_id),
   FOREIGN KEY (destination_post_id) REFERENCES posts(post_id),
   FOREIGN KEY (destination_user_id) REFERENCES users(user_id)
 );
@@ -140,7 +141,7 @@ INSERT INTO users(
   "helllo"
 );
 
-INSERT INTO post_categorys(category_name) VALUE
+INSERT INTO post_categories(category_name) VALUE
 ("質問"),
 ("記事"),
 ("コメント");
