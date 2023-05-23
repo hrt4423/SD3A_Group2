@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 INSERT INTO posts(
   user_id,
   post_category_id,
@@ -23,3 +25,14 @@ INSERT INTO posts(
   3,
   3
 );
+
+INSERT INTO goods(user_id, post_id) VALUE
+(2, 6),
+(3, 6),
+(4, 6);
+
+INSERT INTO images(post_id, image_path) VALUE
+(5, dafault_image5.png),
+(6, dafault_image6.png);
+
+COMMIT;

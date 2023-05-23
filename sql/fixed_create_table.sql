@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 CREATE TABLE thema_colors(
   thema_color_id    INT AUTO_INCREMENT,
   thema_color_name  VARCHAR(128) NOT NULL,
@@ -7,7 +9,7 @@ CREATE TABLE thema_colors(
 
 CREATE TABLE post_categorys(
   post_category_id    INT AUTO_INCREMENT,
-  category_name  VARCHAR(2) NOT NULL,
+  category_name  VARCHAR(4) NOT NULL,
   PRIMARY KEY (post_category_id)
 );
 
@@ -35,12 +37,12 @@ CREATE TABLE posts(
   post_detail    VARCHAR(10000) NOT NULL,
   post_priority    INT NOT NULL DEFAULT 24,
   destination_post_id  INT,
-  destiation_user_id   INT,
+  destination_user_id   INT,
   PRIMARY KEY (post_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (post_category_id) REFERENCES post_categorys(post_category_id),
   FOREIGN KEY (destination_post_id) REFERENCES posts(post_id),
-  FOREIGN KEY (destiation_user_id) REFERENCES users(user_id)
+  FOREIGN KEY (destination_user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE images(
@@ -81,7 +83,7 @@ CREATE TABLE classrooms(
   PRIMARY KEY (classroom_id)
 );
 
-START TRANSACTION;
+
 INSERT INTO thema_colors(thema_color_name, thema_color_code)
 VALUE
 ("purple", "#B164FF"),
@@ -214,5 +216,40 @@ INSERT INTO images(post_id, image_path) VALUE
 (2, "default_image2.png"),
 (3, "default_image3.png"),
 (4, "default_image4.png");
+
+INSERT INTO posts(
+  user_id,
+  post_category_id,
+  post_time,
+  post_title,
+  post_detail,
+  destination_post_id,
+  destination_user_id
+) VALUE (
+  2,
+  3,
+  "2024-1-5 11:50:00",
+  "テストコメント１",
+  "これは記事１に宛てたコメントです。",
+  1,
+  1
+),(
+  1,
+  3,
+  "2024-1-6 11:50:00",
+  "テストコメント2",
+  "これは質問１に宛てたコメントです。",
+  3,
+  3
+);
+
+INSERT INTO goods(user_id, post_id) VALUE
+(2, 6),
+(3, 6),
+(4, 6);
+
+INSERT INTO images(post_id, image_path) VALUE
+(5, "dafault_image5.png"),
+(6, "dafault_image6.png");
 
 COMMIT;
