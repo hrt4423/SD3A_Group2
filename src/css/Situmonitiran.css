@@ -76,8 +76,6 @@ a.btn-switch:hover span {
   transform: scale(0.96);
 }
 /*タグ検索ボタン終了*/
-
-
 /*並び替えセレクトボックス*/
 .mamListBox{
   width:160px;
@@ -129,61 +127,78 @@ a.btn-switch:hover span {
 }
 .mamListBox select:focus{outline: none;}
 /*並び替えセレクトボックス終了*/
-
 /*質問画面遷移ボタン*/
-.situmon1{
+.situmon1 button{
   position: absolute;
   top: 80px;
   left:250px;
   width: 700px;
   height:150px;
-  background-color:#FFF
+  border:none;
+  background-color:#FFF;
 }
-
-.situmon2{
+#user-name{
+  position: absolute;
+  top: 0px;
+  left:10px;
+  font-size: 15px;
+}
+#toukoubi{
+  position: absolute;
+  top: 20px;
+  left:10px;
+}
+#taitoru{
+  position: absolute;
+  top: 30px;
+  left:10px;
+  font-size: 20px;
+}
+#tagu{
+  position: absolute;
+  top: 65px;
+  left:10px;
+}
+#kaitoukennsuu{
+  position: absolute;
+  top: 90px;
+  left:10px;
+}
+#good{
+  position: absolute;
+  top: 0px;
+  left:640px;
+  font-size: 20px;
+}
+#good-number{
+  position: absolute;
+  top: 30px;
+  left:643px;
+}
+.situmon2 button{
   position: absolute;
   top: 250px;
   left:250px;
   width: 700px;
   height:150px;
+  border:none;
   background-color:#FFF
 }
-
-.situmon3{
+.situmon3 button{
   position: absolute;
   top: 420px;
   left:250px;
   width: 700px;
   height:150px;
+  border:none;
   background-color:#FFF
 }
 /*質問画面遷移ボタン終了*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*背景色*/
 body{ 
   background-color:#FAEEFF
 }
 /*背景色終了*/
-
 /*枠線*/
 .wakusenn{
   width: 80%;
