@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html lang="ja">
+<?php
+  session_start();
+
+  $error_message = "";
+
+  if(isset($_POST["login"])) {
+
+    if($_POST["user_id"] == "webtan" && $_POST["password"] == "webtan_pass") {
+      $_SESSION["user_name"] = $_POST["user_name"];
+      $login_success_url = "login_success.php";
+      header("Location: {$login_success_url}");
+      exit;
+    }
+  $error_message = "※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
+  }
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +25,14 @@
 </head>
 <body>
   <img src="images/logo.png">
+
+  <?php
+  if($error_message) {
+    echo $error_message;
+  }
+  ?>
     <form action="index.php" method="POST">
-      <p>ログインID：<input type="text" name="user_name"></p>
+      <p>メールアドレス：<input type="text" name="user_"></p>
       <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
