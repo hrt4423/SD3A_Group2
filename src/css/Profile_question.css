@@ -9,12 +9,12 @@
 }
 
 .profile_area{
-  width: 10vw;
+  width: 13vw;
   height: 25vw;
   background-color: white;
   border-radius: 10px; /* 角丸を10pxに設定 */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
-  margin-top: 3vw;
+  margin-top: 5vw;
   margin-left: 5vw;
 }
 
