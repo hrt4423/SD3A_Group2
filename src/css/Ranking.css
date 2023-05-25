@@ -12,6 +12,20 @@
   margin-top: 3vw;
 }
 
+.area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rank_area{
+  
+  width: 85vw;
+  height: 35vw;
+  overflow: auto;
+  text-align: center;
+}
+
 .rank{
   display: flex;
   align-items: center;

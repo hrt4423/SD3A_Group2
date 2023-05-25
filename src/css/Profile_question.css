@@ -1,0 +1,57 @@
+.body{
+  padding: 0;
+  margin: 0;
+  background-color: #FAEEFF;
+}
+
+.profile{
+  display: flex;
+}
+
+.profile_area{
+  width: 13vw;
+  height: 25vw;
+  background-color: white;
+  border-radius: 10px; /* 角丸を10pxに設定 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
+  margin-top: 5vw;
+  margin-left: 5vw;
+}
+
+.circle {
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  background-color: #653A91;
+  margin-right: 20px;
+}
+
+.user_name{
+  font-size: 1vw;
+}
+
+.p1{
+  display: flex;
+  font-size: 3vw;
+  font-weight: 1vw;
+}
+
+.question_area{
+  width: 20vw;
+  height: 25vw;
+  background-color: white;
+}
+
+.horizontal1 {
+  display: flex;
+  text-align: center;
+  background-color: #B164FF;
+}
+
+.text1 {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  flex-grow: 1;
+  margin-top: 35px;
+}
