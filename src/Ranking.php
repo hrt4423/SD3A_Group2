@@ -94,7 +94,7 @@
 
   </style>
 </head>
-<body>
+<body class="body">
 
     <div class="header_size">
       <div class="horizontal">
