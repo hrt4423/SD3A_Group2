@@ -35,6 +35,7 @@
 .horizontal {
   display: flex;
   text-align: center;
+  height: 4.5vw;
 }
 
 .search {
@@ -46,7 +47,7 @@
 .right {
   margin-left: auto;
   display: flex;
-  margin-top: 15px;
+  margin-top: 1.5vw;
 }
 
 .text {
@@ -54,7 +55,6 @@
   font-size: 30px;
   font-weight: bold;
   flex-grow: 1;
-  margin-top: 35px;
 }
 
 .circle {
@@ -77,19 +77,18 @@
 .underline {
   text-decoration: none; /* 下線をなくす */
   display: inline-block;
-  width: 100%;
-}
-
-.underline.active {
-  text-decoration: underline; 
   border-bottom: 10px solid #653A91;
-  text-decoration: none;
 }
 
 a:hover {
-  color: white;
-  border-bottom: none;
   text-decoration: none;
+  color: white;
+  width: 2vw;
+}
+.logo{
+  margin-top: 0.9vw;
+  width: 10vw;
+  height: 2.7vw;
 }
   </style>
 </head>
@@ -126,9 +125,11 @@ a:hover {
 <!-- ↑ヘッダー -->
 <div class="profile">
     <div class="profile_area">
-      <div class="circle"></div>
+      <div class="circle_area">
+        <div class="circle1"></div>
+      </div>
       <p class="user_name">平田</p>
-      <p class="user_pass">hirata@gmail.com</p>
+      <p class="user_mail">hirata@gmail.com</p>
       <p class="user_point">999pt</p>
       <a href="" class="link">編集</a>
     </div>
@@ -136,11 +137,83 @@ a:hover {
     <div class="my_area">
       <p class="p1">投稿した質問</p>
       <div class="question_area">
-      <div class="horizontal1">
-            <a href="#" class="text1">質問</a>
-            <a href="#" class="text1">記事</a>
-            <a href="#" class="text1">投稿</a>
+          <div class="horizontal1">
+            <a href="#" class="text1 underline">質問</a>
+            <a href="#" class="text1 ">記事</a>
+            <a href="#" class="text1 ">投稿</a>
           </div>
+          
+          <div class="naiyou_area">
+            <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+
+              <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+
+              <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+          </div>
+
       </div>
     </div>
 </div>
