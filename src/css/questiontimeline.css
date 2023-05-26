@@ -32,6 +32,8 @@ button.btn {
   letter-spacing: 0.1em;
   color: #212529;
   border-radius: 0.5rem;
+  top: 0px;
+  left:220px;
 }
 /*タグ検索ボタン背景*/
 .btn-wrap {
@@ -87,7 +89,7 @@ a.btn-switch:hover span {
   z-index:100;
   font-size: 25px;
   top: -65px; 
-  left:1000px;
+  left:1150px;
 }
 .mamListBox>a{
   display:block;
@@ -128,10 +130,10 @@ a.btn-switch:hover span {
 .mamListBox select:focus{outline: none;}
 /*並び替えセレクトボックス終了*/
 /*質問画面遷移ボタン*/
-.situmon1 button{
+.question1 button{
   position: absolute;
   top: 220px;
-  left:250px;
+  left:420px;
   width: 700px;
   height:150px;
   border:none;
@@ -143,25 +145,25 @@ a.btn-switch:hover span {
   left:10px;
   font-size: 20px;
 }
-#toukoubi{
+#posted-date{
   position: absolute;
   top: 40px;
   left:10px;
   font-size: 15px;
 }
-#taitoru{
+#title{
   position: absolute;
   top: 65px;
   left:10px;
   font-size: 20px;
 }
-#tagu{
+#tag{
   position: absolute;
   top: 95px;
   left:10px;
   font-size: 15px;
 }
-#kaitoukennsuu{
+#number-of-responses{
   position: absolute;
   top: 120px;
   left:10px;
@@ -179,19 +181,19 @@ a.btn-switch:hover span {
   left:643px;
   font-size: 15px;
 }
-.situmon2 button{
+.question2 button{
   position: absolute;
   top: 400px;
-  left:250px;
+  left:420px;
   width: 700px;
   height:150px;
   border:none;
   background-color:#FFF
 }
-.situmon3 button{
+.question3 button{
   position: absolute;
   top: 580px;
-  left:250px;
+  left:420px;
   width: 700px;
   height:150px;
   border:none;
@@ -204,7 +206,7 @@ body{
 }
 /*背景色終了*/
 /*枠線*/
-.wakusenn{
+.frameborder{
   width: 80%;
   height:580px;
   padding-top: 0px;
