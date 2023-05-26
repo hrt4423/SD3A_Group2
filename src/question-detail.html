@@ -30,6 +30,9 @@
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
     <title>質問詳細画面</title>
     <style>
+      body {
+        background-color: #faeeff;
+      }
       .btn-purple {
         background-color: #653a91;
         border-color: #653a91;
@@ -108,6 +111,21 @@
         color: white;
         border-bottom: none;
         text-decoration: none;
+      }
+
+      .preview-button {
+        background-color: #b164ff;
+        color: #fff;
+      }
+
+      .preview-button:hover {
+        background-color: #b164ff;
+        border-color: #b164ff;
+        color: #fff;
+      }
+
+      .styled-output {
+        background-color: #fff;
       }
     </style>
   </head>
@@ -243,37 +261,49 @@
 
                     <div class="comment-write-area">
                       <!--コメント入力欄-->
-                      <form action="" method="post" id="comment-form"></form>
+                      <form action="" method="post" id="comment-form">
+                        <div class="form-floating" id="comment-text-area-1">
+                          <textarea
+                            class="form-control"
+                            placeholder=""
+                            id="text-area-1"
+                            form="comment-form"
+                            style="height: 150px"
+                          ></textarea>
+                          <label for="text-area-1">返信</label>
+                          <div class="styled-output"></div>
+                        </div>
 
-                      <div class="form-floating" id="comment-text-area">
-                        <textarea
-                          class="form-control"
-                          placeholder=""
-                          id="text-area"
-                          form="comment-form"
-                          style="height: 100px"
-                        ></textarea>
-                        <label for="text-area">返信</label>
-                        <button onclick="convertToMarkdown()">変換</button>
-                        <div id="markdown-output"></div>
-                        <div id="styled-output"></div>
-                      </div>
-
-                      <div class="comment-write-area-button">
-                        <label id="upload-image-icon">
-                          <input type="file" name="file" />
-                          <button class="btn btn-outline-dark">
-                            <i class="bi bi-card-image"></i>
+                        <div style="display: flex">
+                          <button
+                            type="button"
+                            class="btn preview-button"
+                            data-toggle="button"
+                            aria-pressed="false"
+                            autocomplete="off"
+                            onclick="convertToMarkdown(1)"
+                          >
+                            プレビュー
                           </button>
-                        </label>
-                        <button
-                          type="submit"
-                          class="btn btn-outline-dark"
-                          id="send-icon"
-                        >
-                          <i class="bi bi-send"></i>
-                        </button>
-                      </div>
+
+                          <div class="comment-write-area-button">
+                            <label id="upload-image-icon">
+                              <input type="file" name="file" />
+                              <button class="btn btn-outline-dark">
+                                <i class="bi bi-card-image"></i>
+                              </button>
+                            </label>
+                            <button
+                              type="submit"
+                              class="btn btn-outline-dark"
+                              id="send-icon"
+                            >
+                              <i class="bi bi-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
                       <!--comment-area-button-->
                     </div>
                     <!--/コメント入力欄-->
@@ -340,35 +370,49 @@
 
                     <div class="comment-write-area">
                       <!--コメント入力欄-->
-                      <form action="" method="post" id="comment-form"></form>
+                      <form action="" method="post" id="comment-form">
+                        <div class="form-floating" id="comment-text-area-2">
+                          <textarea
+                            class="form-control"
+                            placeholder=""
+                            id="text-area-2"
+                            form="comment-form"
+                            style="height: 150px"
+                          ></textarea>
+                          <label for="text-area-2">返信</label>
+                          <div class="styled-output"></div>
+                        </div>
 
-                      <div class="form-floating" id="comment-text-area">
-                        <textarea
-                          class="form-control"
-                          placeholder=""
-                          id="text-area"
-                          form="comment-form"
-                          style="height: 100px"
-                        >
-                        </textarea>
-                        <label for="text-area">返信</label>
-                      </div>
-
-                      <div class="comment-write-area-button">
-                        <label id="upload-image-icon">
-                          <input type="file" name="file" />
-                          <button class="btn btn-outline-dark">
-                            <i class="bi bi-card-image"></i>
+                        <div style="display: flex">
+                          <button
+                            type="button"
+                            class="btn preview-button"
+                            data-toggle="button"
+                            aria-pressed="false"
+                            autocomplete="off"
+                            onclick="convertToMarkdown(2)"
+                          >
+                            プレビュー
                           </button>
-                        </label>
-                        <button
-                          type="submit"
-                          class="btn btn-outline-dark"
-                          id="send-icon"
-                        >
-                          <i class="bi bi-send"></i>
-                        </button>
-                      </div>
+
+                          <div class="comment-write-area-button">
+                            <label id="upload-image-icon">
+                              <input type="file" name="file" />
+                              <button class="btn btn-outline-dark">
+                                <i class="bi bi-card-image"></i>
+                              </button>
+                            </label>
+                            <button
+                              type="submit"
+                              class="btn btn-outline-dark"
+                              id="send-icon"
+                            >
+                              <i class="bi bi-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
                       <!--comment-area-button-->
                     </div>
                     <!--/コメント入力欄-->
@@ -396,35 +440,50 @@
 
     <div class="answer-write-area">
       <!--回答入力欄-->
-      <form action="" method="post" id="comment-form"></form>
+      <form action="" method="post" id="comment-form">
+        <div class="form-floating" id="comment-text-area-3">
+          <textarea
+            class="form-control"
+            placeholder=""
+            id="text-area-3"
+            form="comment-form"
+            style="height: 150px"
+          ></textarea>
+          <label for="text-area-3">回答</label>
+          <div class="styled-output"></div>
+        </div>
 
-      <div class="form-floating" id="answer-text-area">
-        <textarea
-          class="form-control"
-          placeholder=""
-          id="text-area"
-          form="comment-form"
-          style="height: 100px"
-        >
-        </textarea>
-        <label for="text-area">回答</label>
-      </div>
-
-      <div class="answer-write-area-button">
-        <label id="upload-image-icon">
-          <input type="file" name="file" />
-          <button class="btn btn-outline-dark">
-            <i class="bi bi-card-image"></i>
+        <div style="display: flex">
+          <button
+            type="button"
+            class="btn preview-button"
+            data-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+            onclick="convertToMarkdown(3)"
+          >
+            プレビュー
           </button>
-        </label>
-        <button type="submit" class="btn btn-outline-dark" id="send-icon">
-          <i class="bi bi-send"></i>
-        </button>
-      </div>
+
+          <div class="comment-write-area-button">
+            <label id="upload-image-icon">
+              <input type="file" name="file" />
+              <button class="btn btn-outline-dark">
+                <i class="bi bi-card-image"></i>
+              </button>
+            </label>
+            <button type="submit" class="btn btn-outline-dark" id="send-icon">
+              <i class="bi bi-send"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
       <!--answer-write-area-button-->
     </div>
     <!--/回答入力欄-->
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -443,24 +502,33 @@
         });
       });
 
-      function convertToMarkdown() {
-        var textarea = document.getElementById("text-area");
+      function convertToMarkdown(textAreaIndex) {
+        var textarea = document.getElementById("text-area-" + textAreaIndex);
+        var styledOutput = document.querySelector(
+          "#comment-text-area-" + textAreaIndex + " .styled-output"
+        );
+
+        if (!textarea || !styledOutput) {
+          console.error("テキストエリアに文字が入力されてないません");
+          return;
+        }
+
         var input = textarea.value;
-        var markdownOutput = document.getElementById("markdown-output");
-        var styledOutput = document.getElementById("styled-output");
 
-        // Markdown変換
-        var md = window.markdownit();
-        var result = md.render(input);
+        if (input) {
+          var md = window.markdownit();
+          var result = md.render(input);
 
-        // 結果を表示
-        // markdownOutput.innerHTML = result;
+          styledOutput.innerHTML =
+            '<div style="border: 1px solid #ced4da; padding: 10px; margin-top: 10px;">' +
+            result +
+            "</div>";
+        }
+      }
 
-        // スタイル付きで表示
-        styledOutput.innerHTML =
-          '<div style="border: 1px solid #ced4da; padding: 10px; margin-top: 10px;">' +
-          result +
-          "</div>";
+      function deletePreview() {
+        var div = document.getElementById("styled-output");
+        div.classList.toggle("active");
       }
     </script>
 
