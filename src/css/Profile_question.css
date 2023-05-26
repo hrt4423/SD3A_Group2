@@ -1,0 +1,223 @@
+.body{
+  padding: 0;
+  margin: 0;
+  background-color: #FAEEFF;
+}
+
+.profile{
+  display: flex;
+}
+
+.profile_area{
+  width: 24vw;
+  height: 25vw;
+  background-color: white;
+  border-radius: 10px; /* 角丸を10pxに設定 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
+  margin-top: 9vw;
+  margin-left: 6vw;
+}
+
+.circle_area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vw;
+}
+
+.circle1 {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  background-color: #653A91;
+  margin-right: 20px;
+}
+
+.user_name{
+  font-size: 1.5vw;
+  font-weight: 0.8vw;
+  text-align: center;
+  margin-top: 2vw;
+}
+
+.user_mail{
+  font-size: 1.5vw;
+  font-weight: 0.8vw;
+  text-align: center;
+  margin-top: 1vw;
+}
+
+.user_point{
+  font-size: 1.5vw;
+  font-weight: 0.8vw;
+  text-align: center;
+  margin-top: 1vw;
+}
+
+.link{
+  text-decoration: none; /* 下線をなくす */
+  color: black;
+  font-size: 0.7vw;
+  font-weight: 0.2vw;
+  text-align: center;
+  margin-top: 1.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p1{
+  display: flex;
+  font-size: 2vw;
+  font-weight: 1vw;
+  margin-top: 2vw;
+  margin-left: 30vw;
+}
+
+.question_area{
+  width: 55vw;
+  height: 32vw;
+  background-color: white;
+  margin-top: 2vw;
+  margin-left: 9vw;
+  border-radius: 10px; /* 角丸を10pxに設定 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
+  
+}
+
+.horizontal1 {
+  display: flex;
+  text-align: center;
+  background-color: #B164FF;
+  height: 4vw;
+  border-radius: 10px 10px 0 0;
+}
+
+.text1 {
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text2 {
+  color:white;
+  font-size: 35px;
+  font-weight: bold;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* 下線をなくす */
+  border-bottom: 10px solid #653A91;
+}
+
+.naiyou_area{
+  width: 55vw;
+  height: 28vw;
+  overflow: auto;
+}
+
+.naiyou{
+  width: 50vw;
+  height: 9.9vw;
+  border-radius: 10px; /* 角丸を10pxに設定 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
+  margin-top: 1.5vw;
+  margin-left: 2vw;
+  position: relative;
+}
+
+.circle_area2{
+  display: flex;
+  width: 7vw;
+  height: 2vw;
+}
+
+.circle2 {
+  width: 1.8vw;
+  height: 1.8vw;
+  border-radius: 50%;
+  background-color: #653A91;
+  display: flex;
+  margin-top: 0.2vw;
+  margin-left: 0.7vw;
+}
+
+.user2{
+  margin:0;
+  font-size: 0.7vw;
+  margin-left: 1vw;
+  margin-top: 0.5vw;
+}
+
+.day{
+  margin: 0;
+  font-size: 0.8vw;
+  margin-top: 0.3vw;
+  margin-left: 0.7vw;
+}
+
+.title{
+  font-size: 1.5vw;
+  font-weight: 0.7vw;
+  margin-left: 0.7vw;
+}
+
+.tag_area{
+  display: flex;
+}
+
+.img2{
+  width: 1vw;
+  height: 1vw;
+  margin-left: 0.7vw;
+}
+
+.tag{
+  font-size: 0.6vw;
+  margin-left: 0.6vw;
+}
+
+.answer{
+  font-size: 0.6vw;
+  margin-left: 0.7vw;
+}
+
+.good_area{
+  width: 5vw;
+  height: 4vw;
+  border-radius: 30px; /* 角丸を10pxに設定 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 2.2vw;
+  left: 40vw;
+}
+.good_img{
+  width: 5vw;
+  height: 3vw;
+  background-color: #B164FF;
+  border-radius: 30px; /* 角丸を10pxに設定 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img3{
+  width: 1.5vw;
+  height: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.good{
+  position: absolute;
+  font-size: 1.5vw;
+  font-weight: 0.7vw;
+  top: 5.5vw;
+  left: 41.2vw;
+}
