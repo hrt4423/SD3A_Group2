@@ -32,7 +32,7 @@
   }
   ?>
     <form action="index.php" method="POST">
-      <p>メールアドレス：<input type="text" name="user_"></p>
+      <p>メールアドレス：<input type="text" name="user_mail"></p>
       <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
