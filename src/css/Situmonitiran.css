@@ -130,7 +130,7 @@ a.btn-switch:hover span {
 /*質問画面遷移ボタン*/
 .situmon1 button{
   position: absolute;
-  top: 80px;
+  top: 220px;
   left:250px;
   width: 700px;
   height:150px;
@@ -139,45 +139,49 @@ a.btn-switch:hover span {
 }
 #user-name{
   position: absolute;
-  top: 0px;
+  top: 5px;
   left:10px;
-  font-size: 15px;
+  font-size: 20px;
 }
 #toukoubi{
   position: absolute;
-  top: 20px;
+  top: 40px;
   left:10px;
+  font-size: 15px;
 }
 #taitoru{
   position: absolute;
-  top: 30px;
+  top: 65px;
   left:10px;
   font-size: 20px;
 }
 #tagu{
   position: absolute;
-  top: 65px;
+  top: 95px;
   left:10px;
+  font-size: 15px;
 }
 #kaitoukennsuu{
   position: absolute;
-  top: 90px;
+  top: 120px;
   left:10px;
+  font-size: 15px;
 }
 #good{
   position: absolute;
   top: 0px;
   left:640px;
-  font-size: 20px;
+  font-size: 25px;
 }
 #good-number{
   position: absolute;
   top: 30px;
   left:643px;
+  font-size: 15px;
 }
 .situmon2 button{
   position: absolute;
-  top: 250px;
+  top: 400px;
   left:250px;
   width: 700px;
   height:150px;
@@ -186,7 +190,7 @@ a.btn-switch:hover span {
 }
 .situmon3 button{
   position: absolute;
-  top: 420px;
+  top: 580px;
   left:250px;
   width: 700px;
   height:150px;
