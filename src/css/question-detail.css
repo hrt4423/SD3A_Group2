@@ -1,0 +1,111 @@
+#header {
+  background-color: #B164FF;
+  height: 100px;
+  color: aliceblue;
+}
+
+.card{
+  margin: 20px;
+}
+.card-title{
+  margin-bottom: 18px;
+}
+
+body{
+  background-color: #FAEEFF;
+}
+
+.card-body{
+  padding: 20px 25px 20px 25px;
+  position:relative;
+}
+
+.tag{
+  border: 0.5px solid #989898;
+  border-radius: 5px;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+#good {
+  background-color: #B164FF;
+}
+
+.bi-hand-thumbs-up-fill {
+  color: #ffffff;
+}
+
+#edit{
+  background-color: #E6D0E7;
+}
+
+#user-info-post-date{
+  margin-bottom: 17px;
+}
+
+#good-amount{
+  margin-bottom: 0px;
+  color: #ffffff;
+}
+
+.btn{
+  margin: 5px;
+}
+
+#side-area{
+  padding: 20px;
+}
+
+.card-text{
+  margin: 10px
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#border-line-reply{
+  margin-top: 50px;
+}
+
+h6{
+  margin-bottom: 1.5rem;
+}
+
+.form-floating{
+  
+}
+
+.comment-write-area{
+  margin: 0.5rem;
+  margin-bottom: 3rem;
+  padding: 3px;
+  position: relative;
+}
+
+.comment-write-area-button{
+  position:absolute;
+  right: 0px;
+}
+
+.good-button-area{
+  position:absolute;
+  right: 3rem;
+}
+
+.answer-write-area{
+  position: relative;
+  width: 860px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.answer-write-area-button{
+  position: absolute;
+  right: 0px;
+}
+
+
+.answer-write-area-button button{
+  background-color: #ffffff;
+}
+
