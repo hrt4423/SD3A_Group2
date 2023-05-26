@@ -138,7 +138,7 @@ a:hover {
       <p class="p1">投稿した質問</p>
       <div class="question_area">
           <div class="horizontal1">
-            <a href="#" class="text1 underline">質問</a>
+            <a href="#" class="text2">質問</a>
             <a href="#" class="text1 ">記事</a>
             <a href="#" class="text1 ">投稿</a>
           </div>
