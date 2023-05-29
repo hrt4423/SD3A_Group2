@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               $_SESSION["id"] = $row['user_id'];
               $_SESSION["name"] =  $row['user_name'];
               //ウェルカムページへリダイレクト
-              header("location:home.php");
+              header("location:http://localhost/SD3Aグループ2/Asoda/src/home.php");
               exit();
           } else {
               $login_err = 'メールアドレスまたはパスワードが間違っています';
