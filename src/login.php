@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html lang="ja">
 <?php
+
+  require_once "db_connect.php";
+  require_once "functions.php";
   session_start();
 
-  $error_message = "";
+  if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: welcome.php");
+    exit;
+}
 
-  if(isset($_POST["login"])) {
+$datas = [
+  'mail'  => '',
+  'password'  => '',
+  'confirm_password'  => ''
+];
 
-    if($_POST["user_id"] == "webtan" && $_POST["password"] == "webtan_pass") {
-      $_SESSION["user_name"] = $_POST["user_name"];
-      $login_success_url = "login_success.php";
-      header("Location: {$login_success_url}");
-      exit;
-    }
-  $error_message = "※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
+$login_err = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  ////CSRF対策
+  checkToken();
+
+  // POSTされてきたデータを変数に格納
+  foreach($datas as $key => $value) {
+      if($value = filter_input(INPUT_POST, $key, FILTER_DEFAULT)) {
+          $datas[$key] = $value;
+      }
   }
+
+  // バリデーション
+  $errors = validation($datas,false);
+  if(empty($errors)){
+      //ユーザーネームから該当するユーザー情報を取得
+      $sql = "SELECT user_id,user_name,user_mail,user_pass FROM users WHERE user_mail = :mail";
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue('mail',$datas['mail'],PDO::PARAM_INT);
+      $stmt->execute();
+
+      //ユーザー情報があれば変数に格納
+      if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+          //パスワードがあっているか確認
+          if (password_verify($datas['password'],$row['user_pass'])) {
+              //セッションIDをふりなおす
+              session_regenerate_id(true);
+              //セッション変数にログイン情報を格納
+              $_SESSION["loggedin"] = true;
+              $_SESSION["id"] = $row['user_id'];
+              $_SESSION["name"] =  $row['user_name'];
+              //ウェルカムページへリダイレクト
+              header("location:home.php");
+              exit();
+          } else {
+              $login_err = 'メールアドレスまたはパスワードが間違っています';
+          }
+      }else {
+          $login_err = 'メールアドレスまたはパスワードが間違っています';
+      }
+  }
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -26,10 +71,10 @@
 <body>
   <img src="images/logo.png">
 
-  <?php
-  if($error_message) {
-    echo $error_message;
-  }
+  <?php 
+    if(!empty($login_err)){
+    echo '<div class="alert alert-danger">' . $login_err . '</div>';
+    }        
   ?>
     <form action="index.php" method="POST">
       <p>メールアドレス：<input type="text" name="user_mail"></p>
