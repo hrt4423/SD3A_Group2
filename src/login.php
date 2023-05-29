@@ -91,6 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
       <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
     </div>
+      <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
       <button type="submit" name="login">
         ログイン
       </button>
