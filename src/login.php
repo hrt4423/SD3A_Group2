@@ -19,6 +19,10 @@ $datas = [
 
 $login_err = "";
 
+if($_SERVER['REQUEST_METHOD'] != 'POST'){
+  setToken();
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   ////CSRF対策
   checkToken();
