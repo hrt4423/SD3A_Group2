@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     text-align:center
   }
   p{
-    width: 550px;
+    width: 650px;
     margin-left: auto;
     margin-right: auto;
     border-bottom:2px solid #660099;
