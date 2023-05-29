@@ -99,19 +99,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     background-color:#B164FF;
     text-align:center
   }
-  p{
-    width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    border-bottom:2px solid #660099;
+  label{
     color:white;
     font-size:40px;
     text-align:center
   }
   input{
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
     background-color:#B164FF;
     border: none;
     outline: none;
+    border-bottom:2px solid #660099;
     font-size:30px;
   }
   button{
