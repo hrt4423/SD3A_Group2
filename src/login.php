@@ -76,9 +76,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     echo '<div class="alert alert-danger">' . $login_err . '</div>';
     }        
   ?>
-    <form action="index.php" method="POST">
-      <p>メールアドレス：<input type="text" name="user_mail"></p>
-      <p>パスワード：<input type="password" name="password"></p>
+    <form action="<?php echo $_SERVER ['SCRIPT_NAME']; ?>" method="post">
+      <p>メールアドレス：<input type="text" name="user_mail" class="form-control <?php echo (!empty(h($errors['mail']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['user_mail']); ?>"></p>
+      <p>パスワード：<input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                <span class="invalid-feedback"><?php echo h($errors['password']); ?></span></p>
       <button type="submit" name="login">
         ログイン
       </button>
