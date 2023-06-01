@@ -26,7 +26,8 @@ if (!isset($row['user_mail'])) {
 if ($_POST['password']= $row['user_pass']) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['EMAIL'] = $row['user_mail'];
-  echo 'ログインしました';
+  echo 'ログインしました。ホーム画面へ移動します';
+  header('Refresh: 5; URL=home.php');
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
   return false;
