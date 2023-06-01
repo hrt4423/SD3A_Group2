@@ -20,4 +20,4 @@ if (ini_get("session.use_cookies")) {
 @session_destroy();
 
 echo $output;
-echo "<a href='login.php'>ログインはこちら。</a>";
+echo "<br><a href='login.php'>ログインはこちら。</a>";
