@@ -1,70 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-<?php
-
-  require_once "db_connect.php";
-  require_once "functions.php";
-  session_start();
-
-  if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
-
-$datas = [
-  'mail'  => '',
-  'password'  => '',
-  'confirm_password'  => ''
-];
-
-$login_err = "";
-
-if($_SERVER['REQUEST_METHOD'] != 'POST'){
-  setToken();
-}
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-  ////CSRF対策
-  checkToken();
-
-  // POSTされてきたデータを変数に格納
-  foreach($datas as $key => $value) {
-      if($value = filter_input(INPUT_POST, $key, FILTER_DEFAULT)) {
-          $datas[$key] = $value;
-      }
-  }
-
-  // バリデーション
-  $errors = validation($datas,false);
-  if(empty($errors)){
-      //ユーザーネームから該当するユーザー情報を取得
-      $sql = "SELECT user_id,user_name,user_mail,user_pass FROM users WHERE user_mail = :mail";
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindValue('mail',$datas['mail'],PDO::PARAM_INT);
-      $stmt->execute();
-
-      //ユーザー情報があれば変数に格納
-      if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          //パスワードがあっているか確認
-          if (password_verify($datas['password'],$row['user_pass'])) {
-              //セッションIDをふりなおす
-              session_regenerate_id(true);
-              //セッション変数にログイン情報を格納
-              $_SESSION["loggedin"] = true;
-              $_SESSION["id"] = $row['user_id'];
-              $_SESSION["name"] =  $row['user_name'];
-              //ウェルカムページへリダイレクト
-              header("location:http://localhost/SD3Aグループ2/Asoda/src/home.php");
-              exit();
-          } else {
-              $login_err = 'メールアドレスまたはパスワードが間違っています';
-          }
-      }else {
-          $login_err = 'メールアドレスまたはパスワードが間違っています';
-      }
-  }
-}
-?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,24 +9,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
   <img src="images/logo.png">
+  <?php
+   
+$pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
 
-  <?php 
-    if(!empty($login_err)){
-    echo '<div class="alert alert-danger">' . $login_err . '</div>';
-    }        
-  ?>
-    <form action="<?php echo $_SERVER ['SCRIPT_NAME']; ?>" method="post">
-    <div class="form-group">
-      <label>メールアドレス：</label>
-      <input type="text" name="mail" class="form-control <?php echo (!empty(h($errors['mail']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['mail']); ?>">
-      <span class="invalid-feedback"><?php echo h($errors['name']); ?></span>
-    </div>    
-    <div class="form-group">
-      <label>パスワード：</label>
-      <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
-      <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
-    </div>
-      <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+$sql = "SELECT * FROM users WHERE user_mail = ? ";
+$ps = $pdo->prepare($sql);
+$ps->bindValue(1,$_POST['mail'],PDO::PARAM_STR);
+$ps->execute();
+$userData = $ps->fetchAll();
+
+    foreach($userData as $row){
+           if($_POST['pass'] == $row['password']){
+            header('URL=home.php');
+            }else{
+            echo "パスワードが一致しません";
+            }
+    }
+
+    if(count($userData)==0){
+        echo "アカウントが存在しません";
+    }
+?>
+    <form action="home.php" method="POST">
+      <p>メールアドレス：<input type="text" name="mail"></p>
+      <p>パスワード：<input type="password" name="pass"></p>
       <button type="submit" name="login">
         ログイン
       </button>
@@ -104,19 +46,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     background-color:#B164FF;
     text-align:center
   }
-  label{
+  p{
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom:2px solid #660099;
     color:white;
     font-size:40px;
     text-align:center
   }
-  div{
-    width: 550px;
-    margin-left: auto;
-    margin-right: auto;
+  input{
     background-color:#B164FF;
     border: none;
     outline: none;
-    border-bottom:2px solid #660099;
     font-size:30px;
   }
   button{
