@@ -19,5 +19,5 @@ if (ini_get("session.use_cookies")) {
 //セッションクリア
 @session_destroy();
 
-echo $output"<br>";
+echo $output;
 echo "<a href='logout.php'>ログアウトはこちら。</a>";
