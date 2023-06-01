@@ -25,7 +25,7 @@ if (isset($_SESSION['EMAIL'])) {
 <body>
 <img src="images/logo.png">
     <form action="logincheck.php" method="POST">
-      <p>メールアドレス：<input type="text" name="mail"></p>
+      <p>メールアドレス：<input type="email" name="mail"></p>
       <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
