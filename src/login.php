@@ -23,6 +23,7 @@ if (isset($_SESSION['EMAIL'])) {
     <title>login</title>
 </head>
 <body>
+<img src="images/logo.png">
     <form action="logincheck.php" method="POST">
       <p>メールアドレス：<input type="text" name="mail"></p>
       <p>パスワード：<input type="password" name="password"></p>
@@ -31,7 +32,6 @@ if (isset($_SESSION['EMAIL'])) {
       </button>
     </form>
     <a href="sinnki">新規登録<a>
-    <img src="images/logo.png">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 <style>
