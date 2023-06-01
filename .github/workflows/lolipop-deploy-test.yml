@@ -7,9 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
         with:
           ftp-server: ${{ secrets.FTP_HOST }}
           ftp-username: ${{ secrets.FTP_USERNAME }}
