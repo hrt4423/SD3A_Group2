@@ -1,3 +1,18 @@
+<?php
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
+session_start();
+//ログイン済みの場合
+if (isset($_SESSION['EMAIL'])) {
+  echo 'ようこそ' .  h($_SESSION['EMAIL']) . "さん<br>";
+  echo "<a href='/logout.php'>ログアウトはこちら。</a>";
+  exit;
+}
+
+ ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,37 +23,15 @@
     <title>login</title>
 </head>
 <body>
-  <img src="images/logo.png">
-  <?php
-   
-$pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
-
-$sql = "SELECT * FROM users WHERE user_mail = ? ";
-$ps = $pdo->prepare($sql);
-$ps->bindValue(1,$_POST['mail'],PDO::PARAM_STR);
-$ps->execute();
-$userData = $ps->fetchAll();
-
-    foreach($userData as $row){
-           if($_POST['pass'] == $row['password']){
-            header('URL=home.php');
-            }else{
-            echo "パスワードが一致しません";
-            }
-    }
-
-    if(count($userData)==0){
-        echo "アカウントが存在しません";
-    }
-?>
-    <form action="home.php" method="POST">
+    <form action="logincheck.php" method="POST">
       <p>メールアドレス：<input type="text" name="mail"></p>
-      <p>パスワード：<input type="password" name="pass"></p>
+      <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
       </button>
     </form>
     <a href="sinnki">新規登録<a>
+    <img src="images/logo.png">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 <style>
