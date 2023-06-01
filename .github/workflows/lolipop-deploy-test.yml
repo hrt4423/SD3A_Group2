@@ -2,7 +2,7 @@ name: lolipop-deploy-test
 on:
     push:
       branches:
-        - github-actions-test
+        - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
