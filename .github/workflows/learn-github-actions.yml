@@ -11,4 +11,4 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-      - run: echo "pushを検知しました。"
+      - run: echo "github_actions_testブランチからのpushを検知しました。"
