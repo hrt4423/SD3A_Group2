@@ -19,7 +19,7 @@ try {
 }
 //emailがDB内に存在しているか確認
 if (!isset($row['user_mail'])) {
-  echo 'メールアドレス又はパスワードが間違っています。';
+  echo 'メールアドレスが間違っています。';
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
