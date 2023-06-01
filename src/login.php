@@ -9,6 +9,7 @@ session_start();
 if (isset($_SESSION['EMAIL'])) {
   echo 'ようこそ' .  h($_SESSION['EMAIL']) . "さん<br>";
   echo "<a href='home.php'>ホーム画面はこちら。</a>";
+  echo "<a href='logout.php'>ログアウトはこちら。</a>";
   exit;
 }
 
