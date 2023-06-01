@@ -13,12 +13,45 @@
 </head>
 <body>
 	<div class="container">
+		<style>
+			.example2{
+				display: flex;
+			}
+			.example2 label{
+				display: block;
+				width: 150px;
+				background: #c8eac3;
+				color: #000;
+				padding: 10px;
+				margin: 10px;
+				box-sizing: border-box;
+				text-align: center;
+				text-decoration: none;
+				border-radius: 30px;
+				cursor: pointer;
+			}
+			.example2 input:checked+label{
+				background: #1a720d;
+				color: #FFF;
+			}
+			.example2 input{
+				display: none;
+			}
+			</style>
+			<div class="example2">
+				<input type="checkbox" checked id="1" name="example2"><label for="1">ボタン</label>
+				<input type="checkbox" id="2" name="example2"><label for="2">ボタン</label>
+				<input type="checkbox" id="3" name="example2"><label for="3">ボタン</label>
+			</div>
+
+
+			
 		<div class="row">
 		  	<div class="col">
 				<button id="myBtn">131</button>
 		  	</div>
 		  	<div class="col">
-				<button id="myBtn">132</button>
+				<button id="myBtn2">132</button>
 		  	</div>
 		  	<div class="col">
 				<button id="myBtn">133</button>

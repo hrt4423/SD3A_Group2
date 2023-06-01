@@ -2,12 +2,16 @@ body{
     background-color: #FAEEFF;
     font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320))); 
 }
-#myBtn {
+button {
   background-color: lawngreen;
   color: black;
 }
 
 #myBtn.clicked {
+  background-color: grey;
+}
+
+#myBtn2.clicked {
   background-color: grey;
 }
 
@@ -18,4 +22,4 @@ button {
     font-size: 2vw;
     margin-top: 1vw;
     margin-bottom: 1vw;
-  }
+}
