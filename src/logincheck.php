@@ -18,14 +18,14 @@ try {
   echo $e->getMessage() . PHP_EOL;
 }
 //emailがDB内に存在しているか確認
-if (!isset($row['mail'])) {
+if (!isset($row['user_mail'])) {
   echo 'メールアドレス又はパスワードが間違っています。';
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
 if (password_verify($_POST['password'], $row['user_pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
-  $_SESSION['EMAIL'] = $row['mail'];
+  $_SESSION['EMAIL'] = $row['user_mail'];
   echo 'ログインしました';
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
