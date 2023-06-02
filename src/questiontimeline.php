@@ -96,6 +96,19 @@
 
   </style>
 </head>
+<?php
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->post();//データ取得
+  $count = count($search);
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
 <body>
   <div class="header_size">
     <div class="horizontal">
@@ -154,81 +167,35 @@
       </div>
       <!--並び替えセレクトボックス終了-->
  <!--質問画面遷移ボタン-->
-   <div class="question1">
+ <div class="question_area">
+ <?php foreach ($search as $post): ?>
+  <div class="question1">
     <button>
       <p id="user-name">
         😊👑 @user
       </p>
       <p id="posted-date">
-        yyyy/mm/ddに投稿             
+        <?= $post['post_time']; ?>に投稿
       </p>
       <p id="title">
-        タイトル        
+        <?= $post['post_title']; ?>
       </p>
       <p id="tag">
-        📌タグ
+        📌
       </p>
       <p id="number-of-responses">
-        回答件数：ｘｘ
+        回答件数：
       </p>
       <p id="good">
         👍
       </p>
       <p id="good-number">
-      100
+ 
       </p>
     </button>   
-   </div>
-   <div class="question2">
-    <button>
-      <p id="user-name">
-        😊👑 @user
-      </p>
-      <p id="posted-date">
-        yyyy/mm/ddに投稿             
-      </p>
-      <p id="title">
-        タイトル        
-      </p>
-      <p id="tag">
-        📌タグ
-      </p>
-      <p id="number-of-responses">
-        回答件数：ｘｘ
-      </p>
-      <p id="good">
-        👍
-      </p>
-      <p id="good-number">
-      100
-      </p>
-    </button>
-   </div>
-   <div class="question3">
-    <button>
-      <p id="user-name">
-        😊👑 @user
-      </p>
-      <p id="posted-date">
-        yyyy/mm/ddに投稿             
-      </p>
-      <p id="title">
-        タイトル        
-      </p>
-      <p id="tag">
-        📌タグ
-      </p>
-      <p id="number-of-responses">
-        回答件数：ｘｘ
-      </p>
-      <p id="good">
-        👍
-      </p>
-      <p id="good-number">
-      100
-      </p>
-    </button>
-   </div>
+  </div>
+  </div>
+<?php endforeach; ?>
    <!--質問画面遷移ボタン終了-->
   </form>
   </fieldset>
