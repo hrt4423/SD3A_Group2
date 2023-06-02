@@ -6,14 +6,14 @@
       return $pdo;
     }
 
-    public function post () {
+    public function getAllQuestion () {
       $pdo=$this->dbConnect();
-      $sql = "SELECT * FROM posts";
+      $sql = "SELECT * FROM posts WHERE post_category_id = 1;";
       $ps = $pdo->prepare($sql);
       $ps->execute();
-      $search = $ps->fetchAll();
+      $result = $ps->fetchAll();
       //$count = count($search);
-      return $search;
+      return $result;
     }
   }
 

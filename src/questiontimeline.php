@@ -100,9 +100,9 @@
 
 try{
   require_once './DAO/posts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->post();//データ取得
-  $count = count($search);
+  $DAO_post = new DAO_post();
+  $allQuestions = $DAO_post->getAllQuestion();//データ取得
+  $count = count($allQuestions);
 }catch(Exception $ex){
   echo $ex->getMessage();
 }catch(Error $err){
@@ -110,6 +110,9 @@ try{
 }
 ?>
 <body>
+  <?php
+    print_r($allQuestions);
+  ?>
   <div class="header_size">
     <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
@@ -168,14 +171,24 @@ try{
       <!--並び替えセレクトボックス終了-->
  <!--質問画面遷移ボタン-->
  <div class="question_area">
- <?php foreach ($search as $post): ?>
+  <?php
+    foreach($allQuestions as $row){
+      echo "$row[post_title]";
+    }
+  ?>
+
+    <?php foreach ($allQuestions as $row) : ?>
+      <li><?php echo "$row[post_title]"; ?></li>
+    <?php endforeach; ?>
+
+ <?php foreach ($allQuestions as $row): ?>
   <div class="question1">
     <button>
       <p id="user-name">
         😊👑 @user
       </p>
       <p id="posted-date">
-        <?= $post['post_time']; ?>に投稿
+        <?php $post['post_time']; ?>に投稿
       </p>
       <p id="title">
         <?= $post['post_title']; ?>
