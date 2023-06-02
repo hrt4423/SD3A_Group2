@@ -1,5 +1,5 @@
 name: learn-github-actions-branch
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.actor }} is learning GitHub Actions from github_actions_test branch
 on:
   push:
     branches:
