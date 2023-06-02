@@ -1,3 +1,19 @@
+<?php
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
+session_start();
+//ログイン済みの場合
+if (isset($_SESSION['EMAIL'])) {
+  echo 'ようこそ' .  h($_SESSION['EMAIL']) . "さん<br>";
+  echo "<a href='home.php'>ホーム画面はこちら。</a><br>";
+  echo "<a href='logout.php'>ログアウトはこちら。</a>";
+  exit;
+}
+
+ ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,9 +24,9 @@
     <title>login</title>
 </head>
 <body>
-  <img src="images/logo.png">
-    <form action="index.php" method="POST">
-      <p>ログインID：<input type="text" name="user_name"></p>
+<img src="images/logo.png">
+    <form action="logincheck.php" method="POST">
+      <p>メールアドレス：<input type="email" name="mail"></p>
       <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
@@ -25,7 +41,7 @@
     text-align:center
   }
   p{
-    width: 550px;
+    width: 650px;
     margin-left: auto;
     margin-right: auto;
     border-bottom:2px solid #660099;
