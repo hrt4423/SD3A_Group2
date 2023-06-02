@@ -1,9 +1,9 @@
 <?php
 require_once('test.php');
 $pdo = new PDO(DSN,DB_USER,DB_PASS);
-$stmt = $pdo->prepare('select*from users ORDER BY point_sum DESC')
-while($row = mysql_fetch_array($stmt)){
-    echo $row[0].":" .$row[2]."<br/>\n";
+$stmt = $pdo->prepare('select*from users ORDER BY point_sum DESC');
+while($row = mysql_fetch_array($result)) {
+  echo $row[0].":".$row[2]."<br/>\n";
 }
 ?>
 
