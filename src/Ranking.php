@@ -1,3 +1,17 @@
+<?php
+require_once('test.php');
+$pdo = new PDO(DSN,DB_USER,DB_PASS);
+$stmt = $pdo->prepare('select*from users ORDER BY point_sum DESC')
+while($row = mysql_fetch_array($stmt)){
+    echo $row[0].":" .$row[2]."<br/>\n";
+}
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -95,7 +109,6 @@
   </style>
 </head>
 <body class="body">
-
     <div class="header_size">
       <div class="horizontal">
           <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
