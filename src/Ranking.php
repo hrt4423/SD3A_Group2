@@ -1,7 +1,7 @@
 <?php
 require_once('test.php');
 $pdo = new PDO(DSN,DB_USER,DB_PASS);
-$stmt = $pdo->prepare('select*from users ORDER BY point_sum DESC');
+$stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
 $stmt ->execute();
 foreach($stmt->fetchAll() as $row){
   echo '<tr>';
