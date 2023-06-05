@@ -1,7 +1,7 @@
 <?php
 require_once('test.php');
-$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
-               'webuser','abccsd2')
+$pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8',
+               'hirata','password');
 $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
 $stmt ->execute();
 foreach($stmt->fetchAll() as $row){
