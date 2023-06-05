@@ -24,7 +24,7 @@
     text-align:center
   }
   p{
-    width: 650px;
+    width: 850px;
     margin-left: auto;
     margin-right: auto;
     border-bottom:2px solid #660099;
