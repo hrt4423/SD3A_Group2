@@ -1,7 +1,6 @@
 <?php
-require_once('test.php');
 $pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
-               'webuser','abccsd2')
+               'root','');
 $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
 $stmt ->execute();
 foreach($stmt->fetchAll() as $row){
@@ -12,11 +11,6 @@ foreach($stmt->fetchAll() as $row){
   echo '</tr>';
 }
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
