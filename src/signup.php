@@ -7,7 +7,7 @@ try {
   echo $e->getMessage() . PHP_EOL;
 }
 //POSTのValidate。
-if (!$email = filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+if (!$mail = filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
   echo '入力された値が不正です。';
   return false;
 }
@@ -21,7 +21,7 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
 //登録処理
 try {
   $stmt = $pdo->prepare("insert into users(user_id,user_name,user_mail,user_pass,user_profile) value(null,?,?,?,?)");
-  $stmt->execute([$user_name,$user_mail,$user_pass,$user_profile]);
+  $stmt->execute([$name,$mail,$password,$prof]);
   echo '登録完了';
 } catch (\Exception $e) {
   echo '登録済みのメールアドレスです。';
