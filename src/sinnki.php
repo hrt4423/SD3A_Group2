@@ -18,4 +18,40 @@
         </button>
     </from>
 </body>
+<style>
+  body{
+    background-color:#B164FF;
+    text-align:center
+  }
+  p{
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom:2px solid #660099;
+    color:white;
+    font-size:40px;
+    text-align:center
+  }
+  input{
+    background-color:#B164FF;
+    border: none;
+    outline: none;
+    font-size:30px;
+  }
+  button{
+    margin-top:50px;
+    width:200px;
+    height:50px;
+    border-radius:10px;
+    font-size: 30px;
+    background-color:#660099;
+    color:white;
+  }
+  a{
+    text-decoration: none;
+    margin-top:50px;
+    font-size:30px;
+    color:white;
+  }
+</style>
 </html>
