@@ -105,6 +105,9 @@ try{
   require_once './DAO/posts.php';
   $postAll = new DAO_post();
   $search = $postAll->post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
 }catch(Exception $ex){
   echo $ex->getMessage();
 }catch(Error $err){
@@ -169,13 +172,12 @@ try{
   </div>
       <!--並び替えセレクトボックス終了-->
  <!--質問画面遷移ボタン-->
- <div class="test">aaa</div>
  <div class="question_area">
     <?php foreach($search as $post){
         echo '<div >
         <button class="question">
           <p class="user2">
-           @user
+           '.$post['user_name'].'
           </p>
           <p class="day">
             ' . $post['post_time'] . 'に投稿
@@ -183,18 +185,17 @@ try{
           <p class="title">
             ' . $post['post_title'] . '
           </p>
-          <p class="tag">
-            📌
-          </p>
-          <p class="answer">
-            回答件数：
-          </p>
+          <div class="tag_area">
+                <img src="./images/pin.png" alt="" class="img2">
+                <p class="tag">タグ</p>
+          </div>
+          
           <div class="good_area">
                   <div class="good_img">
                     <img src="./images/good.png" alt="" class="img3">
                   </div>
                 </div>
-                <p class="good">134</p>
+                <p class="good">'.$post['good_count'].'</p>
         </button>   
       </div>';
     }
