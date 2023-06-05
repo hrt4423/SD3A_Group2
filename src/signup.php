@@ -18,8 +18,8 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
   echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください。';
   return false;
 }
-$name=$_POST['name']
-$prof=$_POST['prof']
+$name=$_POST['name'];
+$prof=$_POST['prof'];
 //登録処理
 try {
   $stmt = $pdo->prepare("insert into users(user_id,user_name,user_mail,user_pass,user_profile) value(null,?,?,?,?)");
