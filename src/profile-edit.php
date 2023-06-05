@@ -31,13 +31,19 @@
 </head>
 <body>
   <div class="container-fluid">
-    <img src="" alt="ユーザアイコン">
-    <p>ユーザ名</p>
+
+    <form action="file_up.php" enctype="multipart/form-data" method="post">
+      <input name="file_upload" type="file">
+      <input type="submit" value="アップロード">
+    </form>
+
+    <img src="./images/default_icon.png" alt="ユーザアイコン" style="width: 30px;"><span>ユーザ名</span>
     <p>メールアドレス</p>
     <p>パスワード</p>
-    <p>デフォルト</p>
+    <p>カラー</p>
 
   </div>
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
