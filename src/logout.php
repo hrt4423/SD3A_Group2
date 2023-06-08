@@ -21,3 +21,4 @@ if (ini_get("session.use_cookies")) {
 
 echo $output;
 echo "<br><a href='login.php'>ログインはこちら。</a>";
+?>
