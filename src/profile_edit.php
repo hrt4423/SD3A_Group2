@@ -32,7 +32,7 @@
 <body>
   <div class="container-fluid">
 
-    <form action="file_up.php" enctype="multipart/form-data" method="post">
+    <form action="file_upload.php" enctype="multipart/form-data" method="post">
       <input name="file_upload" type="file">
       <input type="submit" value="アップロード">
     </form>
