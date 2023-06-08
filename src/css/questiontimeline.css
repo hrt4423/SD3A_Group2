@@ -19,6 +19,9 @@
   appearance: none;
   text-align: center;
 }
+option{
+  color: black;
+}
 .select2{
   margin-left: 70vw;
   width: 7vw;

@@ -108,6 +108,13 @@ try{
   echo '<script>';
 echo 'console.log(' . json_encode($search) . ')';
 echo '</script>';
+
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
 }catch(Exception $ex){
   echo $ex->getMessage();
 }catch(Error $err){
@@ -150,10 +157,14 @@ echo '</script>';
     <div class="select_area">
     <div class="sele_area1">
       <select class="select1">
-          <option value="1">タグ</option>
-          <option value="2">タグ</option>
-        </select>
-      </div>
+      <option value="" disabled selected>タグ</option>
+          <?php
+          foreach($search2 as $tag){
+            echo'<option value ="'.$tag['tag_id'].'" style="color: black;">' . $tag['tag_name']. '</option>';
+          }
+          ?>
+      </select>
+    </div>
       <!--タグ検索ボタン終了-->
 <!--並び替えセレクトボックス-->
         <!-- <a href="javascript:void(0)">
