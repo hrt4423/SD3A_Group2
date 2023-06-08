@@ -1,7 +1,6 @@
 <?php
 
 require_once('config.php');
-$password=password_hash($_POST['password'],PASSWORD_DEFAULT);
 
 session_start();
 //POSTのvalidate
@@ -24,7 +23,7 @@ if (!isset($row['user_mail'])) {
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
-if ($password== $row['user_pass']) {
+if (password_verify($_POST['password'],$row['user_pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['EMAIL'] = $row['user_mail'];
   echo 'ログインしました。ホーム画面へ移動します';
