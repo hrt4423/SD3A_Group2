@@ -37,7 +37,7 @@
 .horizontal {
   display: flex;
   text-align: center;
-  height: 4.5vw;
+  height: 4vw;
 }
 
 .search {
@@ -57,6 +57,7 @@
   font-size: 30px;
   font-weight: bold;
   flex-grow: 1;
+  margin-top: 1vw;
 }
 
 .circle {
@@ -149,8 +150,36 @@ echo '</script>';
         </div>
       </div>
 
+      <div class="horizontal">
+        <a href="#" class="underline text">質問</a>
+        <a href="#" class="text">いいね</a>
+        <a href="#" class="text">投稿</a>
+        <a href="#" class="text">ランキング</a>
+      </div>
     </div>
 <!-- ↑ヘッダー -->
+<?php
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
+
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
 
   <!-- <fieldset class="frameborder"> -->
     <!--タグ検索ボタン-->
