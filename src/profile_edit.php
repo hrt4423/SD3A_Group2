@@ -15,7 +15,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="./css/question-detail.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
       rel="stylesheet"
@@ -30,19 +29,27 @@
   <title>profile-edit</title>
 </head>
 <body>
-  <div class="container-fluid">
+  <?php
+    require_once('./dao/Users.php');
+    $users = new Users;
+    $USESR_ID = 1;
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+  ?>
 
-    <form action="file_upload.php" enctype="multipart/form-data" method="post">
-      <input name="file_upload" type="file">
-      <input type="submit" value="アップロード">
+  <div class="container-fluid">
+    <form action="./file_upload.php" method="post" enctype="multipart/form-data">
+      <p><input type="file" name="file_upload"></p>
+      <p><input type="submit" value="アップロード"></p>
     </form>
 
-    <img src="./images/default_icon.png" alt="ユーザアイコン" style="width: 30px;"><span>ユーザ名</span>
+    <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+
+    <span>ユーザ名</span>
     <p>メールアドレス</p>
     <p>パスワード</p>
     <p>カラー</p>
-
   </div>
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
