@@ -9,6 +9,7 @@ foreach($stmt->fetchAll() as $row){
   echo '<td>',$row['user_icon'],'</td>';
   echo '<td>',$row['point_sum'],'</td>';
   echo '</tr>';
+  a
 }
 ?>
 
