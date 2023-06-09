@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    質問一覧画面
-  </title>
+  <link rel="stylesheet" href="./css/Profile_question.css">
+  <title>Profile_question</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="css/questiontimeline.css" rel="stylesheet">
-  <script src="js/questiontimeline.js"></script>
+
   <style>
     .btn-purple {
   background-color: #653A91;
@@ -37,7 +35,7 @@
 .horizontal {
   display: flex;
   text-align: center;
-  height: 4vw;
+  height: 4.5vw;
 }
 
 .search {
@@ -57,7 +55,6 @@
   font-size: 30px;
   font-weight: bold;
   flex-grow: 1;
-  margin-top: 1vw;
 }
 
 .circle {
@@ -93,37 +90,11 @@ a:hover {
   width: 10vw;
   height: 2.7vw;
 }
-.test {
-  width: 100px;
-  height: 100px;
-  background-color: #b164ff;
-}
   </style>
 </head>
-<?php
+<body class="body">
 
-try{
-  require_once './DAO/posts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->post();//データ取得
-  echo '<script>';
-echo 'console.log(' . json_encode($search) . ')';
-echo '</script>';
-
-require_once './dao/tags.php';
-$tagAll = new DAO_tag();
-$search2 = $tagAll->tags();
-echo '<script>';
-echo 'console.log(' . json_encode($search2) . ')';
-echo '</script>';
-}catch(Exception $ex){
-  echo $ex->getMessage();
-}catch(Error $err){
-  echo $err->getMessage();
-}
-?>
-<body id="body">
-<div class="header_size">
+    <div class="header_size">
       <div class="horizontal">
           <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
         <div class="right">
@@ -150,101 +121,104 @@ echo '</script>';
         </div>
       </div>
 
-      <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="text">いいね</a>
-        <a href="#" class="text">投稿</a>
-        <a href="#" class="text">ランキング</a>
-      </div>
     </div>
 <!-- ↑ヘッダー -->
-<?php
-
-try{
-  require_once './DAO/posts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->post();//データ取得
-  echo '<script>';
-echo 'console.log(' . json_encode($search) . ')';
-echo '</script>';
-
-require_once './dao/tags.php';
-$tagAll = new DAO_tag();
-$search2 = $tagAll->tags();
-echo '<script>';
-echo 'console.log(' . json_encode($search2) . ')';
-echo '</script>';
-}catch(Exception $ex){
-  echo $ex->getMessage();
-}catch(Error $err){
-  echo $err->getMessage();
-}
-?>
-
-  <!-- <fieldset class="frameborder"> -->
-    <!--タグ検索ボタン-->
-    <div class="select_area">
-    <div class="sele_area1">
-      <select class="select1">
-      <option value="" disabled selected>タグ</option>
-          <?php
-          foreach($search2 as $tag){
-            echo'<option value ="'.$tag['tag_id'].'" style="color: black;">' . $tag['tag_name']. '</option>';
-          }
-          ?>
-      </select>
-    </div>
-      <!--タグ検索ボタン終了-->
-<!--並び替えセレクトボックス-->
-        <!-- <a href="javascript:void(0)">
-          <div>↓並び替え</div>
-        </a>
-        <select size="2" data-role="none">
-          <option value="1">最新投稿</option>
-          <option value="2">古い投稿</option>
-        </select> -->
-        <div class="sele_area2">
-          <select class="select2">
-            <option value="1">最新投稿</option>
-            <option value="2">古い投稿</option>
-          </select>
+<div class="profile">
+    <div class="profile_area">
+      <div class="circle_area">
+        <div class="circle1"></div>
       </div>
-  </div>
-      <!--並び替えセレクトボックス終了-->
- <!--質問画面遷移ボタン-->
- <div class="question_area">
-    <?php foreach($search as $post){
-        echo '<div >
-        <button class="question">
-          <p class="user2">
-           '.$post['user_name'].'
-          </p>
-          <p class="day">
-            ' . $post['post_time'] . 'に投稿
-          </p>
-          <p class="title">
-            ' . $post['post_title'] . '
-          </p>
-          <div class="tag_area">
-                <img src="./images/pin.png" alt="" class="img2">
-                <p class="tag">タグ</p>
+      <p class="user_name">平田</p>
+      <p class="user_mail">hirata@gmail.com</p>
+      <p class="user_point">999pt</p>
+      <a href="" class="link">編集</a>
+    </div>
+
+    <div class="my_area">
+      <p class="p1">投稿した質問</p>
+      <div class="question_area">
+          <div class="horizontal1">
+            <a href="#" class="text2">質問</a>
+            <a href="#" class="text1 ">記事</a>
+            <a href="#" class="text1 ">投稿</a>
           </div>
           
-          <div class="good_area">
+          <div class="naiyou_area">
+            <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
                   <div class="good_img">
                     <img src="./images/good.png" alt="" class="img3">
                   </div>
                 </div>
-                <p class="good">'.$post['good_count'].'</p>
-        </button>   
-      </div>';
-    }
-    ?>
- </div>
+                <p class="good">134</p>
+              </div>
 
-   <!--質問画面遷移ボタン終了-->
-  <!-- </form>
-  </fieldset> -->
+              <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+
+              <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+          </div>
+
+      </div>
+    </div>
+</div>
+
+
   <script>
     $(document).ready(function() {
      // リンクをクリックした時の処理

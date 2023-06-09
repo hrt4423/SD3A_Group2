@@ -128,9 +128,8 @@
 
   <div class="horizontal">
     <a href="#" class="underline text">質問</a>
-    <a href="#" class="underline text">記事</a>
-    <a href="#" class="underline text">教室</a>
-    <a href="#" class="underline text">ランキング</a>
+    <a href="#" class="underline text">いいね</a>
+    <a href="#" class="underline text">投稿</a>
   </div>
 
 </div>
