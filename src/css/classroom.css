@@ -1,0 +1,21 @@
+body{
+    background-color: #FAEEFF;
+    font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320))); 
+}
+#myBtn {
+  background-color: lawngreen;
+  color: black;
+}
+
+#myBtn.clicked {
+  background-color: grey;
+}
+
+button {
+    width: 6vw;
+    height: 4vw;
+    border-radius: 2vw; /* 角を丸くする量を指定 */
+    font-size: 2vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+  }
