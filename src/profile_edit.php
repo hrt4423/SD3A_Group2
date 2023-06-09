@@ -34,20 +34,32 @@
     $users = new Users;
     $USESR_ID = 1;
     $userIconPath = $users->getUserIconPathById($USESR_ID);
+    $userData[] = $users->getUserDataById($USESR_ID);
+    //var_dump($userData);
+    $userName = $userData[0]['user_name'];
+    $userMail = $userData[0]['user_mail'];
+    $userPassword = $userData[0]['user_pass'];
+    $userColor = $userData[0]['thema_color_id'];
   ?>
 
   <div class="container-fluid">
-    <form action="./file_upload.php" method="post" enctype="multipart/form-data">
-      <p><input type="file" name="file_upload"></p>
-      <p><input type="submit" value="アップロード"></p>
-    </form>
-
+    <h1>プロフィール編集</h1>
     <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
-
-    <span>ユーザ名</span>
-    <p>メールアドレス</p>
-    <p>パスワード</p>
-    <p>カラー</p>
+    
+    <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
+      <p>アイコンを変更</p>
+      <input type="file" name="file_upload" value="a">
+      <input type="submit" value="アイコンを変更">
+    </form>
+    <hr>
+    <form action="" method="post" id="profile-edit">
+      <input type="text" name="user_name" value="<?= $userName ?>"><br>
+      <input type="text" name="user_mail" value="<?= $userMail ?>"><br>
+      <input type="text" name="user_pass" value="<?= $userPassword ?>"><br>
+      <input type="text" name="thema_color_id" value="<?= $userColor ?>"><br>
+      <button type="submit" class="btn btn-primary">変更</button>
+    </form>
+    
   </div>
 
 
