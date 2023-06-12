@@ -52,12 +52,12 @@
       <input type="submit" value="アイコンを変更">
     </form>
     <hr>
-    <form action="" method="post" id="profile-edit">
+    <form action="./submit_profile.php" method="post" id="profile-edit">
       <input type="text" name="user_name" value="<?= $userName ?>"><br>
       <input type="text" name="user_mail" value="<?= $userMail ?>"><br>
       <input type="text" name="user_pass" value="<?= $userPassword ?>"><br>
       <input type="text" name="thema_color_id" value="<?= $userColor ?>"><br>
-      <button type="submit" class="btn btn-primary">変更</button>
+      <button type="submit" class="btn btn-primary" >変更</button>
     </form>
     
   </div>
