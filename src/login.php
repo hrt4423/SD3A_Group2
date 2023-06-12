@@ -6,8 +6,8 @@ function h($s){
 
 session_start();
 //ログイン済みの場合
-if (isset($_SESSION['EMAIL'])) {
-  echo 'ようこそ' .  h($_SESSION['EMAIL']) . "さん<br>";
+if (isset($_SESSION['user_id'])) {
+  echo 'ようこそ' .  h($_SESSION['user_id']) . "さん<br>";
   echo "<a href='home.php'>ホーム画面はこちら。</a><br>";
   echo "<a href='logout.php'>ログアウトはこちら。</a>";
   exit;

@@ -1,3 +1,12 @@
+<?php
+session_start();
+$mail=$_SESSION['EMAIL'];
+require_once('config.php');
+try{
+  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+  $stmt = $pdo->prepare('select * from users where user_id = ?');
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
