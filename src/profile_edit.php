@@ -40,6 +40,7 @@
     $userMail = $userData[0]['user_mail'];
     $userPassword = $userData[0]['user_pass'];
     $userColor = $userData[0]['thema_color_id'];
+    $userProfile = $userData[0]['user_profile'];
   ?>
 
   <div class="container-fluid">
@@ -56,7 +57,18 @@
       <input type="text" name="user_name" value="<?= $userName ?>"><br>
       <input type="text" name="user_mail" value="<?= $userMail ?>"><br>
       <input type="text" name="user_pass" value="<?= $userPassword ?>"><br>
-      <input type="text" name="thema_color_id" value="<?= $userColor ?>"><br>
+      <select name="thema_color_id">
+        <option value="1">Purple</option>
+        <option value="2">Blue</option>
+        <option value="3">Green</option>
+        <option value="4">Yellow</option>
+        <option value="5">Orange</option>
+        <option value="6">Red</option>
+        <option value="7">Pink</option>
+        <option value="8">White</option>
+        <option value="9">Black</option>
+      </select><br>
+      <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea><br>
       <button type="submit" class="btn btn-primary" >変更</button>
     </form>
     
