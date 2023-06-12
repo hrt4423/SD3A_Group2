@@ -98,7 +98,7 @@
  <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
  <div class="header_size">
   <div class="horizontal">
-      <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+    <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
     <div class="right">
 
       <div class="input-group mb-3 search" >
@@ -120,16 +120,18 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">質問</a>
             <a class="dropdown-item" href="#">記事</a>
-           </div>
+            <a class="dropdown-item" href="#">ランキング</a>
+            <a class="dropdown-item" href="#">空き教室</a>
           </div>
-
+      </div>
     </div>
   </div>
 
   <div class="horizontal">
     <a href="#" class="underline text">質問</a>
-    <a href="#" class="underline text">いいね</a>
-    <a href="#" class="underline text">投稿</a>
+    <a href="#" class="underline text">記事</a>
+    <a href="#" class="underline text">ランキング</a>
+    <a href="#" class="underline text">空き教室</a>
   </div>
 
 </div>
