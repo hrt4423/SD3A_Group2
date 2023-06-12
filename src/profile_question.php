@@ -131,7 +131,7 @@ a:hover {
       <p class="user_name">平田</p>
       <p class="user_mail">hirata@gmail.com</p>
       <p class="user_point">999pt</p>
-      <a href="" class="link">編集</a>
+      <a href="./profile_edit.php" class="link">編集</a>
     </div>
 
     <div class="my_area">

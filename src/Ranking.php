@@ -1,3 +1,17 @@
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
+               'root','');
+$stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
+$stmt ->execute();
+foreach($stmt->fetchAll() as $row){
+  echo '<tr>';
+  echo '<td>',$row['user_name'],'</td>';
+  echo '<td>',$row['user_icon'],'</td>';
+  echo '<td>',$row['point_sum'],'</td>';
+  echo '</tr>';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -95,7 +109,6 @@
   </style>
 </head>
 <body class="body">
-
     <div class="header_size">
       <div class="horizontal">
           <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
