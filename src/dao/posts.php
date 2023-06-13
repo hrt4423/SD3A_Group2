@@ -30,8 +30,7 @@
               WHERE P.post_title LIKE ? OR
               P.post_detail LIKE ? OR
               T.tag_name LIKE ?
-      ";
-
+              ";
       //prepare:準備　戻り値を変数に保持
       $ps = $pdo -> prepare($sql);
 
@@ -45,7 +44,7 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        echo '指定したIDに該当するデータはありません。';
+        echo 'キーワードに該当するデータはありません。';
       }else{
         return $result;
       }

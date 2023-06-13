@@ -3,7 +3,7 @@
     private function dbConnect(){
       //データベースに接続
       $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-                      'hirata', 'password');
+                      'root', 'root');
       return $pdo;
     }
 
@@ -72,6 +72,24 @@
       $ps->bindValue(6, $id, PDO::PARAM_INT); 
 
       $ps->execute();
+    }
+
+    public function getUserNameById($id){
+      $pdo = $this -> dbConnect();
+      $sql = "SELECT user_name FROM users WHERE user_id=?";
+      $ps = $pdo -> prepare($sql);
+      $ps->bindValue(1, $id, PDO::PARAM_INT); 
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        return '指定したIDに該当するデータはありません。';
+      }else{
+        foreach($result as $row){
+          $userName=$row['user_name'];
+        }
+      } 
+      return $userName;
     }
   }
 ?>
