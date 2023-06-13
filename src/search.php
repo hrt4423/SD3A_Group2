@@ -114,7 +114,6 @@
       </div>
       <div class="circle"></div>
       
-
       <div class="dropdown">
         <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           投稿する
