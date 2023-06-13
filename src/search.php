@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>header</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -101,15 +101,17 @@
     <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
     <div class="right">
 
+      <!-- 検索フォーム -->
       <div class="input-group mb-3 search" >
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-          <i class="fa fa-search"></i>
-          </span>
-        </div>
-        <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+        <form action="search_result.php" method="GET" id="search-form">
+          <div class="input-group-prepend">
+            <button type="submit" class="input-group-text" id="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+        </form>
       </div>
-
       <div class="circle"></div>
       
 
