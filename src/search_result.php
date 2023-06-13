@@ -13,6 +13,7 @@
     $posts = new DAO_post;
     $posts = $posts -> searchPostsByKeyword($_GET['keyword']);
     var_dump($posts);
+    
   ?>
 
   <br><a href="./search.php">戻る</a>
