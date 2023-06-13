@@ -13,13 +13,22 @@
     $posts = new DAO_post;
     $result = $posts -> searchPostsByKeyword($_GET['keyword']);
     //var_dump($posts);
+    /**
+     * 検索は記事と質問に絞る
+     * 
+     * 記事、質問のユーザー名取得
+     * いいね数取得
+     * タグ取得
+     */
   ?>
 
   <?php foreach ($result as $row) : ?>
     <?php 
       echo "user_name: $row[user_id]<br>";
       echo "title: $row[post_title]<br>"; 
-      echo "category_id: $row[post_category_id]";
+      echo "date: $row[post_time]<br>";
+      echo"tag: ";
+      echo "いいね数: ";
     ?>
   <?php endforeach; ?>
 
