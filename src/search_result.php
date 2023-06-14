@@ -18,6 +18,7 @@
     require_once('./dao/attached_tags.php');
     $attachedTags = new AttachedTags;
 
+    //検索処理。検索結果がない場合は例外が投げられるので例外処理を行う
     try{
       $result = $posts -> searchPostsByKeyword($_GET['keyword']);
       foreach($result as $row) { 
