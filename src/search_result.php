@@ -18,32 +18,30 @@
     require_once('./dao/attached_tags.php');
     $attachedTags = new AttachedTags;
 
-    $result = $posts -> searchPostsByKeyword($_GET['keyword']);
-    /**
-     * 検索は記事と質問に絞る
-     * コメントが表示されない
-     * コメントを検索で出そうとするとエラーが出る
-     * phpMyadminで憲章の必要あり
-     */
+    try{
+      $result = $posts -> searchPostsByKeyword($_GET['keyword']);
+      foreach($result as $row) { 
   ?>
 
-  <!-- 検索結果の一覧 -->
-  <?php foreach ($result as $row) : ?>
     <!-- 投稿者、タイトル、投稿日時 -->
     <hr>
     <p><?= $users -> getUserNameById($row['user_id']) ?></p>
     <p><?= $row['post_title'] ?></p>
     <p><?= $row['post_time'] ?></p>
-
     <!-- 付与されたタグ一覧 -->
     <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
       <span><?= $tag['tag_name'] ?>,</span>
     <?php endforeach; ?>
-    
     <!-- いいね数 -->
     <p><?= $good -> goodCount($row['post_id']) ?></p>
     <hr>
-  <?php endforeach; ?>
+
+  <?php
+      } //end foreach
+    }catch(Exception $e){
+      echo $e->getMessage();
+    }
+  ?>
 
   <br><a href="./search.php">戻る</a>
 </body>

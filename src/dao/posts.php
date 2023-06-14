@@ -21,15 +21,17 @@
       return $search;
     }
 
+    //記事、質問のみを返す, 該当するレコードがない場合は例外を返す
     public function searchPostsByKeyword($keyword){
       $pdo = $this -> dbConnect();
       //SQLの生成
       $sql = "SELECT P.* FROM posts as P 
-              INNER JOIN attached_tags as AT ON P.post_id = AT.post_id
-              INNER JOIN tags as T ON AT.tag_id = T.tag_id
-              WHERE P.post_title LIKE ? OR
+              LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+              LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+              WHERE (P.post_title LIKE ? OR
               P.post_detail LIKE ? OR
-              T.tag_name LIKE ?
+              T.tag_name LIKE ?)
+              AND post_category_id != 3;
               ";
       //prepare:準備　戻り値を変数に保持
       $ps = $pdo -> prepare($sql);
@@ -44,7 +46,7 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        echo 'キーワードに該当するデータはありません。';
+        throw new Exception('キーワードに該当する投稿はありませんでした');
       }else{
         return $result;
       }
