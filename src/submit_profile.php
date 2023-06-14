@@ -5,6 +5,7 @@
     //実際はsessionから取得する
     $id = 1;
     $users->updateProfile($id, $_POST);
-    header('Location: ./profile_question.php');
+    echo 'プロフィールを更新しました。';
+    header('Refresh: 5; ./profile_question.php');
 
 ?>
