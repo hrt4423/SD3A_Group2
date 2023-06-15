@@ -21,16 +21,16 @@
       return $search;
     }
 
-    public function prof_post ($id) {
+    public function prof_post () {
       $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
-      WHERE posts.post_category_id=1,users.user_id=?
+      WHERE posts.post_category_id=1
       GROUP BY posts.post_id";
       $ps = $pdo->prepare($sql);
-      $ps->execute($id);
+      $ps->execute();
       $search = $ps->fetchAll();
       //$count = count($search);
       return $search;
