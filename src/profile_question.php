@@ -17,7 +17,7 @@ require_once('config.php');
     LEFT JOIN goods ON posts.post_id = goods.post_id
     WHERE posts.post_category_id=1,users.user_id=?
     GROUP BY posts.post_id');
-    $sql->execute($id);
+    $sql->execute([$id]);
     $search = $sql->fetchAll();
 ?>
 <!DOCTYPE html>
