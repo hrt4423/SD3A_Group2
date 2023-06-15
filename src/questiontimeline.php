@@ -191,15 +191,14 @@ echo '</script>';
 
     <div class="select_area">
       <div class="sele_area1">
-        <select class="select1">
-        <option value="" disabled selected>タグ</option>
-
-          <?php foreach($search2 as $tag) : ?>
-            <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
-            <?= $tag['tag_name'] ?></option>
-          <?php endforeach; ?>
-
-        </select>
+      <select class="select1">
+      <option value="" disabled selected>タグ</option>
+          <?php
+          foreach($search2 as $tag){
+            echo'<option value ="'.$tag['tag_id'].'" style="color: black;">' . $tag['tag_name']. '</option>';
+          }
+          ?>
+      </select>
       </div>
         <!--タグ検索ボタン終了-->
         <!--並び替えセレクトボックス-->
