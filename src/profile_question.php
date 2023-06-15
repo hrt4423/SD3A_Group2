@@ -155,7 +155,7 @@ a:hover {
 try{
   require_once './DAO/posts.php';
   $postAll = new DAO_post();
-  $search = $postAll->prof_post();//データ取得
+  $search = $postAll->prof_post($id);//データ取得
   echo '<script>';
 echo 'console.log(' . json_encode($search) . ')';
 echo '</script>';
