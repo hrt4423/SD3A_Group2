@@ -143,10 +143,10 @@ a:hover {
         <div class="circle1"></div>
       </div>
       <?php
-      echo"<p class="user_name">".h($row['user_name'])."</p>";
-      echo"<p class="user_mail">".h($row['user_mail'])."</p>";
-      echo"<p class="user_point">".h($row['user_point'])."</p>";
-      echo"<a href="./profile_edit.php" class="link">編集</a>";
+      echo"<p class='user_name'>".h($row['user_name'])."</p>";
+      echo"<p class='user_mail'>".h($row['user_mail'])."</p>";
+      echo"<p class='user_point'>".h($row['user_point'])."</p>";
+      echo"<a href='./profile_edit.php' class='link'>編集</a>";
       ?>
     </div>
 
