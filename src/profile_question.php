@@ -150,6 +150,29 @@ a:hover {
       ?>
     </div>
 
+    <?php
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
+
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
+
     <div class="my_area">
       <p class="p1">投稿した質問</p>
       <div class="question_area">
@@ -160,7 +183,33 @@ a:hover {
           </div>
           
           <div class="naiyou_area">
+          <?php foreach($search as $post){
+        echo '<div >
+        <button class="question">
+          <p class="user2">
+           '.$post['user_name'].'
+          </p>
+          <p class="day">
+            ' . $post['post_time'] . 'に投稿
+          </p>
+          <p class="title">
+            ' . $post['post_title'] . '
+          </p>
+          <div class="tag_area">
+                <img src="./images/pin.png" alt="" class="img2">
+                <p class="tag">タグ</p>
+          </div>
           
+          <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">'.$post['good_count'].'</p>
+        </button>   
+      </div>';
+    }
+    ?>
           </div>
 
       </div>
