@@ -1,4 +1,7 @@
 <?php
+  session_start();
+  $id=$_SESSION['user_id'];
+
   class DAO_post{
 
     private function dbConnect(){
@@ -27,10 +30,10 @@
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
-      WHERE posts.post_category_id=1
+      WHERE posts.post_category_id=1 AND users.user_id=?
       GROUP BY posts.post_id";
       $ps = $pdo->prepare($sql);
-      $ps->execute();
+      $ps->execute($id);
       $search = $ps->fetchAll();
       //$count = count($search);
       return $search;
