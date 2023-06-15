@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
 $id=$_SESSION['user_id'];
 require_once('config.php');
   $pdo = new PDO(DSN, DB_USER, DB_PASS);
