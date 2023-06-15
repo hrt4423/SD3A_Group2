@@ -11,7 +11,7 @@ require_once('config.php');
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  public function post () {
+  function post () {
     $pdo=new PDO(DSN, DB_USER, DB_PASS);
     $sql = $pdo->prepare('SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
     FROM posts 
