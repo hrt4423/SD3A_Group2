@@ -20,6 +20,7 @@ require_once('config.php');
     GROUP BY posts.post_id');
     $sql->execute($id);
     $search = $sql->fetchAll();
+    return $search;
   }
 ?>
 <!DOCTYPE html>
