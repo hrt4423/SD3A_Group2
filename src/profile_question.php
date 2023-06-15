@@ -11,6 +11,7 @@ require_once('config.php');
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  public function post () {
     $sql = $pdo->prepare('SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
     FROM posts 
     JOIN users ON posts.user_id = users.user_id
@@ -19,6 +20,7 @@ require_once('config.php');
     GROUP BY posts.post_id');
     $sql->execute([$id]);
     $search = $sql->fetchAll();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -166,6 +168,15 @@ a:hover {
             <a href="#" class="text1 ">記事</a>
             <a href="#" class="text1 ">投稿</a>
           </div>
+
+          <?php
+            try{
+              $search = post();//データ取得
+              echo '<script>';
+              echo 'console.log(' . json_encode($search) . ')';
+              echo '</script>';
+            }
+            ?>
           
           <div class="naiyou_area">
           <?php foreach($search as $post){
