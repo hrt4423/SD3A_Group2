@@ -11,6 +11,19 @@ require_once('config.php');
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  public function post () {
+    $pdo=new PDO(DSN, DB_USER, DB_PASS);
+    $sql = $pdo->prepare('SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
+    FROM posts 
+    JOIN users ON posts.user_id = users.user_id
+    LEFT JOIN goods ON posts.post_id = goods.post_id
+    WHERE posts.post_category_id=1,users.user_id=?
+    GROUP BY posts.post_id');
+    $sql->execute($id);
+    $search = $sql->fetchAll();
+    //$count = count($search);
+    return $search;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -160,74 +173,36 @@ a:hover {
           </div>
           
           <div class="naiyou_area">
-            <div class="naiyou">
-                <div class="circle_area2">
+          <?php foreach($search as $post){
+            echo '<div class="naiyou">
+                  <div class="circle_area2">
                   <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
+                  <p class="user2">
+                  '.$post['user_name'].'
+                  </p>
+                  </div>
+                  <div class="syousai_area">
+                  <p class="day">
+                    ' . $post['post_time'] . 'に投稿
+                  </p>
+                  <p class="title">
+                      ' . $post['post_title'] . '
+                      </p>
                   <div class="tag_area">
                       <img src="./images/pin.png" alt="" class="img2">
                       <p class="tag">タグ</p>
-                  </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
-
-              <div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
-                  <div class="tag_area">
-                      <img src="./images/pin.png" alt="" class="img2">
-                      <p class="tag">タグ</p>
-                  </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
-
-              <div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
-                  <div class="tag_area">
-                      <img src="./images/pin.png" alt="" class="img2">
-                      <p class="tag">タグ</p>
-                  </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
+                      </div>
+        </div>
+              
+              <div class="good_area">
+                      <div class="good_img">
+                        <img src="./images/good.png" alt="" class="img3">
+                      </div>
+                    </div>
+                    <p class="good">'.$post['good_count'].'</p>
+          </div>';
+        }
+        ?>
           </div>
 
       </div>
