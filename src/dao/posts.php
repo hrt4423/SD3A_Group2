@@ -23,6 +23,7 @@
     }
 
     public function prof_post () {
+      $id=$_SESSION['user_id'];
       $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
@@ -31,7 +32,7 @@
       WHERE posts.post_category_id=1 AND users.user_id=11
       GROUP BY posts.post_id";
       $ps = $pdo->prepare($sql);
-      $ps->execute();
+      $ps->execute([$id]);
       $search = $ps->fetchAll();
       //$count = count($search);
       return $search;
