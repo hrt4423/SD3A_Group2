@@ -33,7 +33,7 @@
       WHERE posts.post_category_id=1 AND users.user_id=?
       GROUP BY posts.post_id";
       $ps = $pdo->prepare($sql);
-      $ps->execute($id);
+      $ps->execute();
       $search = $ps->fetchAll();
       //$count = count($search);
       return $search;
