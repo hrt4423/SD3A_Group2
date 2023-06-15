@@ -1,11 +1,16 @@
 <?php
 session_start();
-$mail=$_SESSION['EMAIL'];
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
+$id=$_SESSION['user_id'];
 require_once('config.php');
-try{
   $pdo = new PDO(DSN, DB_USER, DB_PASS);
   $stmt = $pdo->prepare('select * from users where user_id = ?');
-}
+  $stmt->execute([$id]);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -137,10 +142,12 @@ a:hover {
       <div class="circle_area">
         <div class="circle1"></div>
       </div>
-      <p class="user_name">平田</p>
-      <p class="user_mail">hirata@gmail.com</p>
-      <p class="user_point">999pt</p>
-      <a href="./profile_edit.php" class="link">編集</a>
+      <?php
+      echo"<p class="user_name">".h($row['user_name'])."</p>";
+      echo"<p class="user_mail">".h($row['user_mail'])."</p>";
+      echo"<p class="user_point">".h($row['user_point'])."</p>";
+      echo"<a href="./profile_edit.php" class="link">編集</a>";
+      ?>
     </div>
 
     <div class="my_area">
