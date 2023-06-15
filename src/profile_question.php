@@ -184,21 +184,25 @@ echo '</script>';
           
           <div class="naiyou_area">
           <?php foreach($search as $post){
-        echo '<div >
-        <button class="question">
-          <p class="user2">
-           '.$post['user_name'].'
-          </p>
-          <p class="day">
-            ' . $post['post_time'] . 'に投稿
-          </p>
-          <p class="title">
-            ' . $post['post_title'] . '
-          </p>
-          <div class="tag_area">
-                <img src="./images/pin.png" alt="" class="img2">
-                <p class="tag">タグ</p>
-          </div>
+        echo '<div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+          		<p class="user2">
+           		'.$post['user_name'].'
+          		</p>
+		  </div>
+		<div class="syousai_area">
+          	  <p class="day">
+            	  ' . $post['post_time'] . 'に投稿
+          	  </p>
+		  <p class="title">
+                  ' . $post['post_title'] . '
+                  </p>
+          	  <div class="tag_area">
+                  <img src="./images/pin.png" alt="" class="img2">
+                  <p class="tag">タグ</p>
+                  </div>
+		</div>
           
           <div class="good_area">
                   <div class="good_img">
@@ -206,7 +210,6 @@ echo '</script>';
                   </div>
                 </div>
                 <p class="good">'.$post['good_count'].'</p>
-        </button>   
       </div>';
     }
     ?>
