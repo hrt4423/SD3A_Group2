@@ -158,15 +158,6 @@ a:hover {
             <a href="#" class="text1 ">記事</a>
             <a href="#" class="text1 ">投稿</a>
           </div>
-
-          <?php
-            try{
-              $search = post();//データ取得
-              echo '<script>';
-              echo 'console.log(' . json_encode($search) . ')';
-              echo '</script>';
-            }
-            ?>
           
           <div class="naiyou_area">
           
