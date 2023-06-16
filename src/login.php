@@ -8,7 +8,7 @@ session_start();
 //ログイン済みの場合
 if (isset($_SESSION['user_id'])) {
   echo 'ようこそ' .  h($_SESSION['user_id']) . "さん<br>";
-  echo "<a href='home.php'>ホーム画面はこちら。</a><br>";
+  echo "<a href='questiontimeline.php'>ホーム画面はこちら。</a><br>";
   echo "<a href='logout.php'>ログアウトはこちら。</a>";
   exit;
 }
@@ -33,6 +33,7 @@ if (isset($_SESSION['user_id'])) {
       </button>
     </form>
     <a href="sinnki.php">新規登録<a>
+    <a href=".php">パスワードを忘れた方はこちら<a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 <style>
