@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    質問一覧画面
+    記事一覧画面
   </title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -14,117 +14,113 @@
   <link href="css/questiontimeline.css" rel="stylesheet">
   <script src="js/questiontimeline.js"></script>
   <style>
-    .tag-text{
-      color: brack;
-    }
-
     .btn-purple {
-      background-color: #653A91;
-      border-color: #653A91;
-      color: #fff;
-    }
-    .btn-purple:hover {
-      background-color: #4b2661;
-      border-color: #4b2661;
-      color: #fff;
-    }
-    .btn-purple:focus {
-      box-shadow: none;
-      color: #fff;
-    }
+  background-color: #653A91;
+  border-color: #653A91;
+  color: #fff;
+}
+.btn-purple:hover {
+  background-color: #4b2661;
+  border-color: #4b2661;
+  color: #fff;
+}
+.btn-purple:focus {
+  box-shadow: none;
+  color: #fff;
+}
 
-    .header_size {
-      /* height: 150px; */
-      background-color: #b164ff;
-    }
+.header_size {
+  /* height: 150px; */
+  background-color: #b164ff;
+}
 
-    .horizontal {
-      display: flex;
-      text-align: center;
-      height: 4vw;
-    }
+.horizontal {
+  display: flex;
+  text-align: center;
+  height: 4vw;
+}
 
-    .search {
-      width: 200px;
-      height: 37px;
-      margin-right: 20px;
-    }
+.search {
+  width: 200px;
+  height: 37px;
+  margin-right: 20px;
+}
 
-    .right {
-      margin-left: auto;
-      display: flex;
-      margin-top: 1.5vw;
-    }
+.right {
+  margin-left: auto;
+  display: flex;
+  margin-top: 1.5vw;
+}
 
-    .text {
-      color: white;
-      font-size: 30px;
-      font-weight: bold;
-      flex-grow: 1;
-      margin-top: 1vw;
-    }
+.text {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  flex-grow: 1;
+  margin-top: 1vw;
+}
 
-    .circle {
-      width: 37px;
-      height: 37px;
-      border-radius: 50%;
-      background-color: #653A91;
-      margin-right: 20px;
-    }
+.circle {
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  background-color: #653A91;
+  margin-right: 20px;
+}
 
-    .btn-purple {
-      background-color: #653a91;
-      color: #fff;
-    }
+.btn-purple {
+  background-color: #653a91;
+  color: #fff;
+}
 
-    .btn {
-      margin-right: 20px;
-    }
+.btn {
+  margin-right: 20px;
+}
 
-    .underline {
-      text-decoration: none; /* 下線をなくす */
-      display: inline-block;
-      border-bottom: 10px solid #653A91;
-    }
+.underline {
+  text-decoration: none; /* 下線をなくす */
+  display: inline-block;
+  border-bottom: 10px solid #653A91;
+}
 
-    a:hover {
-      text-decoration: none;
-      color: white;
-      width: 2vw;
-    }
-    .logo{
-      margin-top: 0.9vw;
-      width: 10vw;
-      height: 2.7vw;
-    }
-    .test {
-      width: 100px;
-      height: 100px;
-      background-color: #b164ff;
-    }
+a:hover {
+  text-decoration: none;
+  color: white;
+  width: 2vw;
+}
+.logo{
+  margin-top: 0.9vw;
+  width: 10vw;
+  height: 2.7vw;
+}
+.test {
+  width: 100px;
+  height: 100px;
+  background-color: #b164ff;
+}
   </style>
 </head>
 <?php
 
-  try{
-    require_once './DAO/posts.php';
-    $postAll = new DAO_post();
-    $search = $postAll->post();//データ取得
-    echo '<script>';
-    echo 'console.log(' . json_encode($search) . ')';
-    echo '</script>';
+try{
+  require_once './DAO/articleposts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
 
-    require_once './dao/tags.php';
-    $tagAll = new DAO_tag();
-    $search2 = $tagAll->tags();
-    echo '<script>';
-    echo 'console.log(' . json_encode($search2) . ')';
-    echo '</script>';
-  }catch(Exception $ex){
-    echo $ex->getMessage();
-  }catch(Error $err){
-    echo $err->getMessage();
-  }
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
 ?>
 <body id="body">
 <div class="header_size">
@@ -147,7 +143,7 @@
                   投稿する
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">質問</a>
+                  <a class="dropdown-item" href="questiontimeline.php">質問</a>
                   <a class="dropdown-item" href="#">記事</a>
                 </div>
             </div>
@@ -165,7 +161,7 @@
 <?php
 
 try{
-  require_once './DAO/posts.php';
+  require_once './DAO/articleposts.php';
   $postAll = new DAO_post();
   $search = $postAll->post();//データ取得
   echo '<script>';
@@ -187,42 +183,38 @@ echo '</script>';
 
   <!-- <fieldset class="frameborder"> -->
     <!--タグ検索ボタン-->
-    <form action="./questiontimeline.php" method="GET" id="tag-form"></form>
-
     <div class="select_area">
-      <div class="sele_area1">
-        <select class="select1">
-        <option value="" disabled selected>タグ</option>
-
-          <?php foreach($search2 as $tag) : ?>
-            <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
-            <?= $tag['tag_name'] ?></option>
-          <?php endforeach; ?>
-
-        </select>
-      </div>
-        <!--タグ検索ボタン終了-->
-        <!--並び替えセレクトボックス-->
-          <!-- <a href="javascript:void(0)">
-            <div>↓並び替え</div>
-          </a>
-          <select size="2" data-role="none">
-            <option value="1">最新投稿</option>
-            <option value="2">古い投稿</option>
-          </select> -->
-      <div class="sele_area2">
-        <select class="select2">
+    <div class="sele_area1">
+      <select class="select1">
+      <option value="" disabled selected>タグ</option>
+          <?php
+          foreach($search2 as $tag){
+            echo'<option value ="'.$tag['tag_id'].'" style="color: black;">' . $tag['tag_name']. '</option>';
+          }
+          ?>
+      </select>
+    </div>
+      <!--タグ検索ボタン終了-->
+<!--並び替えセレクトボックス-->
+        <!-- <a href="javascript:void(0)">
+          <div>↓並び替え</div>
+        </a>
+        <select size="2" data-role="none">
           <option value="1">最新投稿</option>
           <option value="2">古い投稿</option>
-        </select>
+        </select> -->
+        <div class="sele_area2">
+          <select class="select2">
+            <option value="1">最新投稿</option>
+            <option value="2">古い投稿</option>
+          </select>
       </div>
-    </div>
+  </div>
+      <!--並び替えセレクトボックス終了-->
  <!--質問画面遷移ボタン-->
  <div class="question_area">
     <?php foreach($search as $post){
         echo '<div >
-        <form action="question-detail.php" method="post">
-        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
         <button class="question">
           <p class="user2">
            '.$post['user_name'].'
@@ -245,7 +237,6 @@ echo '</script>';
                 </div>
                 <p class="good">'.$post['good_count'].'</p>
         </button>   
-        </form>
       </div>';
     }
     ?>
