@@ -36,8 +36,8 @@
       $search = $ps->fetchAll();
       //$count = count($search);
       return $search;
-   
-
+    }
+    
     public function post_detail ($id) {
       $pdo=$this->dbConnect();
       $sql ="SELECT * FROM posts WHERE post_id = $id";
