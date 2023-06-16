@@ -1,5 +1,5 @@
 <?php
-  class AttachedTags{
+  class Good{
     private function dbConnect(){
       //データベースに接続
       $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
@@ -7,14 +7,11 @@
       return $pdo;
     }
 
-    public function getAttachedTagsByPostId($postId){
+    public function goodCount($postId){
       $pdo = $this -> dbConnect();
       //SQLの生成
-      $sql = "SELECT T.tag_name
-              FROM attached_tags as AT
-              INNER JOIN tags as T 
-              ON AT.tag_id = T.tag_id
-              WHERE post_id=?";
+      $sql = "SELECT count(post_id) FROM goods WHERE post_id=?";
+
       //prepare:準備　戻り値を変数に保持
       $ps = $pdo -> prepare($sql);
 
@@ -28,8 +25,9 @@
       if(empty($result)){
         return '指定したIDに該当するデータはありません。';
       }else{
-        return $result;
+        return $result[0]['count(post_id)'];
       } 
     }
+    
   }
 ?>
