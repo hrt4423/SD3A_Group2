@@ -34,20 +34,44 @@
     $users = new Users;
     $USESR_ID = 1;
     $userIconPath = $users->getUserIconPathById($USESR_ID);
+    $userData[] = $users->getUserDataById($USESR_ID);
+    //var_dump($userData);
+    $userName = $userData[0]['user_name'];
+    $userMail = $userData[0]['user_mail'];
+    $userPassword = $userData[0]['user_pass'];
+    $userColor = $userData[0]['thema_color_id'];
+    $userProfile = $userData[0]['user_profile'];
   ?>
 
   <div class="container-fluid">
-    <form action="./file_upload.php" method="post" enctype="multipart/form-data">
-      <p><input type="file" name="file_upload"></p>
-      <p><input type="submit" value="アップロード"></p>
-    </form>
-
+    <h1>プロフィール編集</h1>
     <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
-
-    <span>ユーザ名</span>
-    <p>メールアドレス</p>
-    <p>パスワード</p>
-    <p>カラー</p>
+    
+    <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
+      <p>アイコンを変更</p>
+      <input type="file" name="file_upload" value="a">
+      <input type="submit" value="アイコンを変更">
+    </form>
+    <hr>
+    <form action="./submit_profile.php" method="post" id="profile-edit">
+      <input type="text" name="user_name" value="<?= $userName ?>"><br>
+      <input type="text" name="user_mail" value="<?= $userMail ?>"><br>
+      <input type="text" name="user_pass" value="<?= $userPassword ?>"><br>
+      <select name="thema_color_id">
+        <option value="1">Purple</option>
+        <option value="2">Blue</option>
+        <option value="3">Green</option>
+        <option value="4">Yellow</option>
+        <option value="5">Orange</option>
+        <option value="6">Red</option>
+        <option value="7">Pink</option>
+        <option value="8">White</option>
+        <option value="9">Black</option>
+      </select><br>
+      <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea><br>
+      <button type="submit" class="btn btn-primary" >変更</button>
+    </form>
+    
   </div>
 
 
