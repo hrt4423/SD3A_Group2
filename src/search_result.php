@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -44,6 +45,6 @@
     }
   ?>
 
-  <br><a href="./search.php">戻る</a>
+  
 </body>
 </html>
