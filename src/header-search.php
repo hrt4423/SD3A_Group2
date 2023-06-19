@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/header.css" >
+  <link rel="stylesheet" href="./css/header.css" >
 </head>
 <body>
 
@@ -19,18 +19,18 @@
   <!-- ここからがヘッダー -->
     <div class="header_size">
       <?php
-        require_once('../dao/Users.php');
+        require_once('./dao/Users.php');
         $users = new Users;
         $USESR_ID = $_SESSION['user_id'];
         $userIconPath = $users->getUserIconPathById($USESR_ID);
       ?>
       <div class="horizontal">
-        <img class="logo" src="../images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <form action="../search_result.php" method="GET" id="search-form">
+            <form action="./search_result.php" method="GET" id="search-form">
               <div class="input-group-prepend">
                 <button type="submit" class="input-group-text" id="search-button">
                   <i class="fa fa-search"></i>
@@ -39,8 +39,8 @@
               <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
             </form>
           </div>
-          <a href="../profile_question.php" class="circle">
-            <img src="../<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
           </a>
           
           <div class="dropdown">
@@ -48,7 +48,7 @@
               投稿する
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="../questionCreation.php">質問</a>
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
                 <a class="dropdown-item" href="#">記事</a>
               </div>
           </div>
@@ -56,12 +56,11 @@
       </div>
 
       <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="underline text">記事</a>
-        <a href="#" class="underline text">ランキング</a>
-        <a href="#" class="underline text">空き教室</a>
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
       </div>
-
     </div>
   <!-- ここまでがヘッダー -->
 

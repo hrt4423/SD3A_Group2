@@ -30,113 +30,134 @@ require_once('config.php');
   background-color: #653A91;
   border-color: #653A91;
   color: #fff;
-}
-.btn-purple:hover {
-  background-color: #4b2661;
-  border-color: #4b2661;
-  color: #fff;
-}
-.btn-purple:focus {
-  box-shadow: none;
-  color: #fff;
-}
+  }
+  .btn-purple:hover {
+    background-color: #4b2661;
+    border-color: #4b2661;
+    color: #fff;
+  }
+  .btn-purple:focus {
+    box-shadow: none;
+    color: #fff;
+  }
 
-.header_size {
-  /* height: 150px; */
-  background-color: #b164ff;
-}
+  .header_size {
+    /* height: 150px; */
+    background-color: #b164ff;
+  }
 
-.horizontal {
-  display: flex;
-  text-align: center;
-  height: 4.5vw;
-}
+  .horizontal {
+    display: flex;
+    text-align: center;
+    height: 4.5vw;
+  }
 
-.search {
-  width: 200px;
-  height: 37px;
-  margin-right: 20px;
-}
+  .search {
+    width: 200px;
+    height: 37px;
+    margin-right: 20px;
+  }
 
-.right {
-  margin-left: auto;
-  display: flex;
-  margin-top: 1.5vw;
-}
+  .right {
+    margin-left: auto;
+    display: flex;
+    margin-top: 1.5vw;
+  }
 
-.text {
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  flex-grow: 1;
-}
+  .text {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    flex-grow: 1;
+  }
 
-.circle {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  background-color: #653A91;
-  margin-right: 20px;
-}
+  .circle {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: #653A91;
+    margin-right: 20px;
+  }
 
-.btn-purple {
-  background-color: #653a91;
-  color: #fff;
-}
+  .btn-purple {
+    background-color: #653a91;
+    color: #fff;
+  }
 
-.btn {
-  margin-right: 20px;
-}
+  .btn {
+    margin-right: 20px;
+  }
 
-.underline {
-  text-decoration: none; /* 下線をなくす */
-  display: inline-block;
-  border-bottom: 10px solid #653A91;
-}
+  .underline {
+    text-decoration: none; /* 下線をなくす */
+    display: inline-block;
+    border-bottom: 10px solid #653A91;
+  }
 
-a:hover {
-  text-decoration: none;
-  color: white;
-  width: 2vw;
-}
-.logo{
-  margin-top: 0.9vw;
-  width: 10vw;
-  height: 2.7vw;
-}
+  a:hover {
+    text-decoration: none;
+    color: white;
+    width: 2vw;
+  }
+  .logo{
+    margin-top: 0.9vw;
+    width: 10vw;
+    height: 2.7vw;
+  }
   </style>
 </head>
 <body class="body">
 
+  <!-- ここからがヘッダー -->
+  <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
     <div class="header_size">
+      <?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
-          <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
+        <a href="./questiontimeline.php">
+          <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        </a>
         <div class="right">
 
+          <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-              <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-          </div>
-
-          <div class="circle"></div>
-            <div class="dropdown">
-                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  投稿する
+            <form action="./search_result.php" method="GET" id="search-form">
+              <div class="input-group-prepend">
+                <button type="submit" class="input-group-text" id="search-button">
+                  <i class="fa fa-search"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">質問</a>
-                  <a class="dropdown-item" href="#">記事</a>
-                </div>
-            </div>
+              </div>
+              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+            </form>
+          </div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
+          
+          <div class="dropdown">
+            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              投稿する
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                <a class="dropdown-item" href="#">記事</a>
+              </div>
+          </div>
         </div>
       </div>
 
+      <!-- <div class="horizontal">
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
+      </div> -->
     </div>
-<!-- ↑ヘッダー -->
+  <!-- ここまでがヘッダー -->
 <div class="profile">
     <div class="profile_area">
       <div class="circle_area">
@@ -220,7 +241,7 @@ echo '</script>';
 </div>
 
 
-  <script>
+  <!-- <script>
     $(document).ready(function() {
      // リンクをクリックした時の処理
       $(".underline").click(function(e) {
@@ -232,7 +253,7 @@ echo '</script>';
         $(this).addClass("active");
       });
     });
-</script>
+</script> -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
