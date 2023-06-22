@@ -138,13 +138,59 @@ a:hover {
       <p class="p1">投稿した質問</p>
       <div class="question_area">
           <div class="horizontal1">
-            <a href="#" class="text2">質問</a>
-            <a href="#" class="text1 ">記事</a>
+            <a href="#" class="text1">質問</a>
+            <a href="#" class="text2 ">記事</a>
             <a href="#" class="text1 ">投稿</a>
           </div>
           
           <div class="naiyou_area">
             <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+
+              <div class="naiyou">
+                <div class="circle_area2">
+                  <div class="circle2"></div>
+                    <p class="user2">@user</p>
+                </div>
+                <div class="syousai_area">
+                  <p class="day">yyyy/mm/ddに投稿</p>
+                  <p class="title">タイトル</p>
+                  <div class="tag_area">
+                      <img src="./images/pin.png" alt="" class="img2">
+                      <p class="tag">タグ</p>
+                  </div>
+                  <p class="answer">回答件数：xx</p>
+                </div>
+                  
+                <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good">134</p>
+              </div>
+
+              <div class="naiyou">
                 <div class="circle_area2">
                   <div class="circle2"></div>
                     <p class="user2">@user</p>
