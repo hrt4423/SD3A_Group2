@@ -45,17 +45,17 @@
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
+                <a class="dropdown-item" href="">記事</a>
               </div>
           </div>
         </div>
       </div>
 
       <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="underline text">記事</a>
-        <a href="#" class="underline text">ランキング</a>
-        <a href="#" class="underline text">空き教室</a>
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
       </div>
 
     </div>
@@ -99,19 +99,7 @@
     }
   ?>
 
-  <script>
-    $(document).ready(function() {
-    // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-  </script>
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
