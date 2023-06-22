@@ -1,8 +1,8 @@
 <?php
 
+session_start();
 require_once('config.php');
 
-session_start();
 //POSTのvalidate
 if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
   echo '入力された値が不正です。';
@@ -27,7 +27,7 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['user_id'] = $row['user_id'];
   echo 'ログインしました。ホーム画面へ移動します';
-  header('Refresh: 5; URL=questiontimeline.php');
+  header('Refresh: 3; URL=questiontimeline.php');
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
   return false;
