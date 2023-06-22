@@ -75,7 +75,7 @@
 
     .underline {
       text-decoration: none; /* 下線をなくす */
-      display: inline-block;
+      /* display: inline-block; */
       width: 100%;
     }
 
@@ -127,7 +127,7 @@
   </div>
 
   <div class="horizontal">
-    <a href="#" class="underline text">質問</a>
+    <a href="../articlelist.php" class="underline text">質問</a>
     <a href="#" class="underline text">いいね</a>
     <a href="#" class="underline text">投稿</a>
   </div>
@@ -135,7 +135,7 @@
 </div>
 <!-- ここまでがヘッダー -->
 
-<script>
+<!-- <script>
     $(document).ready(function() {
      // リンクをクリックした時の処理
       $(".underline").click(function(e) {
@@ -147,7 +147,7 @@
         $(this).addClass("active");
       });
     });
-</script>
+</script> -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

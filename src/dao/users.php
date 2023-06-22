@@ -70,8 +70,24 @@
       $ps->bindValue(4, $userData['user_profile'], PDO::PARAM_STR);
       $ps->bindValue(5, $userData['thema_color_id'], PDO::PARAM_INT);
       $ps->bindValue(6, $id, PDO::PARAM_INT); 
-
+      
       $ps->execute();
+    }
+    
+
+    public function isEmailInDatabase(){
+      $pdo = $this -> dbConnect();
+      $sql = "SELECT user_mail FROM users WHERE user_mail=?";
+      $ps = $pdo -> prepare($sql);
+      $ps->bindValue(1, $_POST['user_mail'], PDO::PARAM_STR); 
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        return false;
+      }else{
+        return true;
+      } 
     }
 
     public function getUserNameById($id){
