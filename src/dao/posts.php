@@ -123,17 +123,47 @@
     }
 
     //記事、質問のみを返す, 該当するレコードがない場合は例外を返す
-    public function searchPostsByKeyword($keyword){
+    public function searchPostsByKeyword($keyword, int $sortType = 0){
       $pdo = $this -> dbConnect();
-      //SQLの生成
-      $sql = "SELECT P.* FROM posts as P 
-              LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
-              LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
-              WHERE (P.post_title LIKE ? OR
-              P.post_detail LIKE ? OR
-              T.tag_name LIKE ?)
-              AND post_category_id != 3;
-              ";
+
+      switch ($sortType) {
+        case 1:
+          //SQLの生成
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_time ASC
+                  ";
+          break;
+        case 2:
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_time DESC
+                  ";
+          break;
+        default:
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_priority DESC, 
+                  P.post_time DESC
+          ";
+          break;
+      }
+      
       //prepare:準備　戻り値を変数に保持
       $ps = $pdo -> prepare($sql);
 
@@ -150,11 +180,7 @@
         throw new Exception('キーワードに該当する投稿はありませんでした');
       }else{
         return $result;
-
       }
     }
   }
-
-
-
 ?>
