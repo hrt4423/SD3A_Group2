@@ -91,5 +91,26 @@
       } 
       return $userName;
     }
+
+    public function getUsercolor_code($id){
+      $pdo = $this->dbConnect();
+      $sql = "SELECT thema_color_code, sub_color_code FROM thema_colors WHERE thema_color_id = (
+          SELECT thema_color_id FROM users WHERE user_id = ?
+      )";
+      $ps = $pdo->prepare($sql);
+      $ps->bindValue(1, $id, PDO::PARAM_INT); 
+      $ps->execute();
+      $result = $ps->fetchAll();
+  
+      if(empty($result)){
+          echo '指定したIDに該当するデータはありません。';
+      }else{
+        foreach($result as $row){
+          $row['thema_color_code'];
+        }
+      }
+      
+      return $row;
+  }
   }
 ?>

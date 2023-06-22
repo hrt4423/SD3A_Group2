@@ -253,4 +253,19 @@ INSERT INTO images(post_id, image_path) VALUE
 (5, "dafault_image5.png"),
 (6, "dafault_image6.png");
 
+ALTER TABLE thema_colors
+ADD sub_color_code VARCHAR(128) NOT NULL,
+ADD rogo_img VARCHAR(128) NOT NULL;
+
+INSERT INTO thema_colors(sub_color_code) VALUE
+('#F9EDFF'),
+('#ECF4FF'),
+('#E7FFE9'),
+('#FEFFDF'),
+('#FFF8E4'),
+('#FFEEEE'),
+('#FFEAEA'),
+('#FFFFFF'),
+('#CECECE');
+
 COMMIT;
