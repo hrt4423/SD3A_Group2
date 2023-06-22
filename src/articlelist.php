@@ -187,12 +187,10 @@ echo '</script>';
     <div class="sele_area1">
       <select class="select1">
       <option value="" disabled selected>タグ</option>
-          <?php
-          foreach($search2 as $tag){
-            <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
-            <?= $tag['tag_name'] ?></option>
-          }
-          ?>
+        <?php foreach($search2 as $tag) : ?>
+          <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
+          <?= $tag['tag_name'] ?></option>
+        <?php endforeach; ?>
       </select>
     </div>
       <!--タグ検索ボタン終了-->
