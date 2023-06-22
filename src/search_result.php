@@ -17,8 +17,8 @@
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
+        $user_id = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($user_id);
       ?>
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
@@ -62,6 +62,32 @@
   <!-- ここまでがヘッダー -->
 
   <h1>検索結果</h1>
+  <form action="./search_result.php" method="GET" id="sort-form">
+    <select name="sort_type" id="sort-type">
+
+      <option value="" disabled selected> 
+        <?php 
+          switch ($_GET['sort_type']) {
+            case 1:
+              echo '昇順';
+              break;
+            case 2:
+              echo '降順';
+              break;
+            default:
+              echo 'デフォルト';
+              break;
+          }
+        ?> 
+      </option>
+
+      <option value="0">デフォルト</option>
+      <option value="1">昇順</option>
+      <option value="2">降順</option>
+    </select>
+    <input type="hidden" name="keyword" value="<?= $_GET['keyword'] ?>">
+    <input type="submit" value="ソート">
+  </form>
 
   <?php
     require_once('./dao/posts.php');
@@ -73,9 +99,21 @@
     require_once('./dao/attached_tags.php');
     $attachedTags = new AttachedTags;
 
+
     //検索処理。検索結果がない場合は例外が投げられるので例外処理を行う
     try{
-      $result = $posts -> searchPostsByKeyword($_GET['keyword']);
+      switch ($_GET['sort_type']) {
+        case 0:
+          $result = $posts -> searchPostsByKeyword($_GET['keyword']);
+          break;
+        case 1: //ASC
+          $result = $posts -> searchPostsByKeyword($_GET['keyword'], 1);
+          break;
+        case 2: //DESC
+          $result = $posts -> searchPostsByKeyword($_GET['keyword'], 2);
+          break;
+      }
+
       foreach($result as $row) { 
   ?>
 
@@ -99,7 +137,6 @@
     }
   ?>
 
-  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

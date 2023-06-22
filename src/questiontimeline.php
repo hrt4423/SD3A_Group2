@@ -70,14 +70,17 @@
 
           <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
+
             <form action="./search_result.php" method="GET" id="search-form">
               <div class="input-group-prepend">
                 <button type="submit" class="input-group-text" id="search-button">
                   <i class="fa fa-search"></i>
                 </button>
               </div>
+              <input type="hidden" name="sort_type" value="0">
               <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
             </form>
+
           </div>
           <a href="./profile_question.php" class="circle">
             <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
@@ -133,7 +136,7 @@
     <div class="select_area">
       <div class="sele_area1">
         <select class="select1">
-        <option value="" disabled selected>タグ</option>
+          <option value="" disabled selected>タグ</option>
 
           <?php foreach($search2 as $tag) : ?>
             <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
