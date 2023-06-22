@@ -1,9 +1,15 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<link rel="stylesheet" href="/src/css/classroom2.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <link rel="stylesheet" href="/src/css/classroom2.css">
+    <link rel="stylesheet" href="./css/header.css">
 	<title>教室共有画面</title>
 	<style>
         body {
@@ -32,12 +38,60 @@
 	</style>
 </head>
 <body>
+    <!-- ここからがヘッダー -->
+        <div class="header_size">
+        <?php
+            require_once('./dao/Users.php');
+            $users = new Users;
+            $USESR_ID = $_SESSION['user_id'];
+            $userIconPath = $users->getUserIconPathById($USESR_ID);
+        ?>
+        <div class="horizontal">
+            <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+            <div class="right">
+
+            <!-- 検索フォーム -->
+            <div class="input-group mb-3 search" >
+                <form action="./search_result.php" method="GET" id="search-form">
+                <div class="input-group-prepend">
+                    <button type="submit" class="input-group-text" id="search-button">
+                    <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+                </form>
+            </div>
+            <a href="./profile_question.php" class="circle">
+                <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+            </a>
+            
+            <div class="dropdown">
+                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                投稿する
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                    <a class="dropdown-item" href="#">記事</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="horizontal">
+            <a href="./questiontimeline.php" class="underline text">質問</a>
+            <a href="./articlelist.php" class="underline text">記事</a>
+            <a href="./Ranking.php" class="underline text">ランキング</a>
+            <a href="./classroom.php" class="underline text">空き教室</a>
+        </div>
+        </div>
+    <!-- ここまでがヘッダー -->
+
     <div style="text-align:center">
         <div class="example2">
 	        <div class="container">
 		        <div class="row">
                     <div class="col">
-                        <input type="checkbox" id="131" name="example2"><label for="131">131</label>
+                        <input type="checkbox" id="131" name="example2"><label for="131" >131</label>
                     </div>
                     <div class="col">
                         <input type="checkbox" id="132" name="example2"><label for="132">132</label>
@@ -154,7 +208,10 @@
 	    </div>
 	    <h1>＊空いている：緑　＊空いていなかった：グレー</h1>
     </div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="./script/script.js"></script>
 </body>
 </html>

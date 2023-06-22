@@ -1,10 +1,10 @@
 <?php
+session_start();
 
 function h($s){
   return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
 }
 
-session_start();
 //ログイン済みの場合
 if (isset($_SESSION['user_id'])) {
   echo 'ようこそ' .  h($_SESSION['user_id']) . "さん<br>";
