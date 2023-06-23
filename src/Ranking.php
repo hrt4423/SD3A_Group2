@@ -148,7 +148,7 @@
           if($beforepoint !=$row['point_sum']){
             $rank=$count;
           }
-          echo '<table><tr>
+          echo '<tr>
             <td>
             '.$rank.'
             </td>
@@ -161,7 +161,7 @@
             <td class="point_sum">
             '.$row["point_sum"].'
             </td>   
-            </tr></table>';
+            </tr>';
           $beforepoint=$row['point_sum'];
           $count++;
         
