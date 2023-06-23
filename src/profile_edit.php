@@ -27,8 +27,165 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
   <title>profile-edit</title>
+  <style>
+    .btn-primary{
+      background-color: purple;
+      color: white;
+    }
+body {
+    background-color: #FAEEFF;
+    font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320))); 
+}
+.square {
+  background-color: #FFF;
+  border-radius: 2vw;
+}
+.square2 {
+  padding-left: 15vw; /* 左側の余白 */
+  padding-right: 15vw; /* 右側の余白 */
+}
+input[type="file"] {
+    display: none;
+}
+label {
+  background-color: purple;
+      color: white;
+    cursor: pointer;
+}
+.btn-purple {
+      background-color: #653A91;
+      border-color: #653A91;
+      color: #fff;
+    }
+    .btn-purple:hover {
+      background-color: #4b2661;
+      border-color: #4b2661;
+      color: #fff;
+    }
+    .btn-purple:focus {
+      box-shadow: none;
+      color: #fff;
+    }
+
+    .header_size {
+      height: 150px;
+      background-color: #b164ff;
+    }
+
+    .horizontal {
+      display: flex;
+      text-align: center;
+    }
+
+    .search {
+      width: 200px;
+      height: 37px;
+      margin-right: 20px;
+    }
+
+    .right {
+      margin-left: auto;
+      display: flex;
+      margin-top: 15px;
+    }
+
+    .text {
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      flex-grow: 1;
+      margin-top: 35px;
+    }
+
+    .circle {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      background-color: #653A91;
+      margin-right: 20px;
+    }
+
+    .btn-purple {
+      background-color: #653a91;
+      color: #fff;
+    }
+
+    .btn {
+      margin-right: 20px;
+    }
+
+    .underline {
+      text-decoration: none; /* 下線をなくす */
+      display: inline-block;
+      width: 100%;
+    }
+
+    .underline.active {
+      text-decoration: underline; 
+      border-bottom: 10px solid #653A91;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: white;
+      border-bottom: none;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
+  <div class="header_size">
+  <div class="horizontal">
+      <img class="logo" src="../images/logo.png" height="60" alt="ロゴ">
+    <div class="right">
+
+      <div class="input-group mb-3 search" >
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+          <i class="fa fa-search"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+      </div>
+
+      <div class="circle"></div>
+      
+
+      <div class="dropdown">
+        <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          投稿する
+        </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">質問</a>
+            <a class="dropdown-item" href="#">記事</a>
+           </div>
+          </div>
+
+    </div>
+  </div>
+
+  <div class="horizontal">
+    <a href="#" class="underline text">質問</a>
+    <a href="#" class="underline text">いいね</a>
+    <a href="#" class="underline text">投稿</a>
+  </div>
+
+</div>
+<!-- ここまでがヘッダー -->
+
+<script>
+    $(document).ready(function() {
+     // リンクをクリックした時の処理
+      $(".underline").click(function(e) {
+        e.preventDefault(); // デフォルトのリンク遷移を防止
+
+        // すでにアクティブなリンクがある場合、その下線を消す
+        $(".underline.active").removeClass("active");
+        // クリックされたリンクに下線をつける
+        $(this).addClass("active");
+      });
+    });
+</script>
   <?php
     require_once('./dao/Users.php');
     $users = new Users;
@@ -44,35 +201,85 @@
   ?>
 
   <div class="container-fluid">
-    <h1>プロフィール編集</h1>
-    <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
-    
-    <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
-      <p>アイコンを変更</p>
-      <input type="file" name="file_upload" value="a">
-      <input type="submit" value="アイコンを変更">
-    </form>
+    <h1 style="text-align:center;">プロフィール編集</h1>
     <hr>
-    <form action="./submit_profile.php" method="post" id="profile-edit">
-      <input type="text" name="user_name" value="<?= $userName ?>"><br>
-      <input type="text" name="user_mail" value="<?= $userMail ?>"><br>
-      <input type="text" name="user_pass" value="<?= $userPassword ?>"><br>
-      <select name="thema_color_id">
-        <option value="1">Purple</option>
-        <option value="2">Blue</option>
-        <option value="3">Green</option>
-        <option value="4">Yellow</option>
-        <option value="5">Orange</option>
-        <option value="6">Red</option>
-        <option value="7">Pink</option>
-        <option value="8">White</option>
-        <option value="9">Black</option>
-      </select><br>
-      <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea><br>
-      <button type="submit" class="btn btn-primary" >変更</button>
-    </form>
+    <div class="square2">
+    <div style="display:flex;" class="square">
+    <div style="width:5%;">
+    </div>
+    <div style="width:30%;">
+      <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;" >
+      <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
+        <p>アイコンを変更</p>
+        <label >
+        <input type="file" name="file_upload" value="a">ファイルを選択
+        </label>
+        
+        <input type="submit" value="アイコンを変更">
+      </form>
+    </div>
+    <div class="container">
+		  <div class="row">
+		  	<div class="col">
+				  <p>ユーザ名</p>
+		    </div>
+		  	<div class="col">
+				  <input type="text" name="user_name" value="<?= $userName ?>">
+			  </div>
+		  </div>
+      <div class="row">
+		  	<div class="col">
+				  <p>メールアドレス</p>
+		  	</div>
+		  	<div class="col">
+				  <input type="text" name="user_mail" value="<?= $userMail ?>">
+		  	</div>
+		  </div>
+      <div class="row">
+		  	<div class="col">
+			  	<p>パスワード</p>
+		  	</div>
+		  	<div class="col">
+				  <input type="text" name="user_pass" value="<?= $userPassword ?>">
+		  	</div>
+		  </div>
+    <div class="row">
+			<div class="col">
+				<p>カラー</p>
+		  </div>
+			<div class="col">
+				<select name="thema_color_id">
+          <option value="1">Purple</option>
+          <option value="2">Blue</option>
+          <option value="3">Green</option>
+          <option value="4">Yellow</option>
+          <option value="5">Orange</option>
+          <option value="6">Red</option>
+          <option value="7">Pink</option>
+          <option value="8">White</option>
+          <option value="9">Black</option>
+        </select>
+		  </div>
+		</div>
+    <div class="row">
+		  <div class="col">
+			  <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea>
+			</div>
+		</div>
+    <div style="width:5%;">
+    </div>
     
+
+    </div>
   </div>
+</div>
+
+<br>
+  <div style="text-align:center;">
+    <button type="submit" class="btn btn-primary" >変更</button> 
+  </div>
+  </div>
+
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
