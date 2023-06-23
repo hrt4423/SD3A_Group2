@@ -146,7 +146,9 @@
         $stmt ->execute();
         while($row=$stmt->fetch()){
           if($beforepoint !=$row['point_sum']){
-            echo '<div >
+            $rank=$count;
+          }
+          echo '<div >
             <p class="user_icon">
              '.$row["user_icon"].'
             </P>
@@ -158,8 +160,6 @@
             </p>
             </button>   
             </div>';
-            $rank=$count;
-          }
           $beforepoint=$row['point_sum'];
           $count++;
         
