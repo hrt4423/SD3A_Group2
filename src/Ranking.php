@@ -147,8 +147,6 @@
         while($row=$stmt->fetch()){
           if($beforepoint !=$row['point_sum']){
             echo '<div >
-            <input type="hidden" name="post_id" value="["post_id"]">
-            <button class="allrank">
             <p class="user_icon">
              '['user_icon']'
             </P>
