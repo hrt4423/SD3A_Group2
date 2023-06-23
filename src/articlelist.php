@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,174 +13,113 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="css/questiontimeline.css" rel="stylesheet">
+  <link href="./css/header.css" rel="stylesheet">
   <script src="js/questiontimeline.js"></script>
   <style>
-    .btn-purple {
-  background-color: #653A91;
-  border-color: #653A91;
-  color: #fff;
-}
-.btn-purple:hover {
-  background-color: #4b2661;
-  border-color: #4b2661;
-  color: #fff;
-}
-.btn-purple:focus {
-  box-shadow: none;
-  color: #fff;
-}
-
-.header_size {
-  /* height: 150px; */
-  background-color: #b164ff;
-}
-
-.horizontal {
-  display: flex;
-  text-align: center;
-  height: 4vw;
-}
-
-.search {
-  width: 200px;
-  height: 37px;
-  margin-right: 20px;
-}
-
-.right {
-  margin-left: auto;
-  display: flex;
-  margin-top: 1.5vw;
-}
-
-.text {
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  flex-grow: 1;
-  margin-top: 1vw;
-}
-
-.circle {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  background-color: #653A91;
-  margin-right: 20px;
-}
-
-.btn-purple {
-  background-color: #653a91;
-  color: #fff;
-}
-
-.btn {
-  margin-right: 20px;
-}
-
-.underline {
-  text-decoration: none; /* 下線をなくす */
-  display: inline-block;
-  border-bottom: 10px solid #653A91;
-}
-
-a:hover {
-  text-decoration: none;
-  color: white;
-  width: 2vw;
-}
-.logo{
-  margin-top: 0.9vw;
-  width: 10vw;
-  height: 2.7vw;
-}
-.test {
-  width: 100px;
-  height: 100px;
-  background-color: #b164ff;
-}
+    .logo{
+      margin-top: 0.9vw;
+      width: 10vw;
+      height: 2.7vw;
+    }
+    .test {
+      width: 100px;
+      height: 100px;
+      background-color: #b164ff;
+    }
   </style>
 </head>
 <?php
 
-try{
-  require_once './DAO/articleposts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->post();//データ取得
-  echo '<script>';
-echo 'console.log(' . json_encode($search) . ')';
-echo '</script>';
+  try{
+    require_once './DAO/articleposts.php';
+    $postAll = new DAO_post();
+    $search = $postAll->post();//データ取得
+    echo '<script>';
+    echo 'console.log(' . json_encode($search) . ')';
+    echo '</script>';
 
-require_once './dao/tags.php';
-$tagAll = new DAO_tag();
-$search2 = $tagAll->tags();
-echo '<script>';
-echo 'console.log(' . json_encode($search2) . ')';
-echo '</script>';
-}catch(Exception $ex){
-  echo $ex->getMessage();
-}catch(Error $err){
-  echo $err->getMessage();
-}
+    require_once './dao/tags.php';
+    $tagAll = new DAO_tag();
+    $search2 = $tagAll->tags();
+    echo '<script>';
+    echo 'console.log(' . json_encode($search2) . ')';
+    echo '</script>';
+  }catch(Exception $ex){
+    echo $ex->getMessage();
+  }catch(Error $err){
+    echo $err->getMessage();
+  }
 ?>
 <body id="body">
-<div class="header_size">
+  <!-- ここからがヘッダー -->
+    <div class="header_size">
+      <?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
-          <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
         <div class="right">
 
+          <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-              <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-          </div>
-
-          <div class="circle"></div>
-            <div class="dropdown">
-                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  投稿する
+            <form action="./search_result.php" method="GET" id="search-form">
+              <div class="input-group-prepend">
+                <button type="submit" class="input-group-text" id="search-button">
+                  <i class="fa fa-search"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="questiontimeline.php">質問</a>
-                  <a class="dropdown-item" href="#">記事</a>
-                </div>
-            </div>
+              </div>
+              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+            </form>
+          </div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
+          
+          <div class="dropdown">
+            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              投稿する
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                <a class="dropdown-item" href="#">記事</a>
+              </div>
+          </div>
         </div>
       </div>
 
       <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="text">いいね</a>
-        <a href="#" class="text">投稿</a>
-        <a href="#" class="text">ランキング</a>
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
       </div>
     </div>
-<!-- ↑ヘッダー -->
-<?php
+  <!-- ここまでがヘッダー -->
 
-try{
-  require_once './DAO/articleposts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->post();//データ取得
-  echo '<script>';
-echo 'console.log(' . json_encode($search) . ')';
-echo '</script>';
+  <?php
+    try{
+      require_once './DAO/articleposts.php';
+      $postAll = new DAO_post();
+      $search = $postAll->post();//データ取得
+      echo '<script>';
+    echo 'console.log(' . json_encode($search) . ')';
+    echo '</script>';
 
-require_once './dao/tags.php';
-$tagAll = new DAO_tag();
-$search2 = $tagAll->tags();
-echo '<script>';
-echo 'console.log(' . json_encode($search2) . ')';
-echo '</script>';
-}catch(Exception $ex){
-  echo $ex->getMessage();
-}catch(Error $err){
-  echo $err->getMessage();
-}
-?>
+    require_once './dao/tags.php';
+    $tagAll = new DAO_tag();
+    $search2 = $tagAll->tags();
+    echo '<script>';
+    echo 'console.log(' . json_encode($search2) . ')';
+    echo '</script>';
+    }catch(Exception $ex){
+      echo $ex->getMessage();
+    }catch(Error $err){
+      echo $err->getMessage();
+    }
+  ?>
 
   <!-- <fieldset class="frameborder"> -->
     <!--タグ検索ボタン-->
@@ -245,20 +185,6 @@ echo '</script>';
    <!--質問画面遷移ボタン終了-->
   <!-- </form>
   </fieldset> -->
-  <script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

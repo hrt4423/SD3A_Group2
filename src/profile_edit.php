@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -32,7 +33,7 @@
   <?php
     require_once('./dao/Users.php');
     $users = new Users;
-    $USESR_ID = 1;
+    $USESR_ID = $_SESSION['user_id'];
     $userIconPath = $users->getUserIconPathById($USESR_ID);
     $userData[] = $users->getUserDataById($USESR_ID);
     //var_dump($userData);
@@ -71,6 +72,7 @@
       <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea><br>
       <button type="submit" class="btn btn-primary" >変更</button>
     </form>
+    <a href="./profile_question.php">戻る</a>
     
   </div>
 
