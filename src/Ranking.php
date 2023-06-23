@@ -132,8 +132,7 @@
     </div>
 <!-- ↑ヘッダー -->
 <?php
-$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
-               'root','');
+$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8','root','root');
 $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
 $stmt ->execute();
 foreach($stmt->fetchAll() as $row){
