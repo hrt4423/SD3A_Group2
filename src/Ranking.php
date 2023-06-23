@@ -148,13 +148,13 @@
           if($beforepoint !=$row['point_sum']){
             echo '<div >
             <p class="user_icon">
-             "["user_icon"]"
+             "$row["user_icon"]"
             </P>
             <p class="user_name">
-           "["user_name"]"
+           "$row["user_name"]"
             </p>
             <p class="point_sum">
-            "["point_sum"]"
+            "$row["point_sum"]"
             </p>
             </button>   
             </div>';
