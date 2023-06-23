@@ -59,7 +59,7 @@
 
       $ps->execute();
     }
-
+    
     public function updateProfile($id, $userData){
       $pdo = $this -> dbConnect();
       $sql = "UPDATE users SET user_name=?, user_mail=?, user_pass=?, user_profile=?, thema_color_id=? WHERE user_id=?";

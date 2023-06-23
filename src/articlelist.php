@@ -127,11 +127,10 @@
     <div class="sele_area1">
       <select class="select1">
       <option value="" disabled selected>タグ</option>
-          <?php
-          foreach($search2 as $tag){
-            echo'<option value ="'.$tag['tag_id'].'" style="color: black;">' . $tag['tag_name']. '</option>';
-          }
-          ?>
+        <?php foreach($search2 as $tag) : ?>
+          <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
+          <?= $tag['tag_name'] ?></option>
+        <?php endforeach; ?>
       </select>
     </div>
       <!--タグ検索ボタン終了-->
@@ -155,6 +154,8 @@
  <div class="question_area">
     <?php foreach($search as $post){
         echo '<div >
+        <form action="article_detail.php" method="post">
+        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
         <button class="question">
           <p class="user2">
            '.$post['user_name'].'
@@ -177,6 +178,7 @@
                 </div>
                 <p class="good">'.$post['good_count'].'</p>
         </button>   
+        </form>
       </div>';
     }
     ?>
