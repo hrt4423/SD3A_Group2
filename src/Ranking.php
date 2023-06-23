@@ -144,6 +144,7 @@
         $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
         $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
         $stmt ->execute();
+        echo "<table>";
         while($row=$stmt->fetch()){
           if($beforepoint !=$row['point_sum']){
             $rank=$count;
@@ -166,6 +167,7 @@
           $count++;
         
     }
+    echo "</table>";
     ?>
         </div>
       </div>
