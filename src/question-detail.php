@@ -171,7 +171,7 @@
                   </div>
                   <!--いいねボタン-->
                   <div class="good-button-area">
-                    <button class="btn" id="good">
+                    <button class="btn" id="good" onclick="handlegood1()">
                       <i
                         name="good-button"
                         class="bi bi-hand-thumbs-up-fill"
@@ -384,9 +384,9 @@
             <button class="btn" id="edit">編集</button>
             <br />
             <div class="good">
-              <button class="btn" id="good">
+              <button class="btn" id="good" onclick="handlegood()">
                 <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                <span id="good-amount"></span>
+                <span id="good-amount"><?php echo $search[0]['good_count']?></span>
               </button>
             </div>
           </div>
@@ -487,6 +487,50 @@
         var div = document.getElementById("styled-output");
         div.classList.toggle("active");
       }
+
+      function handlegood() {
+          <?php
+          try {
+              require_once './DAO/good.php';
+              $good = new Good();
+              $post_id = $_GET['post_id'];
+              $user_id = $search[0]['user_id'];
+
+              // insertgood()メソッドを実行
+              $insert = $good->insertgood($user_id, $post_id);
+
+              echo 'console.log(' . json_encode($insert) . ')';
+              echo 'console.log(' . json_encode($count) . ')';
+
+          } catch (Exception $ex) {
+              echo 'console.log(' . json_encode($ex->getMessage()) . ')';
+          } catch (Error $err) {
+              echo 'console.log(' . json_encode($err->getMessage()) . ')';
+          }
+          ?>
+        }
+
+function handlegood1() {
+    <?php
+    try {
+        require_once './DAO/good.php';
+        $good = new Good();
+        $post_id = $_GET['post_id'];
+        $user_id = $coment[0]['user_id'];
+
+        // insertgood()メソッドを実行
+        $insert = $good->insertgood($user_id, $post_id);
+
+        echo 'console.log(' . json_encode($insert) . ')';
+        echo 'console.log(' . json_encode($count) . ')';
+
+    } catch (Exception $ex) {
+        echo 'console.log(' . json_encode($ex->getMessage()) . ')';
+    } catch (Error $err) {
+        echo 'console.log(' . json_encode($err->getMessage()) . ')';
+    }
+    ?>
+}
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
