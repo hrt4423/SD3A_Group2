@@ -66,7 +66,7 @@
       $ps = $pdo -> prepare($sql);
       $ps->bindValue(1, $userData['user_name'], PDO::PARAM_STR);
       $ps->bindValue(2, $userData['user_mail'], PDO::PARAM_STR);
-      $ps->bindValue(3, $userData['user_pass'], PDO::PARAM_STR);
+      $ps->bindValue(3, password_hash($userData['user_pass'],PASSWORD_DEFAULT), PDO::PARAM_STR);
       $ps->bindValue(4, $userData['user_profile'], PDO::PARAM_STR);
       $ps->bindValue(5, $userData['thema_color_id'], PDO::PARAM_INT);
       $ps->bindValue(6, $id, PDO::PARAM_INT); 
