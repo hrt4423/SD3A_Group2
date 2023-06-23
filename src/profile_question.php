@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
+$id=$_SESSION['user_id'];
+require_once('config.php');
+  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+  $stmt = $pdo->prepare('select * from users where user_id = ?');
+  $stmt->execute([$id]);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,123 +30,169 @@
   background-color: #653A91;
   border-color: #653A91;
   color: #fff;
-}
-.btn-purple:hover {
-  background-color: #4b2661;
-  border-color: #4b2661;
-  color: #fff;
-}
-.btn-purple:focus {
-  box-shadow: none;
-  color: #fff;
-}
+  }
+  .btn-purple:hover {
+    background-color: #4b2661;
+    border-color: #4b2661;
+    color: #fff;
+  }
+  .btn-purple:focus {
+    box-shadow: none;
+    color: #fff;
+  }
 
-.header_size {
-  /* height: 150px; */
-  background-color: #b164ff;
-}
+  .header_size {
+    /* height: 150px; */
+    background-color: #b164ff;
+  }
 
-.horizontal {
-  display: flex;
-  text-align: center;
-  height: 4.5vw;
-}
+  .horizontal {
+    display: flex;
+    text-align: center;
+    height: 4.5vw;
+  }
 
-.search {
-  width: 200px;
-  height: 37px;
-  margin-right: 20px;
-}
+  .search {
+    width: 200px;
+    height: 37px;
+    margin-right: 20px;
+  }
 
-.right {
-  margin-left: auto;
-  display: flex;
-  margin-top: 1.5vw;
-}
+  .right {
+    margin-left: auto;
+    display: flex;
+    margin-top: 1.5vw;
+  }
 
-.text {
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  flex-grow: 1;
-}
+  .text {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    flex-grow: 1;
+  }
 
-.circle {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  background-color: #653A91;
-  margin-right: 20px;
-}
+  .circle {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: #653A91;
+    margin-right: 20px;
+  }
 
-.btn-purple {
-  background-color: #653a91;
-  color: #fff;
-}
+  .btn-purple {
+    background-color: #653a91;
+    color: #fff;
+  }
 
-.btn {
-  margin-right: 20px;
-}
+  .btn {
+    margin-right: 20px;
+  }
 
-.underline {
-  text-decoration: none; /* 下線をなくす */
-  display: inline-block;
-  border-bottom: 10px solid #653A91;
-}
+  .underline {
+    text-decoration: none; /* 下線をなくす */
+    display: inline-block;
+    border-bottom: 10px solid #653A91;
+  }
 
-a:hover {
-  text-decoration: none;
-  color: white;
-  width: 2vw;
-}
-.logo{
-  margin-top: 0.9vw;
-  width: 10vw;
-  height: 2.7vw;
-}
+  a:hover {
+    text-decoration: none;
+    color: white;
+    width: 2vw;
+  }
+  .logo{
+    margin-top: 0.9vw;
+    width: 10vw;
+    height: 2.7vw;
+  }
   </style>
 </head>
 <body class="body">
 
+  <!-- ここからがヘッダー -->
+  <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
     <div class="header_size">
+      <?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
-          <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
+        <a href="./questiontimeline.php">
+          <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        </a>
         <div class="right">
 
+          <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-              <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-          </div>
-
-          <div class="circle"></div>
-            <div class="dropdown">
-                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  投稿する
+            <form action="./search_result.php" method="GET" id="search-form">
+              <div class="input-group-prepend">
+                <button type="submit" class="input-group-text" id="search-button">
+                  <i class="fa fa-search"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">質問</a>
-                  <a class="dropdown-item" href="#">記事</a>
-                </div>
-            </div>
+              </div>
+              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+            </form>
+          </div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
+          
+          <div class="dropdown">
+            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              投稿する
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                <a class="dropdown-item" href="#">記事</a>
+              </div>
+          </div>
         </div>
       </div>
 
+      <!-- <div class="horizontal">
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
+      </div> -->
     </div>
-<!-- ↑ヘッダー -->
+  <!-- ここまでがヘッダー -->
 <div class="profile">
     <div class="profile_area">
       <div class="circle_area">
         <div class="circle1"></div>
       </div>
-      <p class="user_name">平田</p>
-      <p class="user_mail">hirata@gmail.com</p>
-      <p class="user_point">999pt</p>
-      <a href="" class="link">編集</a>
+      <?php
+      echo"<p class='user_name'>".h($row['user_name'])."</p>";
+      echo"<p class='user_mail'>".h($row['user_mail'])."</p>";
+      echo"<p class='user_point'>".h($row['user_point'])."</p>";
+      ?>
+      <a href='./profile_edit.php' class='link'>編集</a>
     </div>
+
+    <?php
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->prof_post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
+
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
 
     <div class="my_area">
       <p class="p1">投稿した質問</p>
@@ -144,74 +204,36 @@ a:hover {
           </div>
           
           <div class="naiyou_area">
-            <div class="naiyou">
+          <?php foreach($search as $post){
+        echo '<div class="naiyou">
                 <div class="circle_area2">
                   <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
-                  <div class="tag_area">
-                      <img src="./images/pin.png" alt="" class="img2">
-                      <p class="tag">タグ</p>
+          		<p class="user2">
+           		'.$post['user_name'].'
+          		</p>
+		  </div>
+		<div class="syousai_area">
+          	  <p class="day">
+            	  ' . $post['post_time'] . 'に投稿
+          	  </p>
+		  <p class="title">
+                  ' . $post['post_title'] . '
+                  </p>
+          	  <div class="tag_area">
+                  <img src="./images/pin.png" alt="" class="img2">
+                  <p class="tag">タグ</p>
                   </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
+		</div>
+          
+          <div class="good_area">
                   <div class="good_img">
                     <img src="./images/good.png" alt="" class="img3">
                   </div>
                 </div>
-                <p class="good">134</p>
-              </div>
-
-              <div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
-                  <div class="tag_area">
-                      <img src="./images/pin.png" alt="" class="img2">
-                      <p class="tag">タグ</p>
-                  </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
-
-              <div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-                    <p class="user2">@user</p>
-                </div>
-                <div class="syousai_area">
-                  <p class="day">yyyy/mm/ddに投稿</p>
-                  <p class="title">タイトル</p>
-                  <div class="tag_area">
-                      <img src="./images/pin.png" alt="" class="img2">
-                      <p class="tag">タグ</p>
-                  </div>
-                  <p class="answer">回答件数：xx</p>
-                </div>
-                  
-                <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
+                <p class="good">'.$post['good_count'].'</p>
+      </div>';
+    }
+    ?>
           </div>
 
       </div>
@@ -219,7 +241,7 @@ a:hover {
 </div>
 
 
-  <script>
+  <!-- <script>
     $(document).ready(function() {
      // リンクをクリックした時の処理
       $(".underline").click(function(e) {
@@ -231,7 +253,7 @@ a:hover {
         $(this).addClass("active");
       });
     });
-</script>
+</script> -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

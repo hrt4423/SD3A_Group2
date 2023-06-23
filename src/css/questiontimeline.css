@@ -1,217 +1,122 @@
-/*タグ検索ボタン */
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
+#body{
+  padding: 0;
+  margin: 0;
+  background-color: #FAEEFF;
 }
-html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 62.5%;
+.select_area{
+  display: flex;
+  margin-top: 3vw;
+  margin-left: 5vw;
 }
-.btn,
-a.btn,
-button.btn {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.5;
-  position: relative;
-  display: inline-block;
-  padding: 1rem 4rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+
+.select1{
+  width: 6vw;
+  height: 3vw;
+  border-radius: 0.5vw;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #212529;
-  border-radius: 0.5rem;
-  top: 0px;
-  left:220px;
 }
-/*タグ検索ボタン背景*/
-.btn-wrap {
-  margin: 20px;
+option{
+  color: black;
 }
-a.btn-switch {
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 100vh;
-  background: #fbfbfc;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#fbfbfc),
-    to(#dcddde)
-  );
-  background: -webkit-linear-gradient(top, #fbfbfc 0%, #dcddde 100%);
-  background: linear-gradient(180deg, #fbfbfc 0%, #dcddde 100%);
-  -webkit-box-shadow: -1px -5px 6px rgba(0, 0, 0, 0.2), 3px 3px 5px white,
-    0 10px 10px rgba(0, 0, 0, 0.1), inset 0 -4px 5px rgba(0, 0, 0, 0.1);
-  box-shadow: -1px -5px 6px rgba(0, 0, 0, 0.2), 3px 3px 5px white,
-    0 10px 10px rgba(0, 0, 0, 0.1), inset 0 -4px 5px rgba(0, 0, 0, 0.1);
+.select2{
+  margin-left: 70vw;
+  width: 7vw;
+  height: 3vw;
+  border-radius: 0.5vw;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
 }
-a.btn-switch span {
-  display: inline-block;
-
-  -webkit-transition: all 0.3s;
-
-  transition: all 0.3s;
+.question_area{
+  margin-top: 3vw;
+  margin-left: 18vw;
+  width: 60vw;
+  height: 33vw;
+  overflow:auto;
+ 
 }
-a.btn-switch:hover {
-  -webkit-box-shadow: -1px -5px 6px rgba(0, 0, 0, 0.2), 3px 3px 5px white,
-    0 10px 10px rgba(0, 0, 0, 0.1), inset 0 -4px 5px rgba(0, 0, 0, 0.1),
-    inset 0 3px 3px rgba(0, 0, 0, 0.18);
-  box-shadow: -1px -5px 6px rgba(0, 0, 0, 0.2), 3px 3px 5px white,
-    0 10px 10px rgba(0, 0, 0, 0.1), inset 0 -4px 5px rgba(0, 0, 0, 0.1),
-    inset 0 3px 3px rgba(0, 0, 0, 0.18);
+.question{
+  width: 60vw;
+  height: 10vw;
+  margin-top: 1vw;
+  background-color: white;
+  border-radius: 0.2vw;
+  border:none;
+  position: relative;
+  text-align: start;
 }
-a.btn-switch:hover span {
-  -webkit-transform: scale(0.96);
-  transform: scale(0.96);
+.good_area{
+  width: 5vw;
+  height: 4vw;
+  border-radius: 30px; /* 角丸を10pxに設定 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1.2vw;
+  left: 53vw;
 }
-/*タグ検索ボタン終了*/
-/*並び替えセレクトボックス*/
-.mamListBox{
-  width:160px;
-  height:40px;
-  vertical-align:middle;
-  position:relative;
-  padding:0;
+.good_img{
+  width: 5vw;
+  height: 3vw;
+  background-color: #B164FF;
+  border-radius: 50px; /* 角丸を10pxに設定 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img3{
+  width: 1.5vw;
+  height: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+.user2{
   margin:0;
-  z-index:100;
-  font-size: 25px;
-  top: -65px; 
-  left:1150px;
+  font-size: 0.7vw;
+  margin-left: 1vw;
 }
-.mamListBox>a{
-  display:block;
-  text-decoration:none;
-  vartical-align:middle;
-  background:#FFF;
-  color:#000;
-  border:1px solid #CCC;
-  box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.4);
-  height:100%;
-  width:90%;
-  border-radius:8px;
-}
-.mamListBox>a:active{
-  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.4) inset;
-  padding-top:4px;
-}
-.mamListBox>a>div{
-  padding:4px;
-  display:inline-block;
-  position:absolute;
-  transform:translateY(-50%);
-  top:50%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow:ellipsis;
-  width:100%;
-}
-.mamListBox>select{
-  position:absolute;
-  margin:0;
-  display:none;
-  font-size:20pt;
-  box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.4);
-  border-radius:4px;
-  border:1px solid #CCC;
-}
-.mamListBox select:focus{outline: none;}
-/*並び替えセレクトボックス終了*/
-/*質問画面遷移ボタン*/
-.question1 button{
-  position: absolute;
-  top: 220px;
-  left:420px;
-  width: 700px;
-  height:150px;
-  border:none;
-  background-color:#FFF;
-}
-#user-name{
-  position: absolute;
-  top: 5px;
-  left:10px;
-  font-size: 20px;
-}
-#posted-date{
-  position: absolute;
-  top: 40px;
-  left:10px;
-  font-size: 15px;
-}
-#title{
-  position: absolute;
-  top: 65px;
-  left:10px;
-  font-size: 20px;
-}
-#tag{
-  position: absolute;
-  top: 95px;
-  left:10px;
-  font-size: 15px;
-}
-#number-of-responses{
-  position: absolute;
-  top: 120px;
-  left:10px;
-  font-size: 15px;
-}
-#good{
-  position: absolute;
-  top: 0px;
-  left:640px;
-  font-size: 25px;
-}
-#good-number{
-  position: absolute;
-  top: 30px;
-  left:643px;
-  font-size: 15px;
-}
-.question2 button{
-  position: absolute;
-  top: 400px;
-  left:420px;
-  width: 700px;
-  height:150px;
-  border:none;
-  background-color:#FFF
-}
-.question3 button{
-  position: absolute;
-  top: 580px;
-  left:420px;
-  width: 700px;
-  height:150px;
-  border:none;
-  background-color:#FFF
-}
-/*質問画面遷移ボタン終了*/
-/*背景色*/
-body{ 
-  background-color:#FAEEFF
-}
-/*背景色終了*/
-/*枠線*/
-.frameborder{
-  width: 80%;
-  height:580px;
-  padding-top: 0px;
-}
-/*枠線*/
 
+.day{
+  margin: 0;
+  font-size: 0.8vw;
+  margin-top: 0.3vw;
+  margin-left: 1.1vw;
+}
 
+.title{
+  font-size: 1.6vw;
+  font-weight: 0.7vw;
+  margin-left: 1vw;
+  margin-top: 0.3vw;
+}
+.tag_area{
+  display: flex;
+}
+.img2{
+  width: 1vw;
+  height: 1vw;
+  margin-left: 0.7vw;
+}
+
+.tag{
+  font-size: 0.6vw;
+  margin-left: 0.6vw;
+  margin-top: 0.1vw;
+}
+.answer{
+  font-size: 0.6vw;
+  margin-left: 0.7vw;
+}
+.good{
+  position: absolute;
+  font-size: 1.5vw;
+  font-weight: 0.7vw;
+  top: 5.5vw;
+  left: 55vw;
+}
 

@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+
+//ログイン済みの場合
+if (isset($_SESSION['user_id'])) {
+  echo 'ようこそ' .  h($_SESSION['user_id']) . "さん<br>";
+  echo "<a href='home.php'>ホーム画面はこちら。</a><br>";
+  echo "<a href='logout.php'>ログアウトはこちら。</a>";
+  exit;
+}
+
+ ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,15 +24,15 @@
     <title>login</title>
 </head>
 <body>
-  <img src="images/logo.png">
-    <form action="index.php" method="POST">
-      <p>ログインID：<input type="text" name="user_name"></p>
+<img src="images/logo.png">
+    <form action="logincheck.php" method="POST">
+      <p>メールアドレス：<input type="email" name="mail"></p>
       <p>パスワード：<input type="password" name="password"></p>
       <button type="submit" name="login">
         ログイン
       </button>
     </form>
-    <a href="sinnki">新規登録<a>
+    <a href="sinnki.php">新規登録<a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 <style>
@@ -25,7 +41,7 @@
     text-align:center
   }
   p{
-    width: 550px;
+    width: 650px;
     margin-left: auto;
     margin-right: auto;
     border-bottom:2px solid #660099;
