@@ -154,7 +154,7 @@
  <div class="question_area">
     <?php foreach($search as $post){
         echo '<div >
-        <form action="question-detail.php" method="post">
+        <form action="article_detail.php" method="post">
         <input type="hidden" name="post_id" value="'.$post['post_id'].'">
         <button class="question">
           <p class="user2">
