@@ -149,6 +149,9 @@
             $rank=$count;
           }
           echo '<div >
+            <p>
+            '.$rank.'
+            </p>
             <p class="user_icon">
              '.$row["user_icon"].'
             </P>
