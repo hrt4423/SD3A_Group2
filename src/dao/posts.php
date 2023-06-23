@@ -273,5 +273,9 @@
         return $result;
       }
     }
+
+    public function decreasePostPriority(){
+
+    }
   }
 ?>
