@@ -12,6 +12,10 @@
   <title>search-result</title>
 </head>
 <body>
+  <?php 
+    //優先度を減算する処理
+    
+  ?>
   <!-- ここからがヘッダー -->
     <div class="header_size">
       <?php

@@ -251,7 +251,7 @@
                   AND post_category_id != 3
                   ORDER BY P.post_priority DESC, 
                   P.post_time DESC
-          ";
+                  ";
           break;
       }
       
@@ -271,6 +271,20 @@
         throw new Exception('キーワードに該当する投稿はありませんでした');
       }else{
         return $result;
+      }
+    }
+
+    public function decreasePostPriority(){
+      $pdo = $this -> dbConnect();
+      $sql = "UPDATE posts SET post_priority = post_priority - 1
+              WHERE post_priority > 0
+              ";
+      $ps = $pdo -> prepare($sql);
+
+      try{
+        $ps -> execute();
+      }catch(PDOException $e){
+        echo $e->getMessage();
       }
     }
   }
