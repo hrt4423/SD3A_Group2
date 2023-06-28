@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -17,9 +16,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <!-- css -->
     <link rel="stylesheet" href="./css/question-detail.css" />
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
       rel="stylesheet"
@@ -30,13 +27,92 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="./css/header.css">
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
     <title>質問詳細画面</title>
     <style>
       body {
         background-color: #faeeff;
       }
+      .btn-purple {
+        background-color: #653a91;
+        border-color: #653a91;
+        color: #fff;
+      }
+      .btn-purple:hover {
+        background-color: #4b2661;
+        border-color: #4b2661;
+        color: #fff;
+      }
+      .btn-purple:focus {
+        box-shadow: none;
+        color: #fff;
+      }
+
+      .header_size {
+        height: 150px;
+        background-color: #b164ff;
+      }
+
+      .horizontal {
+        display: flex;
+        text-align: center;
+      }
+
+      .search {
+        width: 200px;
+        height: 37px;
+        margin-right: 20px;
+      }
+
+      .right {
+        margin-left: auto;
+        display: flex;
+        margin-top: 15px;
+      }
+
+      .text {
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        flex-grow: 1;
+        margin-top: 35px;
+      }
+
+      .circle {
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
+        background-color: #653a91;
+        margin-right: 20px;
+      }
+
+      .btn-purple {
+        background-color: #653a91;
+        color: #fff;
+      }
+
+      .btn {
+        margin-right: 20px;
+      }
+
+      .underline {
+        text-decoration: none; /* 下線をなくす */
+        display: inline-block;
+        width: 100%;
+      }
+
+      .underline.active {
+        text-decoration: underline;
+        border-bottom: 10px solid #653a91;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: white;
+        border-bottom: none;
+        text-decoration: none;
+      }
+
       .preview-button {
         background-color: #b164ff;
         color: #fff;
@@ -54,83 +130,87 @@
     </style>
   </head>
   <body>
-    <!-- ここからがヘッダー -->
-      <div class="header_size">
-      <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
-      ?>
+    <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
+    <div class="header_size">
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
         <div class="right">
-
-          <!-- 検索フォーム -->
-          <div class="input-group mb-3 search" >
-            <form action="./search_result.php" method="GET" id="search-form">
-              <div class="input-group-prepend">
-                <button type="submit" class="input-group-text" id="search-button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-            </form>
+          <div class="input-group mb-3 search">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="検索"
+              aria-label="検索"
+              aria-describedby="basic-addon2"
+            />
           </div>
-          <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
-          </a>
-          
+
+          <div class="circle"></div>
+
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+              class="btn btn-purple dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               投稿する
             </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
-              </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">質問</a>
+              <a class="dropdown-item" href="#">記事</a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="horizontal">
-        <a href="./questiontimeline.php" class="underline text">質問</a>
-        <a href="./articlelist.php" class="underline text">記事</a>
-        <a href="./Ranking.php" class="underline text">ランキング</a>
-        <a href="./classroom2.html" class="underline text">空き教室</a>
+        <a href="#" class="underline text">質問</a>
+        <a href="#" class="underline text">いいね</a>
+        <a href="#" class="underline text">投稿</a>
+        <a href="#" class="underline text">教室</a>
+        <a href="#" class="underline text">ランキング</a>
+
       </div>
-      </div>
+    </div>
     <!-- ここまでがヘッダー -->
-
     <?php
-      try{
-        require_once './DAO/posts.php';
-        $postAll = new DAO_post();
-        $post_id = $_GET['post_id'];
-        $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $post_id = $_POST['post_id'];
+  $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
+  echo '<script>';
+  echo 'console.log(' . json_encode($search) . ')';
+  echo '</script>';
+
+  $coment = $postAll->post_return($post_id);//それに対する返信検索
+  echo '<script>';
+  echo 'console.log(' . json_encode($coment) . ')';
+  echo '</script>';
+
+  if(isset($_POST['send_icon'])){
+    $postAll = new DAO_post();
+        $postAll->insertpost($post_id, $post_detail);
         echo '<script>';
-        echo 'console.log(' . json_encode($search) . ')';
-        echo '</script>';
+        echo 'console.log(ok)';
+        echo '</script>'; 
+  }
 
-        $coment = $postAll->post_return($post_id);//それに対する返信検索
-        echo '<script>';
-        echo 'console.log(' . json_encode($coment) . ')';
-        echo '</script>';
-
-        if(isset($_POST['send_icon'])){
-          $postAll = new DAO_post();
-              $postAll->insertpost($post_id, $post_detail);
-              echo '<script>';
-              echo 'console.log(ok)';
-              echo '</script>'; 
-        }
-
-      }catch(Exception $ex){
-        echo $ex->getMessage();
-      }catch(Error $err){
-        echo $err->getMessage();
-      }
-    ?>
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
 
     <div class="card">
       <div class="card-body">
@@ -171,7 +251,7 @@
                   </div>
                   <!--いいねボタン-->
                   <div class="good-button-area">
-                    <button class="btn" id="good" onclick="handlegood1()">
+                    <button class="btn" id="good">
                       <i
                         name="good-button"
                         class="bi bi-hand-thumbs-up-fill"
@@ -384,9 +464,9 @@
             <button class="btn" id="edit">編集</button>
             <br />
             <div class="good">
-              <button class="btn" id="good" onclick="handlegood()">
+              <button class="btn" id="good">
                 <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                <span id="good-amount"><?php echo $search[0]['good_count']?></span>
+                <span id="good-amount"></span>
               </button>
             </div>
           </div>
@@ -447,17 +527,17 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      // $(document).ready(function () {
-      //   // リンクをクリックした時の処理
-      //   $(".underline").click(function (e) {
-      //     e.preventDefault(); // デフォルトのリンク遷移を防止
+      $(document).ready(function () {
+        // リンクをクリックした時の処理
+        $(".underline").click(function (e) {
+          e.preventDefault(); // デフォルトのリンク遷移を防止
 
-      //     // すでにアクティブなリンクがある場合、その下線を消す
-      //     $(".underline.active").removeClass("active");
-      //     // クリックされたリンクに下線をつける
-      //     $(this).addClass("active");
-      //   });
-      // });
+          // すでにアクティブなリンクがある場合、その下線を消す
+          $(".underline.active").removeClass("active");
+          // クリックされたリンクに下線をつける
+          $(this).addClass("active");
+        });
+      });
 
       function convertToMarkdown(textAreaIndex) {
         var textarea = document.getElementById("text-area-" + textAreaIndex);
@@ -487,50 +567,6 @@
         var div = document.getElementById("styled-output");
         div.classList.toggle("active");
       }
-
-      function handlegood() {
-          <?php
-          try {
-              require_once './DAO/good.php';
-              $good = new Good();
-              $post_id = $_GET['post_id'];
-              $user_id = $search[0]['user_id'];
-
-              // insertgood()メソッドを実行
-              $insert = $good->insertgood($user_id, $post_id);
-
-              echo 'console.log(' . json_encode($insert) . ')';
-              echo 'console.log(' . json_encode($count) . ')';
-
-          } catch (Exception $ex) {
-              echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-          } catch (Error $err) {
-              echo 'console.log(' . json_encode($err->getMessage()) . ')';
-          }
-          ?>
-        }
-
-function handlegood1() {
-    <?php
-    try {
-        require_once './DAO/good.php';
-        $good = new Good();
-        $post_id = $_GET['post_id'];
-        $user_id = $coment[0]['user_id'];
-
-        // insertgood()メソッドを実行
-        $insert = $good->insertgood($user_id, $post_id);
-
-        echo 'console.log(' . json_encode($insert) . ')';
-        echo 'console.log(' . json_encode($count) . ')';
-
-    } catch (Exception $ex) {
-        echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-    } catch (Error $err) {
-        echo 'console.log(' . json_encode($err->getMessage()) . ')';
-    }
-    ?>
-}
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

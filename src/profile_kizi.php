@@ -179,7 +179,7 @@ require_once('config.php');
 try{
   require_once './DAO/posts.php';
   $postAll = new DAO_post();
-  $search = $postAll->prof_post();//データ取得
+  $search = $postAll->prof_kizi_post();//データ取得
   echo '<script>';
 echo 'console.log(' . json_encode($search) . ')';
 echo '</script>';
@@ -201,8 +201,8 @@ echo '</script>';
       <p class="p1">投稿した質問</p>
       <div class="question_area">
           <div class="horizontal1">
-            <a href="#" class="text2">質問</a>
-            <a href="profile_kizi.php" class="text1 ">記事</a>
+            <a href="profile_question.php" class="text2">質問</a>
+            <a href="#" class="text1 ">記事</a>
             <a href="profile_coment.php" class="text1 ">コメント</a>
           </div>
           
@@ -245,21 +245,6 @@ echo '</script>';
       </div>
     </div>
 </div>
-
-
-  <!-- <script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script> -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
