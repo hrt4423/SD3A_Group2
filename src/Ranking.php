@@ -104,15 +104,28 @@
     }
 
     td{
-      float: left;
+      position: relative;
     }
 
     .rank{
+      width: 10%;
+      text-align: center;
+    }
+
+    .user_icon{
+      width: 10%;
+      left: 10%;
+    }
+
+    .user_name{
       width: 20%;
+      left: 20%;
     }
 
     .point_sum{
       font-size: 30px;
+      left: 50%;
+      text-align: center;
     }
 
   </style>
