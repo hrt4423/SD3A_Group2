@@ -91,43 +91,6 @@
       border-bottom: none;
       text-decoration: none;
     }
-
-    table{
-      width: 90%;
-    }
-
-    tr{
-      background-color:white;
-      width: 100%;
-      height: 30px;
-      margin: 10px;
-    }
-
-    td{
-      position: relative;
-    }
-
-    .rank{
-      width: 10%;
-      text-align: center;
-    }
-
-    .user_icon{
-      width: 10%;
-      left: 10%;
-    }
-
-    .user_name{
-      width: 20%;
-      left: 20%;
-    }
-
-    .point_sum{
-      font-size: 30px;
-      left: 50%;
-      text-align: center;
-    }
-
   </style>
 </head>
 <body class="body">
