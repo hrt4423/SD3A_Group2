@@ -104,13 +104,15 @@
     }
 
     td{
-      float: left;
-      width: auto;
-      
+      float: left;      
     }
 
     .rank{
       width: 30px;
+    }
+
+    .user_icon{
+      width: 40px;
     }
 
   </style>
