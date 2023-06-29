@@ -105,6 +105,8 @@
 
     td{
       float: left;
+      width: auto;
+      
     }
 
     .rank{
