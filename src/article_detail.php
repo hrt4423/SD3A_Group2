@@ -175,9 +175,42 @@
         <a href="#" class="underline text">質問</a>
         <a href="#" class="underline text">いいね</a>
         <a href="#" class="underline text">投稿</a>
+        <a href="#" class="underline text">教室</a>
+        <a href="#" class="underline text">ランキング</a>
+
       </div>
     </div>
     <!-- ここまでがヘッダー -->
+    <?php
+
+try{
+  require_once './DAO/posts.php';
+  $postAll = new DAO_post();
+  $post_id = $_POST['post_id'];
+  $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
+  echo '<script>';
+  echo 'console.log(' . json_encode($search) . ')';
+  echo '</script>';
+
+  $coment = $postAll->post_return($post_id);//それに対する返信検索
+  echo '<script>';
+  echo 'console.log(' . json_encode($coment) . ')';
+  echo '</script>';
+
+  if(isset($_POST['send_icon'])){
+    $postAll = new DAO_post();
+        $postAll->insertpost($post_id, $post_detail);
+        echo '<script>';
+        echo 'console.log(ok)';
+        echo '</script>'; 
+  }
+
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
+?>
 
     <div class="card">
       <div class="card-body">
@@ -185,21 +218,21 @@
           <div name="user-info" class="col-3">
             <span name="user-icon"><i class="bi bi-person-circle"></i></span>
             <span name="user-rank"><i class="bi bi-gem"></i></span>
-            <span name="user-name">ユーザー名</span>
+            <span name="user-name"><?php echo $search[0]['user_name'] ?></span>
           </div>
-          <div class="col-3 offset-md-6 text-center">yyyy/mm/dd</div>
+          <div class="col-3 offset-md-6 text-center"><?php echo $search[0]['post_time'] ?></div>
         </div>
         <div class="row">
           <div class="col-9">
             <div class="card-title">
-              <h4 class="text-center">質問タイトル</h4>
+              <h4 class="text-center"><?php echo $search[0]['post_title'] ?></h4>
             </div>
             <div name="card-tags">
               <i class="bi bi-tags"></i>
               <span class="tag">PHP</span>
               <span class="tag">データベース</span>
             </div>
-            <p class="card-text">***質問***</p>
+            <p class="card-text"><?php echo $search[0]['post_detail'] ?></p>
             <div class="reply-area">
               <h5>--回答--</h5>
               <div name="reply-card" class="card" id="card-reply-area">
@@ -207,13 +240,14 @@
                 <div class="card-body">
                   <div class="card-title"></div>
 
+                  <?php foreach ($coment as $item): ?>
                   <div name="user-info">
                     <!--投稿者の情報-->
                     <span name="user-icon"
                       ><i class="bi bi-person-circle"></i
                     ></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
-                    <span name="user-name">ユーザー名</span>
+                    <span name="user-name"><?php echo $item['user_name']; ?></span>
                   </div>
                   <!--いいねボタン-->
                   <div class="good-button-area">
@@ -222,56 +256,54 @@
                         name="good-button"
                         class="bi bi-hand-thumbs-up-fill"
                       ></i>
-                      <span id="good-amount">13</span>
+                      <span id="good-amount"><?php echo $item['good_count']; ?></span>
                     </button>
                   </div>
 
                   <div class="card-text">
                     <!--回答文-->
-                    ***回答1***
+                    <?php echo $item['post_detail']; ?>
                   </div>
+                  <?php endforeach; ?>
 
-                  <hr id="border-line-reply" />
+                 
+                        <!-- <hr id="border-line-reply" /> -->
 
-                  <h6 id="reply-comment">コメント</h6>
-                  <div name="user-info" class="col-3">
-                    <span name="user-icon"
-                      ><i class="bi bi-person-circle"></i
-                    ></span>
-                    <span name="user-rank"><i class="bi bi-gem"></i></span>
-                    <span name="user-name">ユーザー名</span>
-                  </div>
+                        <!-- <h6 id="reply-comment">コメント</h6>
+                        <div name="user-info" class="col-3">
+                          <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+                          <span name="user-rank"><i class="bi bi-gem"></i></span>
+                          <span name="user-name">ユーザー名</span> -->
+                        </div>
 
-                  <!--いいねボタン-->
-                  <div class="good-button-area">
-                    <button class="btn" id="good">
-                      <i
-                        name="good-button"
-                        class="bi bi-hand-thumbs-up-fill"
-                      ></i>
-                      <span id="good-amount">13</span>
-                    </button>
-                  </div>
+                        <!--いいねボタン-->
+                        <!-- <div class="good-button-area">
+                          <button class="btn" id="good">
+                            <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                            <span id="good-amount"></span>
+                          </button>
+                        </div> -->
+                     
 
                   <div class="card-text">
                     <!--コメント文-->
-                    ***コメント1***
+                    <!-- ***コメント1*** -->
 
                     <hr id="border-line-reply" />
 
                     <div class="comment-write-area">
                       <!--コメント入力欄-->
                       <form action="" method="post" id="comment-form">
-                        <!-- ここの値のIDをPHPで動的に与えてあげてください -->
-                        <div class="form-floating" id="comment-text-area-1">
+                        <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
+                        <div class="form-floating" id="">
                           <textarea
                             class="form-control"
                             placeholder=""
-                            id="text-area-1"
+                            id=""
                             form="comment-form"
                             style="height: 150px"
                           ></textarea>
-                          <label for="text-area-1">返信</label>
+                          <label for="">返信</label>
                           <div class="styled-output"></div>
                         </div>
 
@@ -303,6 +335,8 @@
                             </button>
                           </div>
                         </div>
+                        <!-- フォームに投稿IDを隠しフィールドとして追加 -->
+                        <input type="hidden" name="post_id" value="">
                       </form>
 
                       <!--comment-area-button-->
@@ -314,13 +348,14 @@
               </div>
               <!--/回答１-->
 
-              <div name="reply-card" class="card" id="card-reply-area">
-                <!--回答２-->
+              <!--回答２-->
+              <!-- <div name="reply-card" class="card" id="card-reply-area">
+                
                 <div class="card-body">
                   <div class="card-title"></div>
 
                   <div name="user-info" class="col-3">
-                    <!--投稿者の情報-->
+                    投稿者の情報
                     <span name="user-icon"
                       ><i class="bi bi-person-circle"></i
                     ></span>
@@ -328,7 +363,7 @@
                     <span name="user-name">ユーザー名</span>
                   </div>
 
-                  <!--いいねボタン-->
+                  いいねボタン
                   <div class="good-button-area">
                     <button class="btn" id="good">
                       <i
@@ -345,7 +380,7 @@
 
                   <h6 id="reply-comment">コメント</h6>
                   <div name="user-info" class="col-3">
-                    <!--投稿者の情報-->
+                   投稿者の情報
                     <span name="user-icon"
                       ><i class="bi bi-person-circle"></i
                     ></span>
@@ -353,7 +388,7 @@
                     <span name="user-name">ユーザー名</span>
                   </div>
 
-                  <!--いいねボタン-->
+                  いいねボタン
                   <div class="good-button-area">
                     <button class="btn" id="good">
                       <i
@@ -370,7 +405,7 @@
                     <hr id="border-line-reply" />
 
                     <div class="comment-write-area">
-                      <!--コメント入力欄-->
+                     コメント入力欄
                       <form action="" method="post" id="comment-form">
                         <div class="form-floating" id="comment-text-area-2">
                           <textarea
@@ -414,15 +449,15 @@
                         </div>
                       </form>
 
-                      <!--comment-area-button-->
+                    comment-area-button
                     </div>
-                    <!--/コメント入力欄-->
+                    /コメント入力欄
                   </div>
                 </div>
-                <!---card-body-->
+               card-body
               </div>
-              <!--回答２-->
-            </div>
+              回答２
+            </div> -->
           </div>
 
           <div id="side-area" class="col-3 text-center">
@@ -431,7 +466,7 @@
             <div class="good">
               <button class="btn" id="good">
                 <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                <span id="good-amount">13</span>
+                <span id="good-amount"></span>
               </button>
             </div>
           </div>
@@ -446,6 +481,7 @@
           <textarea
             class="form-control"
             placeholder=""
+            name="post_detail"
             id="text-area-3"
             form="comment-form"
             style="height: 150px"
@@ -473,7 +509,7 @@
                 <i class="bi bi-card-image"></i>
               </button>
             </label>
-            <button type="submit" class="btn btn-outline-dark" id="send-icon">
+            <button type="submit" class="btn btn-outline-dark" id="send-icon" name="send_icon">
               <i class="bi bi-send"></i>
             </button>
           </div>

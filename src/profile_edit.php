@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -181,7 +182,7 @@ label {
   <?php
     require_once('./dao/Users.php');
     $users = new Users;
-    $USESR_ID = 1;
+    $USESR_ID = $_SESSION['user_id'];
     $userIconPath = $users->getUserIconPathById($USESR_ID);
     $userData[] = $users->getUserDataById($USESR_ID);
     //var_dump($userData);
@@ -268,6 +269,7 @@ label {
     <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
       <button type="submit" class="btn btn-primary" >変更</button> 
     </form>
+    
   </div>
 </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

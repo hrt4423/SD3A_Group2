@@ -1,18 +1,3 @@
-<?php
-$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
-               'root','');
-$stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
-$stmt ->execute();
-foreach($stmt->fetchAll() as $row){
-  echo '<tr>';
-  echo '<td>',$row['user_name'],'</td>';
-  echo '<td>',$row['user_icon'],'</td>';
-  echo '<td>',$row['point_sum'],'</td>';
-  echo '</tr>';
-  a
-}
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -146,10 +131,46 @@ foreach($stmt->fetchAll() as $row){
 
     </div>
 <!-- ↑ヘッダー -->
- <div class="allrank_area">
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
+               'root','');
+$stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
+$stmt ->execute();
+foreach($stmt->fetchAll() as $row){
+  echo '<tr>';
+  echo '<td>',$row['user_name'],'</td>';
+  echo '<td>',$row['user_icon'],'</td>';
+  echo '<td>',$row['point_sum'],'</td>';
+  echo '</tr>';
+  a
+}
+?>
+
+<div class="allrank_area">
   <p class="rank_title">ユーザランキング</p>
     <div class="area">
         <div class="rank_area">
+        
+        <?php foreach($search as $post){
+        echo '<div >
+        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
+        <button class="allrank">
+          <p class="user_icon">
+           '.$post['user_icon'].'
+          </P>
+          <p class="user_name">
+           '.$post['user_name'].'
+          </p>
+          <p class="point_sum">
+            '.$post['point_sum'].'
+          </p>
+          </div>
+        </button>   
+        </form>
+      </div>';
+    }
+    ?>
+
           <div class="rank">
             <img src="./images/rank1.png" alt="" class="rank_img">
             <div class="user_icon"></div>

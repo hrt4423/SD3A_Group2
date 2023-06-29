@@ -28,6 +28,19 @@
         return $result[0]['count(post_id)'];
       } 
     }
+
+    public function insertgood($user_id,$post_id){
+      $pdo = $this->dbConnect();
+      $sql = "INSERT INTO goods (user_id,post_id) VALUES (?, ?)";
+      $ps = $pdo->prepare($sql);
+      $ps->bindValue(1, $user_id, PDO::PARAM_INT);
+      $ps->bindValue(2, $post_id, PDO::PARAM_INT);
+      if ($ps->execute()) {
+        return  "データが正常に挿入されました";
+      } else {
+        return  "データの挿入中にエラーが発生しました: " . $ps->errorInfo()[2];
+      }
+    }
     
   }
 ?>
