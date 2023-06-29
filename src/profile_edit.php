@@ -200,75 +200,75 @@
     $userProfile = $userData[0]['user_profile'];
   ?>
 
-<div class="container-fluid">
-  <h1 style="text-align:center;">プロフィール編集</h1>
-  <hr>
-  <div class="square2">
-    <div style="display:flex;" class="square">
-      <div style="width:5%;">
-      </div>
-      <div style="width:30%;">
-        <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;" >
-        <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
-          <p>アイコンを変更</p>
-          <label >
-            <input type="file" name="file_upload" value="a">ファイルを選択
-          </label>
-          <input type="submit" value="アイコンを変更">
-        </form>
-      </div>
-    <form action="./submit_profile.php" method="post" id="profile-update">
-      <div class="container">
-		    <div class="row">
-		  	  <div class="col">
-				    <p>ユーザ名</p>
-		      </div>
-		  	  <div class="col">
-				    <input type="text" name="user_name" value="<?= $userName ?>">
-			    </div>
-		    </div>
-        <div class="row">
-		  	  <div class="col">
-				    <p>メールアドレス</p>
-		  	  </div>
-		  	  <div class="col">
-				    <input type="text" name="user_mail" value="<?= $userMail ?>">
-		  	  </div>
-		    </div>
-        <div class="row">
-		  	  <div class="col">
-			  	  <p>パスワード</p>
-		  	  </div>
-		  	  <div class="col">
-				    <input type="text" name="user_pass" value="<?= $userPassword ?>">
-		  	  </div>
-		    </div>
-        <div class="row">
-			    <div class="col">
-				    <p>カラー</p>
-		      </div>
-			    <div class="col">
-				    <select name="thema_color_id">
-              <option value="1">Purple</option>
-              <option value="2">Blue</option>
-              <option value="3">Green</option>
-              <option value="4">Yellow</option>
-              <option value="5">Orange</option>
-              <option value="6">Red</option>
-              <option value="7">Pink</option>
-              <option value="8">White</option>
-              <option value="9">Black</option>
-            </select>
-		      </div>
-		    </div>
-        <div class="row">
-		      <div class="col">
-			      <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea>
-			    </div>
-		    </div>
-    </form>
+  <div class="container-fluid">
+    <h1 style="text-align:center;">プロフィール編集</h1>
+    <hr>
+    <div class="square2">
+      <div style="display:flex;" class="square">
         <div style="width:5%;">
         </div>
+          <div style="width:30%;">
+            <img src="<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;" >
+            <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
+              <p>アイコンを変更</p>
+              <label >
+                <input type="file" name="file_upload" value="a">ファイルを選択
+              </label>
+              <input type="submit" value="アイコンを変更">
+            </form>
+          </div>
+          <form action="./submit_profile.php" method="post" id="profile-update">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p>ユーザ名</p>
+                </div>
+                <div class="col">
+                  <input type="text" name="user_name" value="<?= $userName ?>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p>メールアドレス</p>
+                </div>
+                <div class="col">
+                  <input type="text" name="user_mail" value="<?= $userMail ?>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p>パスワード</p>
+                </div>
+                <div class="col">
+                  <input type="text" name="user_pass" value="<?= $userPassword ?>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p>カラー</p>
+                </div>
+                <div class="col">
+                  <select name="thema_color_id">
+                    <option value="1">Purple</option>
+                    <option value="2">Blue</option>
+                    <option value="3">Green</option>
+                    <option value="4">Yellow</option>
+                    <option value="5">Orange</option>
+                    <option value="6">Red</option>
+                    <option value="7">Pink</option>
+                    <option value="8">White</option>
+                    <option value="9">Black</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea>
+                </div>
+              </div>
+          </form>
+          <div style="width:5%;">
+          </div>
       </div>
     </div>
   </div>
@@ -277,7 +277,7 @@
   <div style="text-align:center;">
     <button type="submit" class="btn btn-primary" form="profile-update">変更</button> 
   </div>
-</div>
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
