@@ -33,172 +33,159 @@
       background-color: purple;
       color: white;
     }
-body {
-    background-color: #FAEEFF;
-    font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320))); 
-}
-.square {
-  background-color: #FFF;
-  border-radius: 2vw;
-}
-.square2 {
-  padding-left: 15vw; /* 左側の余白 */
-  padding-right: 15vw; /* 右側の余白 */
-}
-input[type="file"] {
-    display: none;
-}
-label {
-  background-color: purple;
-      color: white;
-    cursor: pointer;
-}
-.btn-purple {
-      background-color: #653A91;
-      border-color: #653A91;
-      color: #fff;
-    }
-    .btn-purple:hover {
-      background-color: #4b2661;
-      border-color: #4b2661;
-      color: #fff;
-    }
-    .btn-purple:focus {
-      box-shadow: none;
-      color: #fff;
-    }
+      body {
+          background-color: #FAEEFF;
+          font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320))); 
+      }
+      .square {
+        background-color: #FFF;
+        border-radius: 2vw;
+      }
+      .square2 {
+        padding-left: 15vw; /* 左側の余白 */
+        padding-right: 15vw; /* 右側の余白 */
+      }
+      input[type="file"] {
+          display: none;
+      }
+      label {
+        background-color: purple;
+            color: white;
+          cursor: pointer;
+      }
+      .btn-purple {
+        background-color: #653A91;
+        border-color: #653A91;
+        color: #fff;
+      }
+      .btn-purple:hover {
+        background-color: #4b2661;
+        border-color: #4b2661;
+        color: #fff;
+      }
+      .btn-purple:focus {
+        box-shadow: none;
+        color: #fff;
+      }
 
-    .header_size {
-      height: 150px;
-      background-color: #b164ff;
-    }
+      .header_size {
+        height: 150px;
+        background-color: #b164ff;
+      }
 
-    .horizontal {
-      display: flex;
-      text-align: center;
-    }
+      .horizontal {
+        display: flex;
+        text-align: center;
+      }
 
-    .search {
-      width: 200px;
-      height: 37px;
-      margin-right: 20px;
-    }
+      .search {
+        width: 200px;
+        height: 37px;
+        margin-right: 20px;
+      }
 
-    .right {
-      margin-left: auto;
-      display: flex;
-      margin-top: 15px;
-    }
+      .right {
+        margin-left: auto;
+        display: flex;
+        margin-top: 15px;
+      }
 
-    .text {
-      color: white;
-      font-size: 30px;
-      font-weight: bold;
-      flex-grow: 1;
-      margin-top: 35px;
-    }
+      .text {
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        flex-grow: 1;
+        margin-top: 35px;
+      }
 
-    .circle {
-      width: 37px;
-      height: 37px;
-      border-radius: 50%;
-      background-color: #653A91;
-      margin-right: 20px;
-    }
+      .circle {
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
+        background-color: #653A91;
+        margin-right: 20px;
+      }
 
-    .btn-purple {
-      background-color: #653a91;
-      color: #fff;
-    }
+      .btn-purple {
+        background-color: #653a91;
+        color: #fff;
+      }
 
-    .btn {
-      margin-right: 20px;
-    }
+      .btn {
+        margin-right: 20px;
+      }
 
-    .underline {
-      text-decoration: none; /* 下線をなくす */
-      display: inline-block;
-      width: 100%;
-    }
+      .underline {
+        text-decoration: none; /* 下線をなくす */
+        display: inline-block;
+        width: 100%;
+      }
 
-    .underline.active {
-      text-decoration: underline; 
-      border-bottom: 10px solid #653A91;
-      text-decoration: none;
-    }
+      .underline.active {
+        text-decoration: underline; 
+        border-bottom: 10px solid #653A91;
+        text-decoration: none;
+      }
 
-    a:hover {
-      color: white;
-      border-bottom: none;
-      text-decoration: none;
-    }
+      a:hover {
+        color: white;
+        border-bottom: none;
+        text-decoration: none;
+      }
   </style>
 </head>
 <body >
 
 <div class="header_size">
-      <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
-      ?>
-      <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
-        <div class="right">
+  <?php
+    require_once('./dao/Users.php');
+    $users = new Users;
+    $USESR_ID = $_SESSION['user_id'];
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+  ?>
+  <div class="horizontal">
+    <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+    <div class="right">
 
-          <!-- 検索フォーム -->
-          <div class="input-group mb-3 search" >
-            
-            <form action="./search_result.php" method="GET" id="search-form">
-              <div class="input-group-prepend">
-                <button type="submit" class="input-group-text" id="search-button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-              <input type="hidden" name="sort_type" value="0">
-              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-            </form>
-
-          </div>
-          <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
-          </a>
-          
-          <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              投稿する
+      <!-- 検索フォーム -->
+      <div class="input-group mb-3 search" >
+        
+        <form action="./search_result.php" method="GET" id="search-form">
+          <div class="input-group-prepend">
+            <button type="submit" class="input-group-text" id="search-button">
+              <i class="fa fa-search"></i>
             </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
-              </div>
           </div>
-        </div>
-      </div>
+          <input type="hidden" name="sort_type" value="0">
+          <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+        </form>
 
-      <div class="horizontal">
-        <a href="./questiontimeline.php" class="underline text">質問</a>
-        <a href="./articlelist.php" class="underline text">記事</a>
-        <a href="./Ranking.php" class="underline text">ランキング</a>
-        <a href="./classroom.php" class="underline text">空き教室</a>
+      </div>
+      <a href="./profile_question.php" class="circle">
+        <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+      </a>
+      
+      <div class="dropdown">
+        <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          投稿する
+        </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="./questionCreation.php">質問</a>
+            <a class="dropdown-item" href="#">記事</a>
+          </div>
       </div>
     </div>
+  </div>
+
+  <div class="horizontal">
+    <a href="./questiontimeline.php" class="underline text">質問</a>
+    <a href="./articlelist.php" class="underline text">記事</a>
+    <a href="./Ranking.php" class="underline text">ランキング</a>
+    <a href="./classroom.php" class="underline text">空き教室</a>
+  </div>
+</div>
 <!-- ↑ヘッダー -->
 
-<script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script>
   <?php
     require_once('./dao/Users.php');
     $users = new Users;
@@ -289,7 +276,6 @@ label {
     <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
       <button type="submit" class="btn btn-primary" >変更</button> 
     </form>
-    
   </div>
 </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
