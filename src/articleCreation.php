@@ -60,7 +60,7 @@
 
 
       ob_start(); // バッファリングを開始
-      header("Location: config.php");
+      header("Location: questiontimeline.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
   }
@@ -338,7 +338,7 @@
     <!-- ここまでがヘッダー -->
 
 
-    <form action="questionCreation.php" method="post">
+    <form action="articleCreation.php" method="post">
       <input type="text" class="form-control title" name="title" placeholder="タイトル" />
 
     <!-- <input type="text" id="tag-input" class="tag-input" placeholder="タグを入力してください"> -->

@@ -60,7 +60,7 @@
 
 
       ob_start(); // バッファリングを開始
-      header("Location: home.php");
+      header("Location: questiontimeline.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
   }
