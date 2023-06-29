@@ -92,6 +92,10 @@
       text-decoration: none;
     }
 
+    td{
+      color:white;
+    }
+
   </style>
 </head>
 <body class="body">
@@ -172,20 +176,6 @@
         </div>
       </div>
   </div>
-
-  <script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
