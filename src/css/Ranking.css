@@ -28,13 +28,11 @@
 
 tr{
   display: flex;
+  background-color: white;
 }
 
 .rank{
   align-items: center;
-  background-color: white;
-  width: 80vw;
-  height: 13vh;
   margin: 0 auto;
   margin-top: 20px;
   border-radius: 10px; /* 角丸を10pxに設定 */
