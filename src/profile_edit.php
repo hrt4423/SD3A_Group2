@@ -217,6 +217,7 @@
           <input type="submit" value="アイコンを変更">
         </form>
       </div>
+    <form action="./submit_profile.php" method="post" id="profile-update">
       <div class="container">
 		    <div class="row">
 		  	  <div class="col">
@@ -265,6 +266,7 @@
 			      <textarea form="profile-edit" name="user_profile" placeholder="<?= $userProfile ?>"></textarea>
 			    </div>
 		    </div>
+    </form>
         <div style="width:5%;">
         </div>
       </div>
@@ -273,9 +275,7 @@
 
   <br>
   <div style="text-align:center;">
-    <form action="./file_upload.php" method="post" enctype="multipart/form-data" id="file-upload">
-      <button type="submit" class="btn btn-primary" >変更</button> 
-    </form>
+    <button type="submit" class="btn btn-primary" form="profile-update">変更</button> 
   </div>
 </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
