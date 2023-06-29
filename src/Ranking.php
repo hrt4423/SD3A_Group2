@@ -92,8 +92,8 @@
       text-decoration: none;
     }
 
-    div{
-      width: auto;
+    .rank_area{
+      width: 60%;
     }
 
     tr{
