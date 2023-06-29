@@ -104,12 +104,11 @@
     }
 
     td{
-      float: left; 
-      margin: 30px;     
+      display: flex;
     }
 
     .rank{
-      
+
     }
 
     .user_icon{
