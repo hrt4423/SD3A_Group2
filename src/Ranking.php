@@ -173,16 +173,16 @@
             $rank=$count;
           }
           echo '<tr>
-            <td class="rank">
+            <td class="rank" style="flex-basis:20%">
             '.$rank.'
             </td>
-            <td class="user_icon">
+            <td class="user_icon" style="flex-basis:20%">
              '.$row["user_icon"].'
             </td>
-            <td class="user_name">
+            <td class="user_name" style="flex-basis:20%">
            '.$row["user_name"].'
             </td>
-            <td class="point_sum">
+            <td class="point_sum" style="flex-basis:40%">
             '.$row["point_sum"].'
             </td>   
             </tr>';
