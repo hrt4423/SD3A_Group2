@@ -98,12 +98,12 @@
 
     tr{
       background-color:white;
-      height: auto;
+      height: 30px;
       margin: 5px;
     }
 
     .rank{
-      width: auto;
+      width: 30px;
     }
 
   </style>
