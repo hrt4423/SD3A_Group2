@@ -107,8 +107,12 @@
       width: 20%;
     }
 
-    .user_icon{
+    .user_name{
       width: 20%;
+    }
+
+    .point_sum{
+      width: 40%;
     }
 
   </style>
