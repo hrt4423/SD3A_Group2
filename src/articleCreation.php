@@ -42,11 +42,11 @@
       } else {
           $post_priority = 24;
       }
-      //ここにセッションID入れてほしい
+      //ここにセッションIDいれてほしい
       $user_id = 1;
 
-      //質問のID
-      $post_category_id = 1;
+      //記事のID
+      $post_category_id = 2;
 
       // 投稿を挿入し、post_idを取得
       $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
@@ -60,7 +60,7 @@
 
 
       ob_start(); // バッファリングを開始
-      header("Location: home.php");
+      header("Location: config.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
   }
@@ -325,7 +325,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              投稿する
+              投稿するaaaaa
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">質問</a>

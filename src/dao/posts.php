@@ -1,6 +1,6 @@
 <?php
   class posts {
-      public function insertPosts($title, $detail, $user_id, $post_priority) {
+      public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
           // DB接続情報
           $dsn = 'mysql:dbname=asoda;host=localhost';
           $user = 'root';
@@ -32,8 +32,7 @@
           // プリペアドステートメントを作成
           $stmt = $dbh->prepare($sql);
 
-          // 値をセット
-          $post_category_id = 1;
+          // 日時をセット
           $post_time = date("Y-m-d H:i:s");
 
           // パラメータをバインド
