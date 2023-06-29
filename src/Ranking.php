@@ -107,10 +107,6 @@
       width: 20%;
     }
 
-    .user_name{
-      width: 20%;
-    }
-
     .point_sum{
       width: 40%;
     }
