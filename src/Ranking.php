@@ -109,7 +109,7 @@
     }
 
     .rank{
-      width: 30px;
+      
     }
 
     .user_icon{
