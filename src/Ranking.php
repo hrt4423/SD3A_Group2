@@ -92,7 +92,7 @@
       text-decoration: none;
     }
 
-    .rank_area{
+    table{
       width: 60%;
     }
 
