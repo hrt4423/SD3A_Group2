@@ -98,6 +98,7 @@
 
     tr{
       background-color:white;
+      width: 100%;
       height: 30px;
       margin: 5px;
     }
