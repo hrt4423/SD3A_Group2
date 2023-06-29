@@ -99,6 +99,10 @@
       margin: 5px;
     }
 
+    .rank{
+      width: auto;
+    }
+
   </style>
 </head>
 <body class="body">
@@ -157,7 +161,7 @@
             $rank=$count;
           }
           echo '<tr>
-            <td>
+            <td class="rank">
             '.$rank.'
             </td>
             <td class="user_icon">
