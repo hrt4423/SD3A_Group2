@@ -33,15 +33,27 @@
   </style>
 </head>
 <?php
+  if(!isset($_GET['sort_type']))
+    $_GET['sort_type'] = 0;
 
   try{
-    require_once './DAO/posts.php';
+    require_once './dao/posts.php';
+    require_once './dao/users.php';
+    require_once './dao/good.php';
+
     $postAll = new DAO_post();
     $search = $postAll->post();//データ取得
     echo '<script>';
     echo 'console.log(' . json_encode($search) . ')';
     echo '</script>';
+    
+    $posts = new Posts;
+    //質問を取得
+    $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
 
+    $users = new Users;
+    $good = new Good;
+    
     require_once './dao/tags.php';
     $tagAll = new DAO_tag();
     $search2 = $tagAll->tags();
@@ -129,7 +141,7 @@
     }
   ?>
 
-  <!-- <fieldset class="frameborder"> -->
+
     <!--タグ検索ボタン-->
     <form action="./questiontimeline.php" method="GET" id="tag-form"></form>
 
@@ -145,75 +157,66 @@
 
         </select>
       </div>
-        <!--タグ検索ボタン終了-->
-        <!--並び替えセレクトボックス-->
-          <!-- <a href="javascript:void(0)">
-            <div>↓並び替え</div>
-          </a>
-          <select size="2" data-role="none">
-            <option value="1">最新投稿</option>
-            <option value="2">古い投稿</option>
-          </select> -->
+    <!--タグ検索ボタン終了-->
+        
       <div class="sele_area2">
-        <select class="select2">
-          <option value="1">最新投稿</option>
-          <option value="2">古い投稿</option>
-        </select>
+        <form action="./questiontimeline.php" method="get" id="sort-form">
+          <select name=sort_type class="select2">
+            <option value="" disabled selected>
+              <?php
+                switch ($_GET['sort_type']) {
+                  case 1:
+                    echo '古い順';
+                    break;
+                  case 2:
+                    echo '新着順';
+                    break;
+                  default:
+                    echo 'デフォルト';
+                    break;
+                }
+              ?>
+            </option>
+            <option value="0">デフォルト</a></option>
+            <option value="1">古い順</a></option>
+            <option value="2">新着順</a></option>
+          </select>
+          <button type="submit" class="btn btn-purple">並び替え</button>
+        </form>
       </div>
     </div>
- <!--質問画面遷移ボタン-->
- <div class="question_area">
-    <?php foreach($search as $post){
-        echo '<div >
+ <!--質問一覧-->
+  <div class="question_area">
+    <?php foreach($result as $row) : ?>
+      <div>
         <form action="question-detail.php" method="GET">
-        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
-        <button class="question">
-          <p class="user2">
-           '.$post['user_name'].'
-          </p>
-          <p class="day">
-            ' . $post['post_time'] . 'に投稿
-          </p>
-          <p class="title">
-            ' . $post['post_title'] . '
-          </p>
-          <div class="tag_area">
-                <img src="./images/pin.png" alt="" class="img2">
-                <p class="tag">タグ</p>
-          </div>
-          
-          <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">'.$post['good_count'].'</p>
-        </button>   
+          <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
+          <button class="question">
+            <p class="user2"> <?=$users->getUserNameById($row['user_id'])?> </p>
+
+            <p class="day"> <?=$row['post_time']?>に投稿 </p>
+
+            <p class="title"> <?=$row['post_title']?> </p>
+
+            <div class="tag_area">
+              <img src="./images/pin.png" alt="" class="img2">
+              <p class="tag">タグ</p>
+            </div>
+            
+            <div class="good_area">
+              <div class="good_img">
+                <img src="./images/good.png" alt="" class="img3">
+              </div>
+            </div>
+            <p class="good"> <?=$good->goodCount($row['post_id'])?> </p>
+          </button>   
         </form>
-      </div>';
-    }
-    ?>
- </div>
-
-   <!--質問画面遷移ボタン終了-->
-  <!-- </form>
-  </fieldset> -->
-  <!-- <script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script> -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <!--/質問一覧-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
       // DB接続情報
       $dsn = 'mysql:dbname=asoda;host=localhost';
       $user = 'root';
-      $password = '';
+      $password = 'root';
 
       try{
       $dbh = new PDO($dsn, $user, $password);
