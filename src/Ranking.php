@@ -103,16 +103,12 @@
       margin: 10px;
     }
 
-    td{
-      display: flex;
-    }
-
     .rank{
-
+      width: 20%;
     }
 
     .user_icon{
-
+      width: 20%;
     }
 
   </style>
@@ -173,16 +169,16 @@
             $rank=$count;
           }
           echo '<tr>
-            <td class="rank" style="flex-basis:20%">
+            <td class="rank">
             '.$rank.'
             </td>
-            <td class="user_icon" style="flex-basis:20%">
+            <td class="user_icon">
              '.$row["user_icon"].'
             </td>
-            <td class="user_name" style="flex-basis:20%">
+            <td class="user_name">
            '.$row["user_name"].'
             </td>
-            <td class="point_sum" style="flex-basis:40%">
+            <td class="point_sum">
             '.$row["point_sum"].'
             </td>   
             </tr>';
