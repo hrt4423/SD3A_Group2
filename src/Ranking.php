@@ -92,7 +92,7 @@
       text-decoration: none;
     }
 
-    td{
+    tr{
       background-color:white;
       width: 60%;
       height: auto;
