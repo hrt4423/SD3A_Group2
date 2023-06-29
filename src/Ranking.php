@@ -104,7 +104,8 @@
     }
 
     td{
-      float: left;      
+      float: left; 
+      margin: 30px;     
     }
 
     .rank{
@@ -112,7 +113,7 @@
     }
 
     .user_icon{
-      width: auto;
+
     }
 
   </style>
