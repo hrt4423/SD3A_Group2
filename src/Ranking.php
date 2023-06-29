@@ -94,7 +94,7 @@
 
     tr{
       background-color:white;
-      width: 60%;
+      width: 600px;
       height: auto;
       margin: 5px;
     }
