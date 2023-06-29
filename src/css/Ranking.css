@@ -38,6 +38,7 @@ tr{
 .rank{
   flex-grow: 1;
   text-align: center;
+  margin-left: 5%;
 }
 
 .user_icon{
