@@ -92,9 +92,12 @@
       text-decoration: none;
     }
 
+    div{
+      width: auto;
+    }
+
     tr{
       background-color:white;
-      width: 600px;
       height: auto;
       margin: 5px;
     }
