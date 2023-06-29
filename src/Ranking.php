@@ -108,7 +108,7 @@
     }
 
     .point_sum{
-      width: 40%;
+      font-size: 30px;
     }
 
   </style>
