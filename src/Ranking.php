@@ -103,6 +103,10 @@
       margin: 10px;
     }
 
+    td{
+      float: left;
+    }
+
     .rank{
       width: 30px;
     }
