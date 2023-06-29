@@ -46,14 +46,12 @@ tr{
   height: 5vw;
   background-color: #653A91;
   border-radius: 50px;
-  margin-left: 15vw;
 }
 
 .user_name{
   flex-basis: 20%;
   font-size: 1.8vw;
   font-weight: bold;
-  margin-left: 26vw;
 }
 
 .point_sum{
@@ -61,5 +59,4 @@ tr{
   text-align: center;
   font-size: 1.8vw;
   font-weight: bold;
-  margin-left: 24vw;
 }
