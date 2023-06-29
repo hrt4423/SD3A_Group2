@@ -159,7 +159,7 @@
            '.$row["user_name"].'
             </td>
             <td class="point_sum">
-            '.$row["point_sum"].'
+            '.$row["point_sum"].'pt
             </td>   
             </tr>';
           $beforepoint=$row['point_sum'];
