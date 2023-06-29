@@ -112,7 +112,7 @@
     }
 
     .user_icon{
-      width: 40px;
+      width: auto;
     }
 
   </style>
