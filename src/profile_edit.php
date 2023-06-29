@@ -217,7 +217,7 @@
               <input type="submit" value="アイコンを変更">
             </form>
           </div>
-          <form action="./submit_profile.php" method="post" id="profile-update">
+          <form action="./submit_profile.php" method="post" id="profile-edit">
             <div class="container">
               <div class="row">
                 <div class="col">
@@ -275,7 +275,7 @@
 
   <br>
   <div style="text-align:center;">
-    <button type="submit" class="btn btn-primary" form="profile-update">変更</button> 
+    <button type="submit" class="btn btn-primary" form="profile-edit">変更</button> 
   </div>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
