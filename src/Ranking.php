@@ -94,6 +94,7 @@
 
     td{
       background-color:white;
+      width: 60%;
     }
 
   </style>
