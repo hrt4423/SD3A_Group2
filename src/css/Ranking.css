@@ -33,6 +33,7 @@ tr{
   background-color: white;
   height: 100px;
   margin: 10px;
+  border-radius: 20px;
 }
 
 table{
