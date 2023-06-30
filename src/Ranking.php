@@ -148,6 +148,58 @@
           if($beforepoint !=$row['point_sum']){
             $rank=$count;
           }
+          if($rank==1){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank1.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else if($rank==2){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank2.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else if($rank==3){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank2.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else{
           echo '<tr>
             <td class="rank">
             '.$rank.'
@@ -164,6 +216,7 @@
             </tr>';
           $beforepoint=$row['point_sum'];
           $count++;
+          }
         
     }
     echo "</table>";
