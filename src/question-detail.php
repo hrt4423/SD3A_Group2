@@ -138,7 +138,7 @@
           <div name="user-info" class="col-3">
             <span name="user-icon"><i class="bi bi-person-circle"></i></span>
             <span name="user-rank"><i class="bi bi-gem"></i></span>
-            <span name="user-name"><?php echo $search[0]['user_name'] ?></span>
+            <span name="user-name"><?php echo $search[0]['user_info'][0]['user_name'] ?></span>
           </div>
           <div class="col-3 offset-md-6 text-center"><?php echo $search[0]['post_time'] ?></div>
         </div>
@@ -384,10 +384,14 @@
             <button class="btn" id="edit">編集</button>
             <br />
             <div class="good">
-              <button class="btn" id="good" onclick="handlegood()">
+              <form method="POST" action="./dao/good.php">
+                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
+                <input type="hidden" name="user_id" value="<?php echo $search[0]['user_id'];?>">
+              <button class="btn" id="good" type="submit">
                 <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                <span id="good-amount"><?php echo $search[0]['good_count']?></span>
-              </button>
+                  <span id="good-amount"><?php echo $search[0]['good_count'] ?></span>
+            </button>
+              </form>
             </div>
           </div>
         </div>
@@ -488,49 +492,7 @@
         div.classList.toggle("active");
       }
 
-      function handlegood() {
-          <?php
-          try {
-              require_once './DAO/good.php';
-              $good = new Good();
-              $post_id = $_GET['post_id'];
-              $user_id = $search[0]['user_id'];
 
-              // insertgood()メソッドを実行
-              $insert = $good->insertgood($user_id, $post_id);
-
-              echo 'console.log(' . json_encode($insert) . ')';
-              echo 'console.log(' . json_encode($count) . ')';
-
-          } catch (Exception $ex) {
-              echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-          } catch (Error $err) {
-              echo 'console.log(' . json_encode($err->getMessage()) . ')';
-          }
-          ?>
-        }
-
-function handlegood1() {
-    <?php
-    try {
-        require_once './DAO/good.php';
-        $good = new Good();
-        $post_id = $_GET['post_id'];
-        $user_id = $coment[0]['user_id'];
-
-        // insertgood()メソッドを実行
-        $insert = $good->insertgood($user_id, $post_id);
-
-        echo 'console.log(' . json_encode($insert) . ')';
-        echo 'console.log(' . json_encode($count) . ')';
-
-    } catch (Exception $ex) {
-        echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-    } catch (Error $err) {
-        echo 'console.log(' . json_encode($err->getMessage()) . ')';
-    }
-    ?>
-}
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

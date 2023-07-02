@@ -81,14 +81,15 @@
         $userId = $search[0]['user_id'];
     
         // ユーザー名を取得するクエリを追加
-        $userSql = "SELECT user_name FROM users WHERE user_id = :userId";
-        $userPs = $pdo->prepare($userSql);
-        $userPs->bindValue(':userId', $userId, PDO::PARAM_INT);
-        $userPs->execute();
-        $userSearch = $userPs->fetch();
+         // Retrieve all user information
+         $userSql = "SELECT * FROM users WHERE user_id = :userId";
+         $userPs = $pdo->prepare($userSql);
+         $userPs->bindValue(':userId', $userId, PDO::PARAM_INT);
+         $userPs->execute();
+         $userSearch = $userPs->fetchAll();
     
         if (!empty($userSearch)) {
-          $search[0]['user_name'] = $userSearch['user_name'];
+          $search[0]['user_info'] = $userSearch;
 
           // goodテーブルのレコード数を取得するクエリを追加
             $goodSql = "SELECT COUNT(*) AS count FROM goods WHERE post_id = $id";
