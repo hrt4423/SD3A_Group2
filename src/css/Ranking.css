@@ -26,67 +26,41 @@
   text-align: center;
 }
 
-.rank{
+tr{
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: white;
-  width: 80vw;
-  height: 13vh;
-  margin: 0 auto;
-  margin-top: 20px;
-  border-radius: 10px; /* 角丸を10pxに設定 */
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* シャドウを設定 */
-  position: relative;
+  height: 100px;
+  margin: 10px;
+  border-radius: 20px;
 }
 
-.rank_img{
-  position: absolute;
-  width: 80px;
-  height: 60px;
-  margin-left: 3vw;
+table{
+  width: 100%;
+}
+
+.rank{
+  flex-basis: 10%;
+  text-align: center;
 }
 
 .user_icon{
-  position: absolute;
   width: 5vw;
   height: 5vw;
   background-color: #653A91;
   border-radius: 50px;
-  margin-left: 15vw;
 }
 
 .user_name{
+  flex-basis: 20%;
   font-size: 1.8vw;
   font-weight: bold;
-  margin-left: 26vw;
 }
 
-.user_point{
+.point_sum{
+  flex-basis: 50%;
+  text-align: center;
   font-size: 1.8vw;
   font-weight: bold;
-  margin-left: 24vw;
-}
-
-.rank_number{
-  position: absolute;
-  font-size: 2.5vw;
-  font-weight: bold;
-  left: 4.5vw;
-}
-
-.user_icon4{
-  position: absolute;
-  width: 5vw;
-  height: 5vw;
-  background-color: #653A91;
-  border-radius: 50px;
-  margin-left: 15vw;
-}
-
-.img{
-  position: absolute;
-  top: 2vw;
-  left: 20vw;
-  width: 3.5vw;
-  height: 3.5vw;
 }
