@@ -1,4 +1,57 @@
 <?php session_start(); ?>
+<?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
+<?php
+  // if (isset($_POST['commentSubmit'])) {
+  //   //タイトル確認
+  //   $title = "test";
+  //   $detail = $_POST['comment'];
+  //   $post_priority = 24;
+  //   //ここにセッションIDいれてほしい
+  //   $user_id = $USESR_ID;
+
+  //   //コメントのID
+  //   $post_category_id = 3;
+
+  //   // 投稿を挿入し、post_idを取得
+  //   $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
+
+  // }
+?>
+<?php
+  // if (isset($_POST['answerSubmit'])) {
+  //   //タイトル確認
+  //   $title = "test";
+  //   $detail = $_POST['post_detail'];
+  //   $post_priority = 24;
+  //   //ここにセッションIDいれてほしい
+  //   $user_id = $USESR_ID;
+
+  //   //コメントのID
+  //   $post_category_id = 3;
+
+  //   // 投稿を挿入し、post_idを取得
+  //   $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
+
+  //   // タグを追加
+  //   // $tagValues = $_POST['tagValues'];
+  //   // $tagIds = $tagClass->addTag($tagValues);
+
+  //   // タグを投稿に関連付ける
+  //   // $attachedClass->addTags($post_id, $tagIds);
+
+
+  //   // ob_start(); // バッファリングを開始
+  //   // // header("Location: questiontimeline.php");
+  //   // exit();
+  //   // ob_end_flush(); // バッファの内容を出力
+  // }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -56,12 +109,6 @@
   <body>
     <!-- ここからがヘッダー -->
       <div class="header_size">
-      <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
-      ?>
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
         <div class="right">
@@ -117,12 +164,18 @@
         echo 'console.log(' . json_encode($coment) . ')';
         echo '</script>';
 
-        if(isset($_POST['send_icon'])){
-          $postAll = new DAO_post();
-              $postAll->insertpost($post_id, $post_detail);
-              echo '<script>';
-              echo 'console.log(ok)';
-              echo '</script>'; 
+        if (isset($_POST['commentSubmit'])) {
+          $formIndex = $_POST['commentSubmit']; // 送信されたフォームのインデックスを取得
+          $comment = $_POST['comment'][$formIndex]; // 対応するコメントの値を取得
+          var_dump($_POST['postID']);
+          
+          $postAll->insertpost($_POST['postID'], $comment, $USESR_ID);
+          
+        }
+        if(isset($_POST['answerSubmit'])){
+              var_dump($_POST['comment_answer']);
+              var_dump($_POST);
+              $postAll->insertpost($post_id, $_POST['comment_answer'], $USESR_ID);
         }
 
       }catch(Exception $ex){
@@ -156,26 +209,65 @@
             <div class="reply-area">
               <h5>--回答--</h5>
               <div name="reply-card" class="card" id="card-reply-area">
-                <!--回答１-->
-                <div class="card-body">
-                  <div class="card-title"></div>
 
-                  <?php foreach ($coment as $item): ?>
+            <!--回答１-->
+            <div class="card-body">
+              <div class="card-title"></div>
+
+              <?php foreach ($coment as $index => $item): ?>
+                <div name="user-info">
+                  <!--投稿者の情報-->
+                  <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+                  <span name="user-rank"><i class="bi bi-gem"></i></span>
+                  <span name="user-name"><?php echo $item['user_name']; ?></span>
+                </div>
+                <!--いいねボタン-->
+                <div class="good-button-area">
+                  <button class="btn" id="good" onclick="handlegood1()">
+                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                    <span id="good-amount"><?php echo $item['good_count']; ?></span>
+                  </button>
+                </div>
+
+                <div class="card-text">
+                  <!--回答文-->
+                  <?php echo $item['post_detail']; ?>
+                </div>
+
+                <?php if ($item['destination_post_id'] !== null): ?>
+                  <?php if ($index === 0 || $item['destination_post_id'] !== $coment[$index - 1]['post_id']): ?>
+                    <!-- 返信欄 -->
+                    <div name="user-info">
+                      <!--投稿者の情報-->
+                      <span name="user-icon"><i class="bi bi-person-circle"></i></span>
+                      <span name="user-rank"><i class="bi bi-gem"></i></span>
+                      <span name="user-name"><?php echo $item['user_name']; ?></span>
+                    </div>
+                    <!--いいねボタン-->
+                    <div class="good-button-area">
+                      <button class="btn" id="good" onclick="handlegood1()">
+                        <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                        <span id="good-amount"><?php echo $item['good_count']; ?></span>
+                      </button>
+                    </div>
+
+                    <div class="card-text">
+                      <!--回答文-->
+                      <?php echo $item['post_detail']; ?>
+                    </div>
+                  <?php endif; ?>
+                <?php else: ?>
+                  <!-- 返信欄 -->
                   <div name="user-info">
                     <!--投稿者の情報-->
-                    <span name="user-icon"
-                      ><i class="bi bi-person-circle"></i
-                    ></span>
+                    <span name="user-icon"><i class="bi bi-person-circle"></i></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
                     <span name="user-name"><?php echo $item['user_name']; ?></span>
                   </div>
                   <!--いいねボタン-->
                   <div class="good-button-area">
                     <button class="btn" id="good" onclick="handlegood1()">
-                      <i
-                        name="good-button"
-                        class="bi bi-hand-thumbs-up-fill"
-                      ></i>
+                      <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
                       <span id="good-amount"><?php echo $item['good_count']; ?></span>
                     </button>
                   </div>
@@ -184,86 +276,79 @@
                     <!--回答文-->
                     <?php echo $item['post_detail']; ?>
                   </div>
-                  <?php endforeach; ?>
+                <?php endif; ?>
 
-                 
-                        <!-- <hr id="border-line-reply" /> -->
+                <div class="card-text">
+                  <!--コメント文-->
+                  <!-- ***コメント<?php echo $index + 1; ?>*** -->
 
-                        <!-- <h6 id="reply-comment">コメント</h6>
-                        <div name="user-info" class="col-3">
-                          <span name="user-icon"><i class="bi bi-person-circle"></i></span>
-                          <span name="user-rank"><i class="bi bi-gem"></i></span>
-                          <span name="user-name">ユーザー名</span> -->
-                        </div>
+                  <hr id="border-line-reply" />
 
-                        <!--いいねボタン-->
-                        <!-- <div class="good-button-area">
-                          <button class="btn" id="good">
-                            <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                            <span id="good-amount"></span>
-                          </button>
-                        </div> -->
-                     
+                  <!-- ここまで -->
 
-                  <div class="card-text">
-                    <!--コメント文-->
-                    <!-- ***コメント1*** -->
+                  <div class="comment-write-area">
+                    <!--コメント入力欄-->
+                    <form action="" method="post" id="comment-form-<?php echo $index + 1; ?>">
+                      <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
+                      <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
+                        <?php if ($item['destination_post_id'] !== null): ?>
+                          <input value="<?php echo $item['post_id']; ?>" name="postID" style="display:none">
+                        <?php endif; ?>
+                        <textarea
+                          class="form-control"
+                          placeholder=""
+                          id="comment"
+                          name="comment[<?php echo $index + 1; ?>]"
+                          form="comment-form-<?php echo $index + 1; ?>"
+                          style="height: 150px"
+                        ></textarea>
+                        <label for="">返信</label>
+                        <div class="styled-output"></div>
+                      </div>
 
-                    <hr id="border-line-reply" />
+                      <div style="display: flex">
+                        <button
+                          type="button"
+                          class="btn preview-button"
+                          data-toggle="button"
+                          aria-pressed="false"
+                          autocomplete="off"
+                          onclick="convertToMarkdown(<?php echo $index + 1; ?>)"
+                        >
+                          プレビュー
+                        </button>
 
-                    <div class="comment-write-area">
-                      <!--コメント入力欄-->
-                      <form action="" method="post" id="comment-form">
-                        <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
-                        <div class="form-floating" id="">
-                          <textarea
-                            class="form-control"
-                            placeholder=""
-                            id=""
-                            form="comment-form"
-                            style="height: 150px"
-                          ></textarea>
-                          <label for="">返信</label>
-                          <div class="styled-output"></div>
-                        </div>
-
-                        <div style="display: flex">
-                          <button
-                            type="button"
-                            class="btn preview-button"
-                            data-toggle="button"
-                            aria-pressed="false"
-                            autocomplete="off"
-                            onclick="convertToMarkdown(1)"
-                          >
-                            プレビュー
-                          </button>
-
-                          <div class="comment-write-area-button">
-                            <label id="upload-image-icon">
-                              <input type="file" name="file" />
-                              <button class="btn btn-outline-dark">
-                                <i class="bi bi-card-image"></i>
-                              </button>
-                            </label>
-                            <button
-                              type="submit"
-                              class="btn btn-outline-dark"
-                              id="send-icon"
-                            >
-                              <i class="bi bi-send"></i>
+                        <div class="comment-write-area-button">
+                          <label id="upload-image-icon">
+                            <input type="file" name="file" />
+                            <button class="btn btn-outline-dark">
+                              <i class="bi bi-card-image"></i>
                             </button>
-                          </div>
+                          </label>
+                          <button
+                            type="submit"
+                            class="btn btn-outline-dark"
+                            id="send-icon"
+                            name="commentSubmit"
+                            value="<?php echo $index + 1; ?>"
+                          >
+                            <i class="bi bi-send"></i>
+                          </button>
                         </div>
-                        <!-- フォームに投稿IDを隠しフィールドとして追加 -->
-                        <input type="hidden" name="post_id" value="">
-                      </form>
+                      </div>
+                      <!-- フォームに投稿IDを隠しフィールドとして追加 -->
+                      <input type="hidden" name="post_id" value="">
+                    </form>
 
-                      <!--comment-area-button-->
-                    </div>
-                    <!--/コメント入力欄-->
+                    <!--comment-area-button-->
                   </div>
+                  <!--/コメント入力欄-->
                 </div>
+
+              <?php endforeach; ?>
+
+            </div>
+
                 <!---card-body-->
               </div>
               <!--/回答１-->
@@ -401,8 +486,8 @@
           <textarea
             class="form-control"
             placeholder=""
-            name="post_detail"
             id="text-area-3"
+            name="comment_answer"
             form="comment-form"
             style="height: 150px"
           ></textarea>
@@ -429,7 +514,7 @@
                 <i class="bi bi-card-image"></i>
               </button>
             </label>
-            <button type="submit" class="btn btn-outline-dark" id="send-icon" name="send_icon">
+            <button type="submit" class="btn btn-outline-dark" id="send-icon" name="answerSubmit">
               <i class="bi bi-send"></i>
             </button>
           </div>
