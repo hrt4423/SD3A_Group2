@@ -2,7 +2,7 @@
   class DAO_post{
 
     private function dbConnect(){
-      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
+      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','');
       return $pdo;
     }
 
