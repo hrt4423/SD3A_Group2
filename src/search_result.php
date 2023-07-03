@@ -120,6 +120,7 @@
         case 2: //DESC
           $result = $posts -> searchPostsByKeyword($_GET['keyword'], 2);
           break;
+          
       }
 
       foreach($result as $row) { 
