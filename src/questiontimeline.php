@@ -92,7 +92,7 @@
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
+                <a class="dropdown-item" href="./articleCreation.php">記事</a>
               </div>
           </div>
         </div>

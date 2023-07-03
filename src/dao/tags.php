@@ -3,7 +3,7 @@
     // DB接続設定
     private $servername = "localhost";
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     private $dbname = "asoda";
 
     // タグの追加処理
@@ -80,7 +80,7 @@
   class DAO_tag{
 
     private function dbConnect(){
-      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','');
+      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
       return $pdo;
     }
 
