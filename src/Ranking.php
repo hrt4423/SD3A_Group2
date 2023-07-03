@@ -94,40 +94,54 @@
   </style>
 </head>
 <body class="body">
-    <div class="header_size">
+<div class="header_size">
+      <?php
+        session_start();
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
-          <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
         <div class="right">
 
+          <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-              <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-          </div>
 
-          <div class="circle"></div>
-            <div class="dropdown">
-                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  投稿する
+            <form action="./search_result.php" method="GET" id="search-form">
+              <div class="input-group-prepend">
+                <button type="submit" class="input-group-text" id="search-button">
+                  <i class="fa fa-search"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">質問</a>
-                  <a class="dropdown-item" href="#">記事</a>
-                </div>
-            </div>
+              </div>
+              <input type="hidden" name="sort_type" value="0">
+              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+            </form>
+
+          </div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
+          
+          <div class="dropdown">
+            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              投稿する
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                <a class="dropdown-item" href="#">記事</a>
+              </div>
+          </div>
         </div>
       </div>
 
       <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="underline text">いいね</a>
-        <a href="#" class="underline text">投稿</a>
-        <a href="#" class="underline text">ランキング</a>
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
       </div>
-
     </div>
 <!-- ↑ヘッダー -->
 
@@ -185,7 +199,7 @@
           }else if($rank==3){
             echo '<tr>
             <td class="rank">
-            <image src="./images/rank2.png">
+            <image src="./images/rank3.png">
             </td>
             <td class="user_icon">
              '.$row["user_icon"].'
