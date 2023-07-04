@@ -56,10 +56,10 @@
     $good = new Good;
     
     require_once './dao/tags.php';
-    $tagAll = new DAO_tag();
-    $search2 = $tagAll->tags();
+    $tags = new DAO_tag();
+    $allTags = $tags->tags();
     echo '<script>';
-    echo 'console.log(' . json_encode($search2) . ')';
+    echo 'console.log(' . json_encode($allTags) . ')';
     echo '</script>';
   }catch(Exception $ex){
     echo $ex->getMessage();
@@ -121,44 +121,42 @@
   <!-- ここまでがヘッダー -->
   <?php
 
-    try{
-      require_once './DAO/posts.php';
-      $postAll = new DAO_post();
-      $search = $postAll->post();//データ取得
-      echo '<script>';
-      echo 'console.log(' . json_encode($search) . ')';
-      echo '</script>';
+    // try{
+    //   require_once './DAO/posts.php';
+    //   $postAll = new DAO_post();
+    //   $search = $postAll->post();//データ取得
+    //   echo '<script>';
+    //   echo 'console.log(' . json_encode($search) . ')';
+    //   echo '</script>';
 
-      require_once './dao/tags.php';
-      $tagAll = new DAO_tag();
-      $search2 = $tagAll->tags();
-      echo '<script>';
-      echo 'console.log(' . json_encode($search2) . ')';
-      echo '</script>';
-    }catch(Exception $ex){
-      echo $ex->getMessage();
-    }catch(Error $err){
-      echo $err->getMessage();
-    }
+    //   // require_once './dao/tags.php';
+    //   // $tagAll = new DAO_tag();
+    //   // $search2 = $tagAll->tags();
+    //   // echo '<script>';
+    //   // echo 'console.log(' . json_encode($search2) . ')';
+    //   // echo '</script>';
+    // }catch(Exception $ex){
+    //   echo $ex->getMessage();
+    // }catch(Error $err){
+    //   echo $err->getMessage();
+    // }
   ?>
-
-
-    <!--タグ検索ボタン-->
-    <form action="./questiontimeline.php" method="GET" id="tag-form"></form>
+    <!--タグ検索-->
+    <form action="./questiontimeline.php" method="GET" id="tag-form"></form> 
 
     <div class="select_area">
       <div class="sele_area1">
-        <select class="select1">
+        <select class="select1" form="tag-form">
           <option value="" disabled selected>タグ</option>
 
-          <?php foreach($search2 as $tag) : ?>
+          <?php foreach($allTags as $tag) : ?>
             <option value="<?=  $tag['tag_id'] ?>"  class="tag-text">
             <?= $tag['tag_name'] ?></option>
           <?php endforeach; ?>
 
         </select>
       </div>
-    <!--タグ検索ボタン終了-->
+      <!--/タグ検索-->
         
       <div class="sele_area2">
         <form action="./questiontimeline.php" method="get" id="sort-form">

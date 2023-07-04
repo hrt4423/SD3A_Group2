@@ -75,6 +75,9 @@
             return null;
         }
     }
+
+    //上位20件のタグを取得 最近使用された順に20件
+    //SQL LIMIT 
   }
 
   class DAO_tag{
