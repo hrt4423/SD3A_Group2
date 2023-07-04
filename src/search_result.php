@@ -127,7 +127,10 @@
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
-    <hr>
+    <div>
+    <form action="question-detail.php" method="GET">
+    <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
+    <button>
     <p><?= $users -> getUserNameById($row['user_id']) ?></p>
     <p><?= $row['post_title'] ?></p>
     <p><?= $row['post_time'] ?></p>
@@ -137,7 +140,9 @@
     <?php endforeach; ?>
     <!-- いいね数 -->
     <p><?= $good -> goodCount($row['post_id']) ?></p>
-    <hr>
+    </button>   
+    </form>
+    </div>
 
   <?php
       } //end foreach
