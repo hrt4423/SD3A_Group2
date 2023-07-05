@@ -19,7 +19,7 @@
   <link href="css/questiontimeline.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
   <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
   
-  <script src="js/questiontimeline.js"></script>
+  <!-- <script src="js/questiontimeline.js"></script> -->
   <style>
     .tag-text{
       color: brack;
@@ -67,37 +67,7 @@
     echo $err->getMessage();
   }
 ?>
-<script>
-  $(document).ready(function(){
 
-    //タグ追加ボタンがクリックされた時の処理
-    $('#append-tag-button').click(function(){
-      var tag = $('#tag-search-textbox').val();
-      addTag(tag);
-    });
-    
-    //タグのプルダウンが選択された時の処理
-    $('#tag-select').change(function(){
-      var tag = $('#tag-select').val();
-      addTag(tag);
-    });
-  })
-
-  //選択したタグを表示する関数
-  function appendTagElement(tag){
-    var tagElement = $('<div class="tag"></div>');
-    tagElement.text(tag);
-
-    var removeButton = $('<span>✕</span>');
-    tagEllement.append(removeButton);
-    tagEllement.append('<input type="hidden" name="tagValues[]" value="' + tag + '">')
-
-    $('#selected-tags').append(tagElement);
-    //テキストボックスの中身をクリア
-    $('#tag-input').val('');
-  }
-
-</script>
 <body id="body" class="container-fluid">
   <!-- ここからがヘッダー -->
     <div class="header_size">
@@ -175,15 +145,23 @@
   <div class="row">
     <!-- タグ検索 -->
     <div class="col-3" >
-      <form action="./questiontimeline.php" method="GET" id="tag-form"></form> 
+      <form action="./questiontimeline.php" method="GET" id="tag-filter-form"></form> 
 
-      <span id="selected-tags">--タグが選択されていく場所--</span>
-      <button type="submit" form="tag-form" class="btn btn-purple">絞り込む</button>
+      <div id="selected-tags"></div>
+      <button type="submit" form="tag-filter-form" class="btn btn-purple">絞り込む</button>
       <hr>
 
       <?php foreach($allTags as $tag) : ?>
         <div class="tag-element">
-          <input type="checkbox" id="<?=$tag['tag_id']?>" class="checkbox" value="<?=$tag['tag_id']?>">
+          <input 
+            type="checkbox" 
+            id="<?=$tag['tag_id']?>" 
+            name="tag-checkbox"
+            class="checkbox" 
+            value="<?=$tag['tag_id']?>" 
+            form="tag-filter-form"
+          >
+
           <label for="<?=$tag['tag_id']?>" class="tag-name"><?=$tag['tag_name']?></label>
         </div>
       <?php endforeach; ?>
@@ -263,6 +241,48 @@
     <!-- /ソート -->
 
   </div>
+
+  <script>
+  $(document).ready(function(){
+
+    // //タグがクリックされた時の処理
+    // $('input[name="tag-checkbox"]').change(function(){
+    //   var tagId = $('input[name="tag-checkbox"]:checked').attr('id');
+    //   var tagName = $('label[for="' + tagId + '"]').text(); //かっこがなかったら動かない
+    //   appendTagElement(tagName);
+    // });
+
+    //タグがクリックされた時の処理
+    $('input[name="tag-checkbox"]').change(function(){
+      var selectedTags = [];
+
+      $('input[name="tag-checkbox"]:checked').each(function(index, element){
+        var tagId =  $(element).attr('id');
+        selectedTags.push($('label[for="' + tagId + '"]').text());
+      });
+
+      $('#selected-tags').html(
+        '<div>' + selectedTags.join('</div>')
+      );
+
+      //TODO
+      //divタグでかこむ
+
+    });
+  });
+
+  //選択したタグを表示する関数
+  function appendTagElement(tagName) {
+    var tagElement = $('<div class="tag"></div>');
+    tagElement.text(tagName);
+
+    var removeButton = $('<span>✕</span>');
+    tagElement.append(removeButton);
+
+    $('#selected-tags').append(tagElement);
+  }
+
+</script>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
