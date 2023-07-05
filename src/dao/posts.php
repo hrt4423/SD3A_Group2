@@ -129,18 +129,18 @@
         }
       }
 
-      // goodテーブルのレコード数を取得するクエリを追加
-      $goodSql = "SELECT COUNT(*) AS count FROM goods WHERE post_id = $id";
-      $goodPs = $pdo->prepare($goodSql);
-      $goodPs->execute();
-      $goodSearch = $goodPs->fetch();
-
-      if (!empty($goodSearch)) {
-        $coment[0]['good_count'] = $goodSearch['count'];
-      }
-
       return $coment;
     }
+
+    public function pos_return($id){
+      $pdo=$this->dbConnect();
+      $sql ="SELECT * FROM posts WHERE destination_post_id = $id";
+      $ps = $pdo->prepare($sql);
+      $ps->execute();
+      $coment = $ps->fetchAll();
+      return $coment;
+    }
+
 
     public function insertpost($id,$coment){
       $pdo = $this->dbConnect();

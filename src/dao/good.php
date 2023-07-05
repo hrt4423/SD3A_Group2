@@ -1,8 +1,4 @@
 <?php
-$goods=new Good();
-if (isset($_POST['post_id']) && isset($_POST['user_id'])) {
- $goods->insertgood($_POST['post_id'],$_POST['user_id']);
-}
   class Good{
     private function dbConnect(){
       //データベースに接続
@@ -44,14 +40,27 @@ if (isset($_POST['post_id']) && isset($_POST['user_id'])) {
 
       $psUpdatePoints = $pdo->prepare($sqlUpdatePoints);
       $psUpdatePoints->bindValue(1, $user_id, PDO::PARAM_INT);
+      try{
       if ($ps->execute()) {
-        $psUpdatePoints->execute();
-        $url = '../question-detail.php?post_id=' . urlencode($post_id);
-    header('Location: ' . $url);
-    exit; // リダイレクト後にスクリプトの実行を終了する
+        
+        // 重複エラーが発生した場合にエラーコードが返る可能性があるため、ここで明示的に例外をスローする
+        if ($ps->rowCount() == 0) {
+          throw new Exception("データの挿入中に重複エラーが発生しました");
+        }else{
+          $psUpdatePoints->execute();
+        }
+        $url = 'question-detail.php?post_id=' . urlencode($post_id);
+        header('Location: ' . $url);
+        exit; // リダイレクト後にスクリプトの実行を終了する
       } else {
-        return  "データの挿入中にエラーが発生しました: " . $ps->errorInfo()[2];
+        throw new Exception("データの挿入中に重複エラーが発生しました");
       }
+    } catch (Exception $e) {
+
+      $url = 'question-detail.php?post_id=' . urlencode($post_id);
+      header('Location: ' . $url);
+      exit; // リダイレクト後にスクリプトの実行を終了する
+  }
     }
     
   }

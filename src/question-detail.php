@@ -105,17 +105,34 @@
     <?php
       try{
         require_once './DAO/posts.php';
+        require_once './dao/good.php';
+        require_once './dao/users.php';
         $postAll = new DAO_post();
+        $goodAll = new Good();
+        $userAll = new Users();
         $post_id = $_GET['post_id'];
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
         echo '<script>';
         echo 'console.log(' . json_encode($search) . ')';
         echo '</script>';
 
-        $coment = $postAll->post_return($post_id);//それに対する返信検索
+        // $coment = $postAll->post_return($post_id);//それに対する返信検索
+        // echo '<script>';
+        // echo 'console.log(' . json_encode($coment) . ')';
+        // echo '</script>';
+        $coment = $postAll->pos_return($post_id);//それに対する返信検索
         echo '<script>';
         echo 'console.log(' . json_encode($coment) . ')';
         echo '</script>';
+        $count_search = $coment[0]['post_id'];
+        $user_search = $coment[0]['user_id'];
+
+        $goodcount = $goodAll->goodCount($count_search);//それに対する返信のgoodcount
+        echo '<script>';
+        echo 'console.log(' . json_encode($goodcount) . ')';
+        echo '</script>';
+
+        $username = $userAll->getUserNameById($user_search);
 
         if(isset($_POST['send_icon'])){
           $postAll = new DAO_post();
@@ -167,16 +184,16 @@
                       ><i class="bi bi-person-circle"></i
                     ></span>
                     <span name="user-rank"><i class="bi bi-gem"></i></span>
-                    <span name="user-name"><?php echo $item['user_name']; ?></span>
+                    <span name="user-name"><?php echo $username; ?></span>
                   </div>
                   <!--いいねボタン-->
                   <div class="good-button-area">
-                    <button class="btn" id="good" onclick="handlegood1()">
+                    <button class="btn" id="good">
                       <i
                         name="good-button"
                         class="bi bi-hand-thumbs-up-fill"
                       ></i>
-                      <span id="good-amount"><?php echo $item['good_count']; ?></span>
+                      <span id="good-amount"><?php echo $goodcount; ?></span>
                     </button>
                   </div>
 
@@ -186,23 +203,8 @@
                   </div>
                   <?php endforeach; ?>
 
-                 
-                        <!-- <hr id="border-line-reply" /> -->
-
-                        <!-- <h6 id="reply-comment">コメント</h6>
-                        <div name="user-info" class="col-3">
-                          <span name="user-icon"><i class="bi bi-person-circle"></i></span>
-                          <span name="user-rank"><i class="bi bi-gem"></i></span>
-                          <span name="user-name">ユーザー名</span> -->
                         </div>
 
-                        <!--いいねボタン-->
-                        <!-- <div class="good-button-area">
-                          <button class="btn" id="good">
-                            <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                            <span id="good-amount"></span>
-                          </button>
-                        </div> -->
                      
 
                   <div class="card-text">
@@ -267,124 +269,14 @@
                 <!---card-body-->
               </div>
               <!--/回答１-->
-
-              <!--回答２-->
-              <!-- <div name="reply-card" class="card" id="card-reply-area">
-                
-                <div class="card-body">
-                  <div class="card-title"></div>
-
-                  <div name="user-info" class="col-3">
-                    投稿者の情報
-                    <span name="user-icon"
-                      ><i class="bi bi-person-circle"></i
-                    ></span>
-                    <span name="user-rank"><i class="bi bi-gem"></i></span>
-                    <span name="user-name">ユーザー名</span>
-                  </div>
-
-                  いいねボタン
-                  <div class="good-button-area">
-                    <button class="btn" id="good">
-                      <i
-                        name="good-button"
-                        class="bi bi-hand-thumbs-up-fill"
-                      ></i>
-                      <span id="good-amount">13</span>
-                    </button>
-                  </div>
-
-                  <div class="card-text">***回答２***</div>
-
-                  <hr id="border-line-reply" />
-
-                  <h6 id="reply-comment">コメント</h6>
-                  <div name="user-info" class="col-3">
-                   投稿者の情報
-                    <span name="user-icon"
-                      ><i class="bi bi-person-circle"></i
-                    ></span>
-                    <span name="user-rank"><i class="bi bi-gem"></i></span>
-                    <span name="user-name">ユーザー名</span>
-                  </div>
-
-                  いいねボタン
-                  <div class="good-button-area">
-                    <button class="btn" id="good">
-                      <i
-                        name="good-button"
-                        class="bi bi-hand-thumbs-up-fill"
-                      ></i>
-                      <span id="good-amount">13</span>
-                    </button>
-                  </div>
-
-                  <div class="card-text">
-                    ***コメント2***
-
-                    <hr id="border-line-reply" />
-
-                    <div class="comment-write-area">
-                     コメント入力欄
-                      <form action="" method="post" id="comment-form">
-                        <div class="form-floating" id="comment-text-area-2">
-                          <textarea
-                            class="form-control"
-                            placeholder=""
-                            id="text-area-2"
-                            form="comment-form"
-                            style="height: 150px"
-                          ></textarea>
-                          <label for="text-area-2">返信</label>
-                          <div class="styled-output"></div>
-                        </div>
-
-                        <div style="display: flex">
-                          <button
-                            type="button"
-                            class="btn preview-button"
-                            data-toggle="button"
-                            aria-pressed="false"
-                            autocomplete="off"
-                            onclick="convertToMarkdown(2)"
-                          >
-                            プレビュー
-                          </button>
-
-                          <div class="comment-write-area-button">
-                            <label id="upload-image-icon">
-                              <input type="file" name="file" />
-                              <button class="btn btn-outline-dark">
-                                <i class="bi bi-card-image"></i>
-                              </button>
-                            </label>
-                            <button
-                              type="submit"
-                              class="btn btn-outline-dark"
-                              id="send-icon"
-                            >
-                              <i class="bi bi-send"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-
-                    comment-area-button
-                    </div>
-                    /コメント入力欄
-                  </div>
-                </div>
-               card-body
-              </div>
-              回答２
-            </div> -->
           </div>
 
           <div id="side-area" class="col-3 text-center">
             <button class="btn" id="edit">編集</button>
             <br />
             <div class="good">
-              <form method="POST" action="./dao/good.php">
+              <!-- 記事に対するいいね処理 ↓-->
+              <form method="POST" action="goodinsert.php">
                 <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
                 <input type="hidden" name="user_id" value="<?php echo $search[0]['user_id'];?>">
               <button class="btn" id="good" type="submit">
