@@ -1,14 +1,21 @@
 <?php
   class Good{
+    //非推奨
     private function dbConnect(){
-      //データベースに接続
       $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-                      'root', 'root');
+                      'root', '');
       return $pdo;
     }
 
+    //DB接続にはこちらの関数を推奨
+    private function connect(){
+      require_once('connection.php');
+      $connection = new Connection;
+      return $connection->dbConnect();
+    }
+
     public function goodCount($postId){
-      $pdo = $this -> dbConnect();
+      $pdo = $this -> connect();
       //SQLの生成
       $sql = "SELECT count(post_id) FROM goods WHERE post_id=?";
 

@@ -9,7 +9,7 @@
 
     public function getUserDataById($id){
       $pdo = $this -> dbConnect();
-      //SQLの生成
+      //SQLの生
       $sql = "SELECT * FROM users WHERE user_id=?";
 
       //prepare:準備　戻り値を変数に保持
@@ -59,14 +59,14 @@
 
       $ps->execute();
     }
-
+    
     public function updateProfile($id, $userData){
       $pdo = $this -> dbConnect();
       $sql = "UPDATE users SET user_name=?, user_mail=?, user_pass=?, user_profile=?, thema_color_id=? WHERE user_id=?";
       $ps = $pdo -> prepare($sql);
       $ps->bindValue(1, $userData['user_name'], PDO::PARAM_STR);
       $ps->bindValue(2, $userData['user_mail'], PDO::PARAM_STR);
-      $ps->bindValue(3, $userData['user_pass'], PDO::PARAM_STR);
+      $ps->bindValue(3, password_hash($userData['user_pass'],PASSWORD_DEFAULT), PDO::PARAM_STR);
       $ps->bindValue(4, $userData['user_profile'], PDO::PARAM_STR);
       $ps->bindValue(5, $userData['thema_color_id'], PDO::PARAM_INT);
       $ps->bindValue(6, $id, PDO::PARAM_INT); 

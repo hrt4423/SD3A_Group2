@@ -1,7 +1,167 @@
 <?php
+  class posts {
+    private function connect(){
+      require_once('connection.php');
+      $connection = new connection();
+      $dbh = $connection->dbConnect();
+      return $dbh;
+    }
+
+    public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
+      // DB接続情報
+      $dsn = 'mysql:dbname=asoda;host=localhost';
+      $user = 'root';
+      $password = 'root';
+
+      try {
+          $dbh = new PDO($dsn, $user, $password);
+      } catch (PDOException $e) {
+          print('Error:' . $e->getMessage());
+          die();
+      }
+
+      // テスト検索
+      $sql = "INSERT INTO posts (user_id,
+                                post_category_id,
+                                post_time,
+                                post_title,
+                                post_detail,
+                                post_priority
+                                ) 
+              VALUES (:user_id,
+                      :post_category_id, 
+                      :post_time,
+                      :post_title,
+                      :post_detail,
+                      :post_priority
+                    )";
+
+      // プリペアドステートメントを作成
+      $stmt = $dbh->prepare($sql);
+
+      // 日時をセット
+      $post_time = date("Y-m-d H:i:s");
+
+      // パラメータをバインド
+      $stmt->bindParam(':user_id', $user_id);
+      $stmt->bindParam(':post_category_id', $post_category_id);
+      $stmt->bindParam(':post_time', $post_time);
+      $stmt->bindParam(':post_title', $title);
+      $stmt->bindParam(':post_detail', $detail);
+      $stmt->bindParam(':post_priority', $post_priority);
+
+      // ステートメントを実行
+      $stmt->execute();
+
+      $post_id = (int)$dbh->lastInsertId(); // 最後に挿入されたレコードのIDを整数(int)として取得
+
+      try {
+          echo "データが正常に挿入されました。";
+      } catch (PDOException $e) {
+          echo "エラー: " . $e->getMessage();
+      }
+
+      return $post_id; // $post_idを整数(int)として返す
+    }
+
+    public function insertpost($title, $detail, $user_id, $post_priority) {
+      // DB接続情報
+      $dsn = 'mysql:dbname=asoda;host=localhost';
+      $user = 'root';
+      $password = 'root';
+
+      try {
+          $dbh = new PDO($dsn, $user, $password);
+      } catch (PDOException $e) {
+          print('Error:' . $e->getMessage());
+          die();
+      }
+
+      // テスト検索
+      $sql = "INSERT INTO posts (user_id,
+                                post_category_id,
+                                post_time,
+                                post_title,
+                                post_detail,
+                                post_priority
+                                ) 
+              VALUES (:user_id,
+                      :post_category_id, 
+                      :post_time,
+                      :post_title,
+                      :post_detail,
+                      :post_priority
+                    )";
+
+      // プリペアドステートメントを作成
+      $stmt = $dbh->prepare($sql);
+
+      // 値をセット
+      $post_category_id = 1;
+      $post_time = date("Y-m-d H:i:s");
+
+      // パラメータをバインド
+      $stmt->bindParam(':user_id', $user_id);
+      $stmt->bindParam(':post_category_id', $post_category_id);
+      $stmt->bindParam(':post_time', $post_time);
+      $stmt->bindParam(':post_title', $title);
+      $stmt->bindParam(':post_detail', $detail);
+      $stmt->bindParam(':post_priority', $post_priority);
+
+      // ステートメントを実行
+      $stmt->execute();
+
+      $post_id = (int)$dbh->lastInsertId(); // 最後に挿入されたレコードのIDを整数(int)として取得
+
+      try {
+          echo "データが正常に挿入されました。";
+      } catch (PDOException $e) {
+          echo "エラー: " . $e->getMessage();
+      }
+
+      return $post_id; // $post_idを整数(int)として返す
+    }
+
+    public function fetchAllPostsByCategory(int $category, int $sortType = 0) {
+      $pdo = $this->connect();
+      switch ($sortType) {
+        case 1:
+          //古い順
+          $sql = "SELECT * FROM posts WHERE post_category_id = ? 
+                  ORDER BY post_time ASC";
+          break;
+
+        case 2:
+          //新着順
+          $sql = "SELECT * FROM posts WHERE post_category_id = ? 
+                  ORDER BY post_time DESC";
+          break;
+
+        default:
+          //優先度順
+          $sql = "SELECT * FROM posts WHERE post_category_id = ? 
+                  ORDER BY  post_priority DESC, post_time DESC";
+          break;
+      }
+      //prepare:準備　戻り値を変数に保持
+      $ps = $pdo -> prepare($sql);
+
+      //”？”に値を設定する。
+      $ps->bindValue(1, $category, PDO::PARAM_INT); 
+
+      //SQLの実行
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        throw new Exception('キーワードに該当する投稿はありませんでした');
+      }else{
+        return $result;
+      }
+    }
+  }      
 
   class DAO_post{
-
     private function dbConnect(){
       $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
       return $pdo;
@@ -70,21 +230,28 @@
       return $search;
 
     }
-    public function post_detail ($id) {
-      $pdo=$this->dbConnect();
-      $sql ="SELECT * FROM posts WHERE post_id = $id";
+    public function post_detail($id) {
+      $pdo = $this->dbConnect();
+    
+      $sql = "
+        SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
+        FROM posts
+        LEFT JOIN users ON posts.user_id = users.user_id
+        LEFT JOIN goods ON posts.post_id = goods.post_id
+        WHERE posts.post_id = :id
+        GROUP BY posts.post_id
+      ";
+    
       $ps = $pdo->prepare($sql);
+      $ps->bindValue(':id', $id, PDO::PARAM_INT);
       $ps->execute();
       $search = $ps->fetchAll();
-
-      if (!empty($search)) {
-        $userId = $search[0]['user_id'];
     
         // ユーザー名を取得するクエリを追加
          // Retrieve all user information
          $userSql = "SELECT * FROM users WHERE user_id = :userId";
          $userPs = $pdo->prepare($userSql);
-         $userPs->bindValue(':userId', $userId, PDO::PARAM_INT);
+         $userPs->bindValue(':userId', $id, PDO::PARAM_INT);
          $userPs->execute();
          $userSearch = $userPs->fetchAll();
     
@@ -101,36 +268,41 @@
                 $search[0]['good_count'] = $goodSearch['count'];
               }
         }
+        return $search;
       }
-
       
-      return $search;
-    }
+    
 
-    public function post_return ($id){
-      $pdo=$this->dbConnect();
-      $sql ="SELECT * FROM posts WHERE destination_post_id = $id";
+    public function post_return($id) {
+      $pdo = $this->dbConnect();
+    
+      $sql = "
+        SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
+        FROM posts
+        LEFT JOIN users ON posts.user_id = users.user_id
+        LEFT JOIN goods ON posts.post_id = goods.post_id
+        WHERE posts.destination_post_id = :id
+        GROUP BY posts.post_id
+      ";
+    
       $ps = $pdo->prepare($sql);
+      $ps->bindValue(':id', $id, PDO::PARAM_INT);
       $ps->execute();
       $coment = $ps->fetchAll();
-
-      if (!empty($coment)) {
-        $userId = $coment[0]['user_id'];
     
+
         // ユーザー名を取得するクエリを追加
         $userSql = "SELECT user_name FROM users WHERE user_id = :userId";
         $userPs = $pdo->prepare($userSql);
-        $userPs->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $userPs->bindValue(':userId', $id, PDO::PARAM_INT);
         $userPs->execute();
         $userSearch = $userPs->fetch();
     
         if (!empty($userSearch)) {
           $coment[0]['user_name'] = $userSearch['user_name'];
         }
+        return $coment;
       }
-
-      return $coment;
-    }
 
     public function pos_return($id){
       $pdo=$this->dbConnect();
@@ -142,31 +314,68 @@
     }
 
 
-    public function insertpost($id,$coment){
+    public function insertpost($id, $coment, $USER_ID) {
+
       $pdo = $this->dbConnect();
-      $sql = "INSERT INTO posts (destination_post_id, post_detail) VALUES (:destination_post_id, :post_detail)";
+      $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time)";
       $ps = $pdo->prepare($sql);
       $ps->bindValue(':destination_post_id', $id, PDO::PARAM_INT);
+      $ps->bindValue(':post_title', 'タイトル', PDO::PARAM_STR);
       $ps->bindValue(':post_detail', $coment, PDO::PARAM_STR);
+      $ps->bindValue(':user_id', $USER_ID, PDO::PARAM_INT);
+      $ps->bindValue(':post_category_id', 3, PDO::PARAM_INT);
+      $ps->bindValue(':post_time', date('Y-m-d H:i:s'), PDO::PARAM_STR);
       if ($ps->execute()) {
         echo "データが正常に挿入されました";
       } else {
         echo "データの挿入中にエラーが発生しました: " . $ps->errorInfo()[2];
       }
     }
+    
+    
 
     //記事、質問のみを返す, 該当するレコードがない場合は例外を返す
-    public function searchPostsByKeyword($keyword){
+    public function searchPostsByKeyword($keyword, int $sortType = 0){
       $pdo = $this -> dbConnect();
-      //SQLの生成
-      $sql = "SELECT P.* FROM posts as P 
-              LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
-              LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
-              WHERE (P.post_title LIKE ? OR
-              P.post_detail LIKE ? OR
-              T.tag_name LIKE ?)
-              AND post_category_id != 3;
-              ";
+
+      switch ($sortType) {
+        case 1:
+          //SQLの生成
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_time ASC
+                  ";
+          break;
+        case 2:
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_time DESC
+                  ";
+          break;
+        default:
+          $sql = "SELECT P.* FROM posts as P 
+                  LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
+                  LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
+                  WHERE (P.post_title LIKE ? OR
+                  P.post_detail LIKE ? OR
+                  T.tag_name LIKE ?)
+                  AND post_category_id != 3
+                  ORDER BY P.post_priority DESC, 
+                  P.post_time DESC
+                  ";
+          break;
+      }
+      
       //prepare:準備　戻り値を変数に保持
       $ps = $pdo -> prepare($sql);
 
@@ -183,11 +392,21 @@
         throw new Exception('キーワードに該当する投稿はありませんでした');
       }else{
         return $result;
+      }
+    }
 
+    public function decreasePostPriority(){
+      $pdo = $this -> dbConnect();
+      $sql = "UPDATE posts SET post_priority = post_priority - 1
+              WHERE post_priority > 0
+              ";
+      $ps = $pdo -> prepare($sql);
+
+      try{
+        $ps -> execute();
+      }catch(PDOException $e){
+        echo $e->getMessage();
       }
     }
   }
-
-
-
 ?>

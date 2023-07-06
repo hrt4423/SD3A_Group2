@@ -153,12 +153,12 @@ require_once('config.php');
         </div>
       </div>
 
-      <!-- <div class="horizontal">
+      <div class="horizontal">
         <a href="./questiontimeline.php" class="underline text">質問</a>
         <a href="./articlelist.php" class="underline text">記事</a>
         <a href="./Ranking.php" class="underline text">ランキング</a>
         <a href="./classroom.php" class="underline text">空き教室</a>
-      </div> -->
+      </div>
     </div>
   <!-- ここまでがヘッダー -->
 <div class="profile">

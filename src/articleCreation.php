@@ -35,18 +35,22 @@
       // ボタンがクリックされたときの処理をここに記述する
       $title = $_POST['title'];
       $detail = $_POST['htmlText'];
-      $postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
+
+      //質問は優先表示機能を使わないので、優先表示の値は0にする
+      //$postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
       $post_priority = 0;
-      if ($postPriority) {
-          $post_priority = 72;
-      } else {
-          $post_priority = 24;
-      }
-      //ここにセッションID入れてほしい
+
+      // if ($postPriority) {
+      //     $post_priority = 72;
+      // } else {
+      //     $post_priority = 24;
+      // }
+
+      //ここにセッションIDいれてほしい
       $user_id = 1;
 
-      //質問のID
-      $post_category_id = 1;
+      //記事のID
+      $post_category_id = 2;
 
       // 投稿を挿入し、post_idを取得
       $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
@@ -338,7 +342,7 @@
     <!-- ここまでがヘッダー -->
 
 
-    <form action="questionCreation.php" method="post">
+    <form action="articleCreation.php" method="post">
       <input type="text" class="form-control title" name="title" placeholder="タイトル" />
 
     <!-- <input type="text" id="tag-input" class="tag-input" placeholder="タグを入力してください"> -->
@@ -435,11 +439,12 @@
       ></textarea>
       <div  name="previewHTML" class="preview">プレビュー</div>
     </div>
-
+    
     <div class="d-flex">
       <button name="submit" id="button" class="justify-content-center btn custom-button">投稿する</button>
+      <!-- 記事は優先表示機能を実装しない
       <input type="checkbox" name="post_priority" id="toggleButton" data-toggle="toggle" data-on="ON" data-off="OFF" class="btn custom-point-button">
-      <div class="point-text">ポイントを消費して<br />質問を優先表示</div>
+      <div class="point-text">ポイントを消費して<br />質問を優先表示</div> -->
     </div>
     <input style="display: none;" value="" name="htmlText" id="HTML">
    
