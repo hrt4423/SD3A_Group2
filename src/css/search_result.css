@@ -1,0 +1,117 @@
+#body{
+    padding: 0;
+    margin: 0;
+    background-color: #FAEEFF;
+  }
+  .select_area{
+    display: flex;
+    margin-top: 3vw;
+    margin-left: 5vw;
+  }
+  
+  .select1{
+    width: 6vw;
+    height: 3vw;
+    border-radius: 0.5vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center;
+  }
+  option{
+    color: black;
+  }
+  .select2{
+    margin-left: 70vw;
+    width: 7vw;
+    height: 3vw;
+    border-radius: 0.5vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center;
+  }
+  .article_area{
+    margin-top: 3vw;
+    margin-left: 18vw;
+    width: 60vw;
+    height: 33vw;
+    overflow:auto;
+   
+  }
+  .result{
+    width: 60vw;
+    height: 10vw;
+    margin-top: 1vw;
+    background-color: white;
+    border-radius: 0.2vw;
+    border:none;
+    position: relative;
+    text-align: start;
+  }
+  .good_area{
+    width: 5vw;
+    height: 4vw;
+    border-radius: 30px; /* 角丸を10pxに設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 1.2vw;
+    left: 53vw;
+  }
+  .good_img{
+    width: 5vw;
+    height: 3vw;
+    background-color: #B164FF;
+    border-radius: 50px; /* 角丸を10pxに設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .img3{
+    width: 1.5vw;
+    height: 1.5vw;
+    justify-content: center;
+    align-items: center;
+  }
+  .user2{
+    margin:0;
+    font-size: 0.7vw;
+    margin-left: 1vw;
+  }
+  
+  .day{
+    margin: 0;
+    font-size: 0.8vw;
+    margin-top: 0.3vw;
+    margin-left: 1.1vw;
+  }
+  
+  .title{
+    font-size: 1.6vw;
+    font-weight: 0.7vw;
+    margin-left: 1vw;
+    margin-top: 0.3vw;
+  }
+  .tag_area{
+    display: flex;
+  }
+  .img2{
+    width: 1vw;
+    height: 1vw;
+    margin-left: 0.7vw;
+  }
+  .answer{
+    font-size: 0.6vw;
+    margin-left: 0.7vw;
+  }
+  .good{
+    position: absolute;
+    font-size: 1.5vw;
+    font-weight: 0.7vw;
+    top: 5.5vw;
+    left: 55vw;
+  }
+  
+  
