@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php 
+  session_start(); 
+  if(!isset($_GET['sort_type']))
+    $_GET['sort_type'] = 0;
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

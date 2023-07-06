@@ -3,7 +3,7 @@
         // データベース接続設定
         private $servername = "localhost";
         private $username = "root";
-        private $password = "";
+        private $password = "root";
         private $dbname = "asoda";
 
         // タグと投稿の関連付け
