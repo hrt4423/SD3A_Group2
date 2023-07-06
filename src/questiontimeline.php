@@ -67,6 +67,42 @@
     echo $err->getMessage();
   }
 ?>
+<script>
+  $(document).ready(function(){
+    //タグがクリックされた時の処理
+    $('input[name="tag-checkbox"]').change(function(){
+      var selectedTags = [];
+
+      $('input[name="tag-checkbox"]:checked').each(function(index, element){
+        //チェックボックスのもつID（tags: tag_id）
+        var tagId =  $(element).attr('id');
+        //ラベルにtagIdを持たせる
+        //ラベルのtagIdからチェックボックスを検索できる
+
+        var tagName = $('label[for="' + tagId + '"]').text();
+        var tagElement = $('<div class="tag-view" id="' + tagId + '"></div>');
+        tagElement.text(tagName);
+
+        tagElement.append('<span class="remove-button">✕</span>');
+        selectedTags.push(tagElement);
+      });
+
+      $('#selected-tags').html(
+        selectedTags
+      );
+
+    });
+
+    // タグ削除ボタンがクリックされた時の処理
+    $(document).on('click', '.tag-view .remove-button', function() {
+      $(this).closest('.tag-view').remove();
+      //チェックを外す
+      var relatedCheckboxId =  $(this).closest('.tag-view').attr('id');
+      $('input[id="' + relatedCheckboxId + '"]').prop('checked', false);
+    });
+
+  });
+</script>
 
 <body id="body" class="container-fluid">
   <!-- ここからがヘッダー -->
@@ -119,28 +155,6 @@
       </div>
     </div>
   <!-- ここまでがヘッダー -->
-  <?php
-
-    // try{
-    //   require_once './DAO/posts.php';
-    //   $postAll = new DAO_post();
-    //   $search = $postAll->post();//データ取得
-    //   echo '<script>';
-    //   echo 'console.log(' . json_encode($search) . ')';
-    //   echo '</script>';
-
-    //   // require_once './dao/tags.php';
-    //   // $tagAll = new DAO_tag();
-    //   // $search2 = $tagAll->tags();
-    //   // echo '<script>';
-    //   // echo 'console.log(' . json_encode($search2) . ')';
-    //   // echo '</script>';
-    // }catch(Exception $ex){
-    //   echo $ex->getMessage();
-    // }catch(Error $err){
-    //   echo $err->getMessage();
-    // }
-  ?>
 
   <div class="row">
     <!-- タグ検索 -->
@@ -241,51 +255,6 @@
     <!-- /ソート -->
 
   </div>
-
-  <script>
-  $(document).ready(function(){
-
-    // //タグがクリックされた時の処理
-    // $('input[name="tag-checkbox"]').change(function(){
-    //   var tagId = $('input[name="tag-checkbox"]:checked').attr('id');
-    //   var tagName = $('label[for="' + tagId + '"]').text(); //かっこがなかったら動かない
-    //   appendTagElement(tagName);
-    // });
-
-    //タグがクリックされた時の処理
-    $('input[name="tag-checkbox"]').change(function(){
-      var selectedTags = [];
-
-      $('input[name="tag-checkbox"]:checked').each(function(index, element){
-        var tagId =  $(element).attr('id');
-        var tagName = $('label[for="' + tagId + '"]').text();
-        var tagElement = $('<div class="tag"></div>');
-        tagElement.text(tagName);
-        selectedTags.push(tagElement);
-      });
-
-      $('#selected-tags').html(
-        selectedTags
-      );
-
-      //TODO
-      //divタグでかこむ
-
-    });
-  });
-
-  //選択したタグを表示する関数
-  function appendTagElement(tagName) {
-    var tagElement = $('<div class="tag"></div>');
-    tagElement.text(tagName);
-
-    var removeButton = $('<span>✕</span>');
-    tagElement.append(removeButton);
-
-    $('#selected-tags').append(tagElement);
-  }
-
-</script>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
