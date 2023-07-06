@@ -29,7 +29,7 @@
       } 
     }
 
-    public function insertgood($user_id,$post_id){
+    public function insertgood($user_id,$post_id,$user_point){
       $pdo = $this->dbConnect();
       $sql = "INSERT INTO goods (user_id,post_id) VALUES (?, ?)";
       $sqlUpdatePoints = "UPDATE users SET user_point = user_point + 20, point_sum = point_sum + 20 WHERE user_id = ?";
@@ -39,7 +39,7 @@
       $ps->bindValue(2, $post_id, PDO::PARAM_INT);
 
       $psUpdatePoints = $pdo->prepare($sqlUpdatePoints);
-      $psUpdatePoints->bindValue(1, $user_id, PDO::PARAM_INT);
+      $psUpdatePoints->bindValue(1, $user_point, PDO::PARAM_INT);
       try{
       if ($ps->execute()) {
         

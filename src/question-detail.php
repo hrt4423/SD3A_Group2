@@ -134,6 +134,10 @@
 
         $username = $userAll->getUserNameById($user_search);
 
+        $detailuserid = $search[0]['user_id'];
+
+        $detail_name = $userAll->getUserDataById($detailuserid);
+
         if(isset($_POST['send_icon'])){
           $postAll = new DAO_post();
               $postAll->insertpost($post_id, $post_detail);
@@ -279,6 +283,7 @@
               <form method="POST" action="goodinsert.php">
                 <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
                 <input type="hidden" name="user_id" value="<?php echo $search[0]['user_id'];?>">
+                <input type="hidden" name="user_point" value="<?php echo $detail_name;?>">
               <button class="btn" id="good" type="submit">
                 <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
                   <span id="good-amount"><?php echo $search[0]['good_count'] ?></span>
