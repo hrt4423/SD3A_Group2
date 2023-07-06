@@ -258,11 +258,14 @@
 
       $('input[name="tag-checkbox"]:checked').each(function(index, element){
         var tagId =  $(element).attr('id');
-        selectedTags.push($('label[for="' + tagId + '"]').text());
+        var tagName = $('label[for="' + tagId + '"]').text();
+        var tagElement = $('<div class="tag"></div>');
+        tagElement.text(tagName);
+        selectedTags.push(tagElement);
       });
 
       $('#selected-tags').html(
-        '<div>' + selectedTags.join('</div>')
+        selectedTags
       );
 
       //TODO
