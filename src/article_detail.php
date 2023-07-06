@@ -158,20 +158,41 @@
             <span name="user-rank"><i class="bi bi-gem"></i></span>
             <span name="user-name"><?php echo $search[0]['user_name'] ?></span>
           </div>
-          <div class="col-3 offset-md-6 text-center"><?php echo $search[0]['post_time'] ?></div>
+
+          <div style="display: flex;">
+        
+          <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
+          <div class="text-center">
+                <button class="btn" id="edit">編集</button>
+                <br />
+                <div class="good">
+                  <button class="btn" id="good" onclick="handlegood()">
+                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                    <span id="good-amount"><?php echo $search[0]['good_count']?></span>
+                  </button>
+                </div>
+            </div>
+          </div>
+
         </div>
         <div class="row">
           <div class="col-9">
             <div class="card-title">
               <h4 class="text-center"><?php echo $search[0]['post_title'] ?></h4>
-            </div>
-            <div name="card-tags">
-              <i class="bi bi-tags"></i>
-              <?php foreach ($tag as $tags): ?>
-                <span class="tag"><?php echo $tags; ?></span>
-              <?php endforeach; ?>
-            </div>
+              </div>
+
+
+
+
+              <div name="card-tags">
+                <i class="bi bi-tags"></i>
+                <?php foreach ($tag as $tags): ?>
+                  <span class="tag"><?php echo $tags; ?></span>
+                <?php endforeach; ?>
+              </div>
+
             <p class="card-text"><?php echo $search[0]['post_detail'] ?></p>
+
             <div class="reply-area">
               <h5>--回答--</h5>
               <div name="reply-card" class="card" id="card-reply-area">
@@ -297,16 +318,7 @@
 
           </div>
           </div>
-          <div id="side-area" class="col-3 text-center">
-            <button class="btn" id="edit">編集</button>
-            <br />
-            <div class="good">
-              <button class="btn" id="good" onclick="handlegood()">
-                <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                <span id="good-amount"><?php echo $search[0]['good_count']?></span>
-              </button>
-            </div>
-          </div>
+          <!-- 基のボタンの場所 -->
         </div>
       </div>
     </div>
