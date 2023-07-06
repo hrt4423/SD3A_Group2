@@ -1,10 +1,11 @@
 <?php
   class posts {
-    private function connect(){
+    //DB接続（推奨）
+    private $pdo;
+    public function __construct() {
       require_once('connection.php');
-      $connection = new connection();
-      $dbh = $connection->dbConnect();
-      return $dbh;
+      $connection = new Connection();
+      $this->pdo = $connection->dbConnect();
     }
 
     public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
@@ -123,7 +124,6 @@
     }
 
     public function fetchAllPostsByCategory(int $category, int $sortType = 0) {
-      $pdo = $this->connect();
       switch ($sortType) {
         case 1:
           //古い順
@@ -144,7 +144,7 @@
           break;
       }
       //prepare:準備　戻り値を変数に保持
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo -> prepare($sql);
 
       //”？”に値を設定する。
       $ps->bindValue(1, $category, PDO::PARAM_INT); 
@@ -159,23 +159,35 @@
         return $result;
       }
     }
+
+    public function searchPostsById(){
+
+    }
   }      
 
   class DAO_post{
-    private function dbConnect(){
-      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
-      return $pdo;
+    // private function dbConnect(){
+    //   $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
+    //   return $pdo;
+    // }
+
+    //DB接続（推奨）
+    private $pdo;
+    public function __construct() {
+      require_once('connection.php');
+      $connection = new Connection();
+      $this->pdo = $connection->dbConnect();
     }
 
     public function post () {
-      $pdo=$this->dbConnect();
+      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
       WHERE posts.post_category_id=1
       GROUP BY posts.post_id";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->execute();
       $search = $ps->fetchAll();
       //$count = count($search);
@@ -184,14 +196,14 @@
 
     public function prof_post () {
       $id=$_SESSION['user_id'];
-      $pdo=$this->dbConnect();
+      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
       WHERE posts.post_category_id=1 AND users.user_id=?
       GROUP BY posts.post_id";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->execute([$id]);
       $search = $ps->fetchAll();
       //$count = count($search);
@@ -200,14 +212,14 @@
     }
     public function prof_kizi_post () {
       $id=$_SESSION['user_id'];
-      $pdo=$this->dbConnect();
+      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
       WHERE posts.post_category_id=2 AND users.user_id=?
       GROUP BY posts.post_id";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->execute([$id]);
       $search = $ps->fetchAll();
       //$count = count($search);
@@ -216,14 +228,14 @@
     }
     public function prof_coment_post () {
       $id=$_SESSION['user_id'];
-      $pdo=$this->dbConnect();
+      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
       LEFT JOIN goods ON posts.post_id = goods.post_id
       WHERE posts.post_category_id=3 AND users.user_id=?
       GROUP BY posts.post_id";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->execute([$id]);
       $search = $ps->fetchAll();
       //$count = count($search);
@@ -231,7 +243,7 @@
 
     }
     public function post_detail($id) {
-      $pdo = $this->dbConnect();
+      // $pdo = $this->dbConnect();
     
       $sql = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
@@ -242,7 +254,7 @@
         GROUP BY posts.post_id
       ";
     
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(':id', $id, PDO::PARAM_INT);
       $ps->execute();
       $search = $ps->fetchAll();
@@ -252,7 +264,7 @@
     
 
     public function post_return($id) {
-      $pdo = $this->dbConnect();
+      // $pdo = $this->dbConnect();
     
       $sql = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
@@ -263,7 +275,7 @@
         GROUP BY posts.post_id
       ";
     
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(':id', $id, PDO::PARAM_INT);
       $ps->execute();
       $coment = $ps->fetchAll();
@@ -272,9 +284,9 @@
     }
 
     public function insertpost($id, $coment, $USER_ID) {
-      $pdo = $this->dbConnect();
+      // $pdo = $this->dbConnect();
       $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time)";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(':destination_post_id', $id, PDO::PARAM_INT);
       $ps->bindValue(':post_title', 'タイトル', PDO::PARAM_STR);
       $ps->bindValue(':post_detail', $coment, PDO::PARAM_STR);
@@ -290,13 +302,12 @@
     
     
 
-    //記事、質問のみを返す, 該当するレコードがない場合は例外を返す
+    //記事、質問のみを検索, 該当するレコードがない場合は例外を返す
     public function searchPostsByKeyword($keyword, int $sortType = 0){
-      $pdo = $this -> dbConnect();
-
+      //タイトル、本文、タグから検索。postsテーブルの列のみを返す
       switch ($sortType) {
+        //新しい順
         case 1:
-          //SQLの生成
           $sql = "SELECT P.* FROM posts as P 
                   LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
                   LEFT OUTER JOIN tags as T ON AT.tag_id = T.tag_id
@@ -307,6 +318,7 @@
                   ORDER BY P.post_time ASC
                   ";
           break;
+        //古い順
         case 2:
           $sql = "SELECT P.* FROM posts as P 
                   LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
@@ -318,6 +330,7 @@
                   ORDER BY P.post_time DESC
                   ";
           break;
+        //デフォルト（優先度順）
         default:
           $sql = "SELECT P.* FROM posts as P 
                   LEFT OUTER JOIN attached_tags as AT ON P.post_id = AT.post_id
@@ -333,7 +346,7 @@
       }
       
       //prepare:準備　戻り値を変数に保持
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
 
       //”？”に値を設定する。
       $ps->bindValue(1, "%$keyword%", PDO::PARAM_STR); 
@@ -352,11 +365,10 @@
     }
 
     public function decreasePostPriority(){
-      $pdo = $this -> dbConnect();
       $sql = "UPDATE posts SET post_priority = post_priority - 1
               WHERE post_priority > 0
               ";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo -> prepare($sql);
 
       try{
         $ps -> execute();

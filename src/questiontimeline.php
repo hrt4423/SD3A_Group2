@@ -76,8 +76,9 @@
       $('input[name="tag-checkbox"]:checked').each(function(index, element){
         //チェックボックスのもつID（tags: tag_id）
         var tagId =  $(element).attr('id');
+
         //ラベルにtagIdを持たせる
-        //ラベルのtagIdからチェックボックスを検索できる
+        //ラベルのtagIdから対応するチェックボックスを検索できる
 
         var tagName = $('label[for="' + tagId + '"]').text();
         var tagElement = $('<div class="tag-view" id="' + tagId + '"></div>');
@@ -96,7 +97,8 @@
     // タグ削除ボタンがクリックされた時の処理
     $(document).on('click', '.tag-view .remove-button', function() {
       $(this).closest('.tag-view').remove();
-      //チェックを外す
+      
+      //対応するチェックボックスのチェックを外す
       var relatedCheckboxId =  $(this).closest('.tag-view').attr('id');
       $('input[id="' + relatedCheckboxId + '"]').prop('checked', false);
     });

@@ -1,11 +1,20 @@
 <?php
   class tags {
+    //DB接続（推奨）
+    private $pdo;
+    public function __construct() {
+      require_once('connection.php');
+      $connection = new Connection();
+      $this->pdo = $connection->dbConnect();
+    }
+
     // DB接続設定
     private $servername = "localhost";
     private $username = "root";
     private $password = "root";
     private $dbname = "asoda";
 
+  
     // タグの追加処理
     public function addTag($tagNames) {
         // タグ名が空の場合は処理しない
@@ -75,22 +84,21 @@
             return null;
         }
     }
-
-    //上位20件のタグを取得 最近使用された順に20件
-    //SQL LIMIT 
+    
   }
 
   class DAO_tag{
-
-    private function dbConnect(){
-      $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
-      return $pdo;
+    private $pdo;
+    
+    public function __construct() {
+      require_once('connection.php');
+      $connection = new Connection();
+      $this->pdo = $connection->dbConnect();
     }
 
     public function tags () {
-      $pdo=$this->dbConnect();
       $sql = "SELECT * FROM tags ";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->execute();
       $search = $ps->fetchAll();
       return $search;

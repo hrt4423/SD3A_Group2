@@ -1,5 +1,8 @@
 <?php
-  class connection {
+  //TODO
+  //コンストラクタをつくる
+  //pdoをgetterで取得するようにする
+  class Connection {
     public function dbConnect(){
       // DB接続情報
       $dsn = 'mysql:dbname=asoda;host=localhost';
