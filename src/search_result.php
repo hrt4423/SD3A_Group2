@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="css/search_result.css" rel="stylesheet">
-  <link rel="stylesheet" href="./css/header.css" >
+  <link href="./css/search_result.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+  <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+ 
   <title>search-result</title>
 </head>
 <body>
