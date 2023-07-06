@@ -160,8 +160,9 @@
       }
     }
 
-    public function searchPostsById(){
-
+    //引数で指定したIDの投稿を取得
+    public function findPostById($postId){
+      
     }
   }      
 
