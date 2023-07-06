@@ -75,6 +75,7 @@
                   <i class="fa fa-search"></i>
                 </button>
               </div>
+              <input type="hidden" name="sort_type" value="0">
               <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
             </form>
           </div>

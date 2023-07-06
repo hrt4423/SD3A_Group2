@@ -35,13 +35,17 @@
       // ボタンがクリックされたときの処理をここに記述する
       $title = $_POST['title'];
       $detail = $_POST['htmlText'];
-      $postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
+
+      //質問は優先表示機能を使わないので、優先表示の値は0にする
+      //$postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
       $post_priority = 0;
-      if ($postPriority) {
-          $post_priority = 72;
-      } else {
-          $post_priority = 24;
-      }
+
+      // if ($postPriority) {
+      //     $post_priority = 72;
+      // } else {
+      //     $post_priority = 24;
+      // }
+
       //ここにセッションIDいれてほしい
       $user_id = 1;
 
@@ -325,7 +329,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              投稿するaaaaa
+              投稿する
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">質問</a>
@@ -435,11 +439,12 @@
       ></textarea>
       <div  name="previewHTML" class="preview">プレビュー</div>
     </div>
-
+    
     <div class="d-flex">
       <button name="submit" id="button" class="justify-content-center btn custom-button">投稿する</button>
+      <!-- 記事は優先表示機能を実装しない
       <input type="checkbox" name="post_priority" id="toggleButton" data-toggle="toggle" data-on="ON" data-off="OFF" class="btn custom-point-button">
-      <div class="point-text">ポイントを消費して<br />質問を優先表示</div>
+      <div class="point-text">ポイントを消費して<br />質問を優先表示</div> -->
     </div>
     <input style="display: none;" value="" name="htmlText" id="HTML">
    

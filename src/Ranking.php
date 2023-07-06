@@ -91,137 +91,153 @@
       border-bottom: none;
       text-decoration: none;
     }
-
   </style>
 </head>
 <body class="body">
-    <div class="header_size">
+<div class="header_size">
+      <?php
+        session_start();
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
-          <img class="logo" src="images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
         <div class="right">
 
+          <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-              <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-          </div>
 
-          <div class="circle"></div>
-            <div class="dropdown">
-                <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  投稿する
+            <form action="./search_result.php" method="GET" id="search-form">
+              <div class="input-group-prepend">
+                <button type="submit" class="input-group-text" id="search-button">
+                  <i class="fa fa-search"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">質問</a>
-                  <a class="dropdown-item" href="#">記事</a>
-                </div>
-            </div>
+              </div>
+              <input type="hidden" name="sort_type" value="0">
+              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+            </form>
+
+          </div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
+          
+          <div class="dropdown">
+            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              投稿する
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./questionCreation.php">質問</a>
+                <a class="dropdown-item" href="#">記事</a>
+              </div>
+          </div>
         </div>
       </div>
 
       <div class="horizontal">
-        <a href="#" class="underline text">質問</a>
-        <a href="#" class="underline text">いいね</a>
-        <a href="#" class="underline text">投稿</a>
-        <a href="#" class="underline text">ランキング</a>
+        <a href="./questiontimeline.php" class="underline text">質問</a>
+        <a href="./articlelist.php" class="underline text">記事</a>
+        <a href="./Ranking.php" class="underline text">ランキング</a>
+        <a href="./classroom.php" class="underline text">空き教室</a>
       </div>
-
     </div>
 <!-- ↑ヘッダー -->
-<?php
-$pdo = new PDO('mysql:host=localhost;dbname=アソーダ１;charset=utf8',
-               'root','');
-$stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
-$stmt ->execute();
-foreach($stmt->fetchAll() as $row){
-  echo '<tr>';
-  echo '<td>',$row['user_name'],'</td>';
-  echo '<td>',$row['user_icon'],'</td>';
-  echo '<td>',$row['point_sum'],'</td>';
-  echo '</tr>';
-  a
-}
-?>
 
 <div class="allrank_area">
   <p class="rank_title">ユーザランキング</p>
     <div class="area">
         <div class="rank_area">
         
-        <?php foreach($search as $post){
-        echo '<div >
-        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
-        <button class="allrank">
-          <p class="user_icon">
-           '.$post['user_icon'].'
-          </P>
-          <p class="user_name">
-           '.$post['user_name'].'
-          </p>
-          <p class="point_sum">
-            '.$post['point_sum'].'
-          </p>
-          </div>
-        </button>   
-        </form>
-      </div>';
+        <?php 
+        $rank=1;
+        $count=1;
+        $beforepoint=0;
+        $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
+        $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
+        $stmt ->execute();
+        echo "<table>";
+        while($row=$stmt->fetch()){
+          if($beforepoint !=$row['point_sum']){
+            $rank=$count;
+          }
+          if($rank==1){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank1.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else if($rank==2){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank2.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else if($rank==3){
+            echo '<tr>
+            <td class="rank">
+            <image src="./images/rank3.png">
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }else{
+          echo '<tr>
+            <td class="rank">
+            '.$rank.'
+            </td>
+            <td class="user_icon">
+             '.$row["user_icon"].'
+            </td>
+            <td class="user_name">
+           '.$row["user_name"].'
+            </td>
+            <td class="point_sum">
+            '.$row["point_sum"].'pt
+            </td>   
+            </tr>';
+          $beforepoint=$row['point_sum'];
+          $count++;
+          }
+        
     }
+    echo "</table>";
     ?>
-
-          <div class="rank">
-            <img src="./images/rank1.png" alt="" class="rank_img">
-            <div class="user_icon"></div>
-            <img src="./images/medaru1.png" alt="" class="img">
-            <p class="user_name">平田</p>
-            <p class="user_point">999pt</p>
-          </div>
-          <div class="rank">
-            <img src="./images/rank2.png" alt="" class="rank_img">
-            <div class="user_icon"></div>
-            <p class="user_name">平田</p>
-            <p class="user_point">999pt</p>
-          </div>
-          <div class="rank">
-            <img src="./images/rank3.png" alt="" class="rank_img">
-            <div class="user_icon"></div>
-            <img src="./images/medaru2.png" alt="" class="img">
-            <p class="user_name">平田</p>
-            <p class="user_point">999pt</p>
-          </div>
-          <div class="rank">
-            <p class="rank_number">4</p>
-            <div class="user_icon4"></div>
-            <img src="./images/medaru3.png" alt="" class="img">
-            <p class="user_name">平田</p>
-            <p class="user_point">999pt</p>
-          </div>
-          <div class="rank">
-            <p class="rank_number">5</p>
-            <div class="user_icon4"></div>
-            <img src="./images/medaru3.png" alt="" class="img">
-            <p class="user_name">平田</p>
-            <p class="user_point">999pt</p>
-          </div>
         </div>
       </div>
   </div>
-
-  <script>
-    $(document).ready(function() {
-     // リンクをクリックした時の処理
-      $(".underline").click(function(e) {
-        e.preventDefault(); // デフォルトのリンク遷移を防止
-
-        // すでにアクティブなリンクがある場合、その下線を消す
-        $(".underline.active").removeClass("active");
-        // クリックされたリンクに下線をつける
-        $(this).addClass("active");
-      });
-    });
-</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

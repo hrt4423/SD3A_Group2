@@ -9,7 +9,7 @@
 
     public function getUserDataById($id){
       $pdo = $this -> dbConnect();
-      //SQLの生成
+      //SQLの生
       $sql = "SELECT * FROM users WHERE user_id=?";
 
       //prepare:準備　戻り値を変数に保持
