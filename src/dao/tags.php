@@ -92,6 +92,25 @@
       $search = $ps->fetchAll();
       return $search;
     }
+
+    public function postTags($post_id) {
+        $pdo = $this->dbConnect();
+      
+        $sql = "
+          SELECT tags.tag_name
+          FROM tags
+          INNER JOIN attached_tags ON tags.tag_id = attached_tags.tag_id
+          WHERE attached_tags.post_id = :post_id
+        ";
+      
+        $ps = $pdo->prepare($sql);
+        $ps->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+        $ps->execute();
+        $tags = $ps->fetchAll(PDO::FETCH_COLUMN);
+        
+        return $tags;
+      }
+      
   }
 
 ?>

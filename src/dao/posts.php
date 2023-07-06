@@ -152,7 +152,7 @@
     public function post_return($id) {
       $pdo = $this->dbConnect();
     
-      $sql = "
+      $sql1 = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
         FROM posts
         LEFT JOIN users ON posts.user_id = users.user_id
@@ -161,17 +161,37 @@
         GROUP BY posts.post_id
       ";
     
-      $ps = $pdo->prepare($sql);
-      $ps->bindValue(':id', $id, PDO::PARAM_INT);
-      $ps->execute();
-      $coment = $ps->fetchAll();
+      $sql2 = "
+        SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
+        FROM posts
+        LEFT JOIN users ON posts.user_id = users.user_id
+        LEFT JOIN goods ON posts.post_id = goods.post_id
+        WHERE posts.parent_post_id = :id
+        GROUP BY posts.post_id
+      ";
     
-      return $coment;
+      $ps1 = $pdo->prepare($sql1);
+      $ps1->bindValue(':id', $id, PDO::PARAM_INT);
+      $ps1->execute();
+      $coment1 = $ps1->fetchAll();
+    
+      $ps2 = $pdo->prepare($sql2);
+      $ps2->bindValue(':id', $id, PDO::PARAM_INT);
+      $ps2->execute();
+      $coment2 = $ps2->fetchAll();
+    
+      return [
+        'coment1' => $coment1,
+        'coment2' => $coment2
+      ];
     }
+    
+    
+    
 
-    public function insertpost($id, $coment, $USER_ID) {
+    public function insertpost($id, $coment, $USER_ID, $parent_post_id) {
       $pdo = $this->dbConnect();
-      $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time)";
+      $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time, parent_post_id) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time, :parent_post_id)";
       $ps = $pdo->prepare($sql);
       $ps->bindValue(':destination_post_id', $id, PDO::PARAM_INT);
       $ps->bindValue(':post_title', 'タイトル', PDO::PARAM_STR);
@@ -179,8 +199,8 @@
       $ps->bindValue(':user_id', $USER_ID, PDO::PARAM_INT);
       $ps->bindValue(':post_category_id', 3, PDO::PARAM_INT);
       $ps->bindValue(':post_time', date('Y-m-d H:i:s'), PDO::PARAM_STR);
+      $ps->bindValue(':parent_post_id', $parent_post_id, PDO::PARAM_INT);
       if ($ps->execute()) {
-        echo "データが正常に挿入されました";
       } else {
         echo "データの挿入中にエラーが発生しました: " . $ps->errorInfo()[2];
       }
