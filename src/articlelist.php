@@ -152,36 +152,36 @@
       <!--並び替えセレクトボックス終了-->
  <!--質問画面遷移ボタン-->
  <div class="question_area">
-    <?php foreach($search as $post){
-        echo '<div >
-        <form action="article_detail.php" method="post">
-        <input type="hidden" name="post_id" value="'.$post['post_id'].'">
-        <button class="question">
-          <p class="user2">
-           '.$post['user_name'].'
-          </p>
-          <p class="day">
-            ' . $post['post_time'] . 'に投稿
-          </p>
-          <p class="title">
-            ' . $post['post_title'] . '
-          </p>
-          <div class="tag_area">
-                <img src="./images/pin.png" alt="" class="img2">
-                <p class="tag">タグ</p>
+ <?php foreach ($search as $post): ?>
+  <div>
+    <form action="article_detail.php" method="GET">
+      <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
+      <button class="question">
+        <p class="user2">
+          <?php echo $post['user_name']; ?>
+        </p>
+        <p class="day">
+          <?php echo $post['post_time']; ?>に投稿
+        </p>
+        <p class="title">
+          <?php echo $post['post_title']; ?>
+        </p>
+        <div class="tag_area">
+          <img src="./images/pin.png" alt="" class="img2">
+          <p class="tag">タグ</p>
+        </div>
+
+        <div class="good_area">
+          <div class="good_img">
+            <img src="./images/good.png" alt="" class="img3">
           </div>
-          
-          <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">'.$post['good_count'].'</p>
-        </button>   
-        </form>
-      </div>';
-    }
-    ?>
+        </div>
+        <p class="good"><?php echo $post['good_count']; ?></p>
+      </button>
+    </form>
+  </div>
+<?php endforeach; ?>
+
  </div>
 
    <!--質問画面遷移ボタン終了-->

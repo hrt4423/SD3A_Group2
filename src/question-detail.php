@@ -5,52 +5,6 @@
         $USESR_ID = $_SESSION['user_id'];
         $userIconPath = $users->getUserIconPathById($USESR_ID);
       ?>
-<?php
-  // if (isset($_POST['commentSubmit'])) {
-  //   //タイトル確認
-  //   $title = "test";
-  //   $detail = $_POST['comment'];
-  //   $post_priority = 24;
-  //   //ここにセッションIDいれてほしい
-  //   $user_id = $USESR_ID;
-
-  //   //コメントのID
-  //   $post_category_id = 3;
-
-  //   // 投稿を挿入し、post_idを取得
-  //   $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
-
-  // }
-?>
-<?php
-  // if (isset($_POST['answerSubmit'])) {
-  //   //タイトル確認
-  //   $title = "test";
-  //   $detail = $_POST['post_detail'];
-  //   $post_priority = 24;
-  //   //ここにセッションIDいれてほしい
-  //   $user_id = $USESR_ID;
-
-  //   //コメントのID
-  //   $post_category_id = 3;
-
-  //   // 投稿を挿入し、post_idを取得
-  //   $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
-
-  //   // タグを追加
-  //   // $tagValues = $_POST['tagValues'];
-  //   // $tagIds = $tagClass->addTag($tagValues);
-
-  //   // タグを投稿に関連付ける
-  //   // $attachedClass->addTags($post_id, $tagIds);
-
-
-  //   // ob_start(); // バッファリングを開始
-  //   // // header("Location: questiontimeline.php");
-  //   // exit();
-  //   // ob_end_flush(); // バッファの内容を出力
-  // }
-?>
 
 <!DOCTYPE html>
 <html lang="ja">
