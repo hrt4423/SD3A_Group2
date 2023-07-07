@@ -164,7 +164,7 @@
       <form action="./questiontimeline.php" method="GET" id="tag-filter-form"></form> 
 
       <div id="selected-tags"></div>
-      <button type="submit" form="tag-filter-form" class="btn btn-purple">絞り込む</button>
+      <button type="submit" form="tag-filter-form" class="btn btn-purple" id="filter-button">絞り込む</button>
       <hr>
 
       <?php foreach($allTags as $tag) : ?>
