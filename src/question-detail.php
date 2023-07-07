@@ -127,15 +127,15 @@
         echo '<script>';
         echo 'console.log(' . json_encode($coment2) . ')';
         echo '</script>';
-        $count_search = $coment[0]['post_id'];
-        $user_search = $coment[0]['user_id'];
+        // $count_search = $coment[0]['post_id'];
+        // $user_search = $coment[0]['user_id'];
 
-        $goodcount = $goodAll->goodCount($count_search);//それに対する返信のgoodcount
+        // $goodcount = $goodAll->goodCount($count_search);//それに対する返信のgoodcount
         echo '<script>';
         echo 'console.log(' . json_encode($goodcount) . ')';
         echo '</script>';
 
-        $username = $userAll->getUserNameById($user_search);
+        // $username = $userAll->getUserNameById($user_search);
 
         if (isset($_POST['commentSubmit'])) {
           $formIndex = $_POST['commentSubmit']; // 送信されたフォームのインデックスを取得
@@ -172,24 +172,30 @@
             <span name="user-name"><?php echo $search[0]['user_info'][0]['user_name'] ?></span>
           </div>
 
-          <div style="display: flex;">
-        
-          <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
+        <div style="display: flex;">
+        <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
+          <!-- ボタンの位置 -->
           <div class="text-center">
-                <!-- <button class="btn" id="edit">編集</button> -->
-                <form action="questionCreation.php" method="GET">
-                  <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-                  <button type="submit" class="btn" id="edit">編集</button>
-                </form>
-                <br />
-                <div class="good">
-                  <button class="btn" id="good" onclick="handlegood()">
-                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                    <span id="good-amount"><?php echo $search[0]['good_count']?></span>
-                  </button>
-                </div>
+            <button class="btn" id="edit">編集</button>
+            <br />
+            <div class="good">
+              <!-- 記事に対するいいね処理 ↓-->
+              <form method="POST" action="goodinsert.php">
+                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
+                <input type="hidden" name="user_point_id" value="<?php echo $search[0]['user_id'];?>">
+                <button class="btn" id="good" type="submit">
+                <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                  <span id="good-amount"><?php echo $search[0]['good_count'] ?></span>
+                </button>
+              </form>
             </div>
           </div>
+        </div>
+        
+          
+
+          
 
         </div>
         <div class="row">
@@ -255,13 +261,8 @@
                       <span name="user-rank"><i class="bi bi-gem"></i></span>
                       <span name="user-name"><?php echo $item2['user_name']; ?></span>
                     </div>
-                    <!--いいねボタン-->
-                    <div class="good-button-area">
-                      <button class="btn" id="good" onclick="handlegood1()">
-                        <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                        <span id="good-amount"><?php echo $item2['good_count']; ?></span>
-                      </button>
-                    </div>
+
+                    
 
                     <div class="card-text">
                       <!--回答文-->
@@ -339,23 +340,7 @@
               <!--/回答１-->
           </div>
 
-          <div id="side-area" class="col-3 text-center">
-            <button class="btn" id="edit">編集</button>
-            <br />
-            <div class="good">
-              <!-- 記事に対するいいね処理 ↓-->
-              <form method="POST" action="goodinsert.php">
-                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
-                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
-                <input type="hidden" name="user_point_id" value="<?php echo $search[0]['user_id'];?>">
-                <button class="btn" id="good" type="submit">
-                <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                  <span id="good-amount"><?php echo $search[0]['good_count'] ?></span>
-                </button>
-              </form>
-            </div>
-
-          </div>
+          
 
           </div>
           <!-- 基のボタンの場所 -->
