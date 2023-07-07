@@ -2,7 +2,7 @@
   // データベース接続情報
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "root";
   $dbname = "asoda";
 
   $post_id = $_GET['post_id'];
