@@ -123,7 +123,7 @@
           
       }
 
-      foreach($result as $row) { 
+      foreach($result as $row){ 
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
@@ -134,9 +134,13 @@
     <p><?= $row['post_title'] ?></p>
     <p><?= $row['post_time'] ?></p>
     <!-- 付与されたタグ一覧 -->
-    <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
-      <span><?= $tag['tag_name'] ?>,</span>
-    <?php endforeach; ?>
+    <?php 
+    try{foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) :
+      echo "<span><?= ".$tag['tag_name']." ?>,</span>";
+    }catch(Throwable){
+
+    }
+    ?>
     <!-- いいね数 -->
     <p><?= $good -> goodCount($row['post_id']) ?></p>
     </button>   
@@ -144,7 +148,7 @@
     
 
   <?php
-      } //end foreach
+      }//end foreach
     }catch(Exception $e){
       echo $e->getMessage();
     }
