@@ -3,7 +3,7 @@
     private function dbConnect(){
       //データベースに接続
       $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-                      'root', 'root');
+                      'root', '');
       return $pdo;
     }
 
