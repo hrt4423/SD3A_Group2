@@ -122,6 +122,8 @@
           break;
       }
 
+      var_dump($result[0]['post_time']);
+
       foreach($result as $row) { 
   ?>
 
