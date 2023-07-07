@@ -107,13 +107,16 @@
     <?php
       try{
         require_once './DAO/posts.php';
+        require_once './dao/good.php';
+        require_once './dao/users.php';
         $postAll = new DAO_post();
+        $goodAll = new Good();
+        $userAll = new Users();
         $post_id = $_GET['post_id'];
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
         echo '<script>';
         echo 'console.log(' . json_encode($search) . ')';
         echo '</script>';
-
         $result = $postAll->post_return($post_id);//それに対する返信検索
         $coment1 = $result['coment1'];
         $coment2 = $result['coment2'];
@@ -124,6 +127,15 @@
         echo '<script>';
         echo 'console.log(' . json_encode($coment2) . ')';
         echo '</script>';
+        // $count_search = $coment[0]['post_id'];
+        // $user_search = $coment[0]['user_id'];
+
+        // $goodcount = $goodAll->goodCount($count_search);//それに対する返信のgoodcount
+        echo '<script>';
+        echo 'console.log(' . json_encode($goodcount) . ')';
+        echo '</script>';
+
+        // $username = $userAll->getUserNameById($user_search);
 
         if (isset($_POST['commentSubmit'])) {
           $formIndex = $_POST['commentSubmit']; // 送信されたフォームのインデックスを取得
@@ -157,27 +169,33 @@
           <div name="user-info" class="col-3">
             <span name="user-icon"><i class="bi bi-person-circle"></i></span>
             <span name="user-rank"><i class="bi bi-gem"></i></span>
-            <span name="user-name"><?php echo $search[0]['user_name'] ?></span>
+            <span name="user-name"><?php echo $search[0]['user_info'][0]['user_name'] ?></span>
           </div>
 
-          <div style="display: flex;">
-        
-          <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
+        <div style="display: flex;">
+        <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
+          <!-- ボタンの位置 -->
           <div class="text-center">
-                <!-- <button class="btn" id="edit">編集</button> -->
-                <form action="questionCreation.php" method="GET">
-                  <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-                  <button type="submit" class="btn" id="edit">編集</button>
-                </form>
-                <br />
-                <div class="good">
-                  <button class="btn" id="good" onclick="handlegood()">
-                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                    <span id="good-amount"><?php echo $search[0]['good_count']?></span>
-                  </button>
-                </div>
+            <button class="btn" id="edit">編集</button>
+            <br />
+            <div class="good">
+              <!-- 記事に対するいいね処理 ↓-->
+              <form method="POST" action="goodinsert.php">
+                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
+                <input type="hidden" name="user_point_id" value="<?php echo $search[0]['user_id'];?>">
+                <button class="btn" id="good" type="submit">
+                <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
+                  <span id="good-amount"><?php echo $search[0]['good_count'] ?></span>
+                </button>
+              </form>
             </div>
           </div>
+        </div>
+        
+          
+
+          
 
         </div>
         <div class="row">
@@ -214,12 +232,7 @@
                   <span name="user-name"><?php echo $item['user_name']; ?></span>
                 </div>
                 <!--いいねボタン-->
-                <div class="good-button-area">
-                  <button class="btn" id="good" onclick="handlegood1()">
-                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                    <span id="good-amount"><?php echo $item['good_count']; ?></span>
-                  </button>
-                </div>
+                <!--/いいねボタン-->
 
                 <div class="card-text">
                   <!--回答文-->
@@ -243,13 +256,8 @@
                       <span name="user-rank"><i class="bi bi-gem"></i></span>
                       <span name="user-name"><?php echo $item2['user_name']; ?></span>
                     </div>
-                    <!--いいねボタン-->
-                    <div class="good-button-area">
-                      <button class="btn" id="good" onclick="handlegood1()">
-                        <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                        <span id="good-amount"><?php echo $item2['good_count']; ?></span>
-                      </button>
-                    </div>
+
+                    
 
                     <div class="card-text">
                       <!--回答文-->
@@ -257,10 +265,10 @@
                     </div>
                     <!-- 返信フォームなどの表示 -->
                   <?php endif; ?>
+
                 <?php endforeach; ?>
 
                 <!-- ここまで -->
-
                 <div class="comment-write-area">
                   <!--コメント入力欄-->
                   <form action="" method="post" id="comment-form-<?php echo $index + 1; ?>">
@@ -280,7 +288,6 @@
                       <label for="">返信</label>
                       <div class="styled-output"></div>
                     </div>
-
                     <div style="display: flex">
                       <button
                         type="button"
@@ -292,6 +299,7 @@
                       >
                         プレビュー
                       </button>
+
 
                       <div class="comment-write-area-button">
                         <label id="upload-image-icon">
@@ -321,7 +329,14 @@
 
             </div>
 
+
+                <!---card-body-->
+              </div>
+              <!--/回答１-->
           </div>
+
+          
+
           </div>
           <!-- 基のボタンの場所 -->
         </div>
@@ -422,49 +437,7 @@
         div.classList.toggle("active");
       }
 
-      function handlegood() {
-          <?php
-          try {
-              require_once './DAO/good.php';
-              $good = new Good();
-              $post_id = $_GET['post_id'];
-              $user_id = $search[0]['user_id'];
 
-              // insertgood()メソッドを実行
-              $insert = $good->insertgood($user_id, $post_id);
-
-              echo 'console.log(' . json_encode($insert) . ')';
-              echo 'console.log(' . json_encode($count) . ')';
-
-          } catch (Exception $ex) {
-              echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-          } catch (Error $err) {
-              echo 'console.log(' . json_encode($err->getMessage()) . ')';
-          }
-          ?>
-        }
-
-function handlegood1() {
-    <?php
-    try {
-        require_once './DAO/good.php';
-        $good = new Good();
-        $post_id = $_GET['post_id'];
-        $user_id = $coment[0]['user_id'];
-
-        // insertgood()メソッドを実行
-        $insert = $good->insertgood($user_id, $post_id);
-
-        echo 'console.log(' . json_encode($insert) . ')';
-        echo 'console.log(' . json_encode($count) . ')';
-
-    } catch (Exception $ex) {
-        echo 'console.log(' . json_encode($ex->getMessage()) . ')';
-    } catch (Error $err) {
-        echo 'console.log(' . json_encode($err->getMessage()) . ')';
-    }
-    ?>
-}
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

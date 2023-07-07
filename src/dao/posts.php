@@ -249,8 +249,30 @@
       $ps->execute();
       $search = $ps->fetchAll();
     
-      return $search;
-    }
+        // ユーザー名を取得するクエリを追加
+         // Retrieve all user information
+         $userSql = "SELECT * FROM users WHERE user_id = :userId";
+         $userPs = $this->pdo->prepare($userSql);
+         $userPs->bindValue(':userId', $id, PDO::PARAM_INT);
+         $userPs->execute();
+         $userSearch = $userPs->fetchAll();
+    
+        if (!empty($userSearch)) {
+          $search[0]['user_info'] = $userSearch;
+
+          // goodテーブルのレコード数を取得するクエリを追加
+            $goodSql = "SELECT COUNT(*) AS count FROM goods WHERE post_id = $id";
+            $goodPs = $this->pdo->prepare($goodSql);
+            $goodPs->execute();
+            $goodSearch = $goodPs->fetch();
+
+              if (!empty($goodSearch)) {
+                $search[0]['good_count'] = $goodSearch['count'];
+              }
+        }
+        return $search;
+      }
+      
     
 
     public function post_return($id) {
@@ -274,6 +296,7 @@
         GROUP BY posts.post_id
       ";
     
+
       $ps1 = $this->pdo->prepare($sql1);
       $ps1->bindValue(':id', $id, PDO::PARAM_INT);
       $ps1->execute();
@@ -296,6 +319,7 @@
       // $pdo = $this->dbConnect();
       $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time, parent_post_id) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time, :parent_post_id)";
       $ps = $this->pdo->prepare($sql);
+
 
       $ps->bindValue(':destination_post_id', $id, PDO::PARAM_INT);
       $ps->bindValue(':post_title', 'タイトル', PDO::PARAM_STR);
