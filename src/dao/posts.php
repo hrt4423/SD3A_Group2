@@ -9,19 +9,7 @@
     }
 
     public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
-      // DB接続情報
-      $dsn = 'mysql:dbname=asoda;host=localhost';
-      $user = 'root';
-      $password = '';
-
-      try {
-          $dbh = new PDO($dsn, $user, $password);
-      } catch (PDOException $e) {
-          print('Error:' . $e->getMessage());
-          die();
-      }
-
-      // テスト検索
+      // 検索
       $sql = "INSERT INTO posts (user_id,
                                 post_category_id,
                                 post_time,
@@ -38,7 +26,7 @@
                     )";
 
       // プリペアドステートメントを作成
-      $stmt = $dbh->prepare($sql);
+      $stmt = $this->pdo->prepare($sql);
 
       // 日時をセット
       $post_time = date("Y-m-d H:i:s");
@@ -54,7 +42,7 @@
       // ステートメントを実行
       $stmt->execute();
 
-      $post_id = (int)$dbh->lastInsertId(); // 最後に挿入されたレコードのIDを整数(int)として取得
+      $post_id = (int)$this->pdo->lastInsertId(); // 最後に挿入されたレコードのIDを整数(int)として取得
 
       try {
           echo "データが正常に挿入されました。";
