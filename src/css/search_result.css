@@ -1,8 +1,12 @@
+  .background{
+  background-color: #FAEEFF;
+  }
+
   .article_area{
     margin-top: 3vw;
     margin-left: 18vw;
     width: 60vw;
-    height: 33vw;
+    height: 11vw;
     overflow:auto;
   }
   
@@ -52,7 +56,7 @@
     font-size: 0.7vw;
     margin-left: 1vw;
   }
-  
+
   .day{
     margin: 0;
     font-size: 0.8vw;
