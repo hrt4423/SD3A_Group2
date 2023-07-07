@@ -127,7 +127,6 @@
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
-    <div>
     <form action="question-detail.php" method="GET">
     <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
     <button>
@@ -142,7 +141,7 @@
     <p><?= $good -> goodCount($row['post_id']) ?></p>
     </button>   
     </form>
-    </div>
+    
 
   <?php
       } //end foreach
