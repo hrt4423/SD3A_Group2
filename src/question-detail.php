@@ -232,12 +232,7 @@
                   <span name="user-name"><?php echo $item['user_name']; ?></span>
                 </div>
                 <!--いいねボタン-->
-                <div class="good-button-area">
-                  <button class="btn" id="good" onclick="handlegood1()">
-                    <i name="good-button" class="bi bi-hand-thumbs-up-fill"></i>
-                    <span id="good-amount"><?php echo $item['good_count']; ?></span>
-                  </button>
-                </div>
+                <!--/いいねボタン-->
 
                 <div class="card-text">
                   <!--回答文-->
