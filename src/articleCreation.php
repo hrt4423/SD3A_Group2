@@ -2,7 +2,7 @@
   // データベース接続情報
   $servername = "localhost";
   $username = "root";
-  $password = "root";
+  $password = "";
   $dbname = "asoda";
 
   // データベースに接続する関数
@@ -29,7 +29,34 @@
   require_once './dao/attached_tags.php';
   $postClass = new posts();
   $tagClass = new tags($servername, $username, $password, $dbname); 
-  $attachedClass = new attached_tags($servername, $username, $password, $dbname); 
+  $attachedClass = new attached_tags($servername, $username, $password, $dbname);
+
+  if(isset($_GET['post_id'])){
+    $post_id = $_GET['post_id'];
+    try {
+      $dbh = new PDO($dsn, $user, $password);
+      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      // クエリの準備
+      $sql = "SELECT *
+              FROM posts
+              WHERE post_id = :post_id";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        // エラーハンドリング
+        echo 'Error: ' . $e->getMessage();
+        die();
+    }
+
+
+  }
+  
+
+
 
   if (isset($_POST['submit'])) {
       // ボタンがクリックされたときの処理をここに記述する
