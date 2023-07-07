@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="./css/header.css" >
+  <link href="./css/search_result.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+  <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+ 
   <title>search-result</title>
 </head>
 <body>
@@ -46,7 +48,7 @@
           <a href="./profile_question.php" class="circle">
             <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
           </a>
-          
+         
           <div class="dropdown">
             <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
@@ -68,7 +70,7 @@
 
     </div>
   <!-- ここまでがヘッダー -->
-
+<div class="background">
   <h1>検索結果</h1>
   <form action="./search_result.php" method="GET" id="sort-form">
     <select name="sort_type" id="sort-type">
@@ -128,17 +130,36 @@
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
-    <hr>
-    <p><?= $users -> getUserNameById($row['user_id']) ?></p>
-    <p><?= $row['post_title'] ?></p>
-    <p><?= $row['post_time'] ?></p>
+    <div class="article_area">  
+    <button class="result">          
+    <p class="user2">
+      <?= $users -> getUserNameById($row['user_id']) ?>
+    </p>
+    <p class="title">
+      <?= $row['post_title'] ?>
+    </p>
+    <p class="day">
+      <?= $row['post_time'] ?>
+    </p>
     <!-- 付与されたタグ一覧 -->
+    <div class="tag_area">
+    <img src="./images/pin.png" alt="" class="img2">
     <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
       <span><?= $tag['tag_name'] ?>,</span>
     <?php endforeach; ?>
+    </div>
     <!-- いいね数 -->
-    <p><?= $good -> goodCount($row['post_id']) ?></p>
-    <hr>
+         <div class="good_area">
+                  <div class="good_img">
+                    <img src="./images/good.png" alt="" class="img3">
+                  </div>
+                </div>
+                <p class="good"><?= $good -> goodCount($row['post_id']) ?></p>
+    </button>
+             
+</div>
+
+
 
   <?php
       } //end foreach
@@ -146,7 +167,7 @@
       echo $e->getMessage();
     }
   ?>
-
+</div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
