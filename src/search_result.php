@@ -137,7 +137,7 @@
     <?php 
     try{foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
       echo "<span><?= ".$tag['tag_name']." ?>,</span>";
-    }catch(Throwable){
+    }catch(Exception $e){
 
     }
     ?>
