@@ -11,7 +11,7 @@
     // DB接続設定
     private $servername = "localhost";
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     private $dbname = "asoda";
 
   
@@ -106,7 +106,7 @@
     }
 
     public function postTags($post_id) {
-        $pdo = $this->dbConnect();
+        // $pdo = $this->dbConnect();
       
         $sql = "
           SELECT tags.tag_name
@@ -115,7 +115,7 @@
           WHERE attached_tags.post_id = :post_id
         ";
       
-        $ps = $pdo->prepare($sql);
+        $ps = $this->pdo->prepare($sql);
         $ps->bindValue(':post_id', $post_id, PDO::PARAM_INT);
         $ps->execute();
         $tags = $ps->fetchAll(PDO::FETCH_COLUMN);

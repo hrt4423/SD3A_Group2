@@ -277,11 +277,6 @@
         GROUP BY posts.post_id
       ";
     
-      $ps = $this->pdo->prepare($sql);
-      $ps->bindValue(':id', $id, PDO::PARAM_INT);
-      $ps->execute();
-      $coment = $ps->fetchAll();
-
       $sql2 = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
         FROM posts
@@ -291,12 +286,12 @@
         GROUP BY posts.post_id
       ";
     
-      $ps1 = $pdo->prepare($sql1);
+      $ps1 = $this->pdo->prepare($sql1);
       $ps1->bindValue(':id', $id, PDO::PARAM_INT);
       $ps1->execute();
       $coment1 = $ps1->fetchAll();
     
-      $ps2 = $pdo->prepare($sql2);
+      $ps2 = $this->pdo->prepare($sql2);
       $ps2->bindValue(':id', $id, PDO::PARAM_INT);
       $ps2->execute();
       $coment2 = $ps2->fetchAll();
@@ -309,7 +304,7 @@
     }
     
     
-    public function insertpost($id, $coment, $USER_ID) {
+    public function insertpost($id, $coment, $USER_ID, $parent_post_id) {
       // $pdo = $this->dbConnect();
       $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time)";
       $ps = $this->pdo->prepare($sql);
