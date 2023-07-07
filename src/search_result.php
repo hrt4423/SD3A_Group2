@@ -135,7 +135,7 @@
     <p><?= $row['post_time'] ?></p>
     <!-- 付与されたタグ一覧 -->
     <?php 
-    try{foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) :
+    try{foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
       echo "<span><?= ".$tag['tag_name']." ?>,</span>";
     }catch(Throwable){
 
