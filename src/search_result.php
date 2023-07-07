@@ -135,10 +135,11 @@
     <p><?= $row['post_time'] ?></p>
     <!-- 付与されたタグ一覧 -->
     <?php 
-    try{foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
-      echo "<span><?= ".$tag['tag_name']." ?>,</span>";
-    }catch(Exception $e){
+    if($attachedTags -> getAttachedTagsByPostId($row['post_id'])==null){
 
+    }else{
+    foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
+      echo "<span><?= ".$tag['tag_name']." ?>,</span>";
     }
     ?>
     <!-- いいね数 -->
