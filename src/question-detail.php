@@ -164,7 +164,11 @@
         
           <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
           <div class="text-center">
-                <button class="btn" id="edit">編集</button>
+                <!-- <button class="btn" id="edit">編集</button> -->
+                <form action="questionCreation.php" method="GET">
+                  <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                  <button type="submit" class="btn" id="edit">編集</button>
+                </form>
                 <br />
                 <div class="good">
                   <button class="btn" id="good" onclick="handlegood()">

@@ -5,6 +5,8 @@
   $password = "";
   $dbname = "asoda";
 
+  $post_id = $_GET['post_id'];
+
   // データベースに接続する関数
   function connectToDatabase()
   {
