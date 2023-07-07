@@ -8,15 +8,11 @@
       $this->pdo = $connection->dbConnect();
     }
 
-    // DB接続設定
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "root";
-    private $dbname = "asoda";
 
   
     // タグの追加処理
-    public function addTag($tagNames) {
+    public function addTag($tagNames)
+    {
         // タグ名が空の場合は処理しない
         if (empty($tagNames)) {
             return [];
@@ -25,12 +21,6 @@
         // タグ名が文字列であれば配列に変換
         if (!is_array($tagNames)) {
             $tagNames = explode(',', $tagNames);
-        }
-
-        // データベース接続
-        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        if ($conn->connect_error) {
-            die("データベースへの接続に失敗しました: " . $conn->connect_error);
         }
 
         $tagIds = []; // 追加されたタグのtag_idを格納する配列
@@ -45,45 +35,41 @@
             }
 
             // タグをデータベースに追加
-            $sql = "INSERT INTO tags (tag_name) VALUES ('$tagName')";
-            if ($conn->query($sql) === true) {
+            $sql = "INSERT INTO tags (tag_name) VALUES (:tagName)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':tagName', $tagName, PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
                 echo "タグが追加されました: $tagName<br>";
 
                 // 追加されたタグのtag_idを取得して整数に変換し、配列に追加
-                $tagId = (int)$conn->insert_id;
+                $tagId = (int)$this->pdo->lastInsertId();
                 $tagIds[] = $tagId;
             } else {
-                echo "タグの追加に失敗しました: " . $conn->error . "<br>";
+                echo "タグの追加に失敗しました: " . $stmt->errorInfo()[2] . "<br>";
             }
         }
-
-        $conn->close();
 
         return $tagIds; // 追加または既存のタグのtag_idの配列を返す
     }
 
     // タグ名による既存タグの取得
-    private function getTagByName($tagName) {
-        // データベース接続
-        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        if ($conn->connect_error) {
-            die("データベースへの接続に失敗しました: " . $conn->connect_error);
-        }
+    private function getTagByName($tagName)
+    {
+        $sql = "SELECT * FROM tags WHERE tag_name = :tagName";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':tagName', $tagName, PDO::PARAM_STR);
+        $stmt->execute();
 
-        // タグ名で検索
-        $sql = "SELECT * FROM tags WHERE tag_name = '$tagName'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            // 既存タグが見つかった場合はそのタグを返す
-            $tag = $result->fetch_assoc();
-            $conn->close();
-            return $tag;
+        $tag = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($tag !== false) {
+            return $tag; // 既存タグが見つかった場合はそのタグを返す
         } else {
-            // 既存タグが見つからなかった場合は null を返す
-            $conn->close();
-            return null;
+            return null; // 既存タグが見つからなかった場合は null を返す
         }
     }
+
     
   }
 

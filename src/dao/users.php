@@ -1,19 +1,25 @@
 <?php
   class Users{
-    private function dbConnect(){
-      //データベースに接続
-      $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-                      'root', 'root');
-      return $pdo;
+
+    private $pdo;
+    public function __construct() {
+      require_once('connection.php');
+      $connection = new Connection();
+      $this->pdo = $connection->dbConnect();
     }
 
+    // private function dbConnect(){
+    //   //データベースに接続
+    //   $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
+    //                   'root', '');
+    //   return $pdo;
+    // }
+
     public function getUserDataById($id){
-      $pdo = $this -> dbConnect();
-      //SQLの生
       $sql = "SELECT * FROM users WHERE user_id=?";
 
       //prepare:準備　戻り値を変数に保持
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
 
       //”？”に値を設定する。
       $ps->bindValue(1, $id, PDO::PARAM_INT); 
@@ -33,9 +39,8 @@
     }
 
     public function getUserIconPathById($id){
-      $pdo = $this -> dbConnect();
       $sql = "SELECT user_icon FROM users WHERE user_id=?";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $id, PDO::PARAM_INT); 
       $ps->execute();
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -51,9 +56,8 @@
     }
 
     public function updateUserIconPath($id, $imagePath){
-      $pdo = $this -> dbConnect();
       $sql = "UPDATE users SET user_icon=? WHERE user_id=?";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $imagePath, PDO::PARAM_STR);
       $ps->bindValue(2, $id, PDO::PARAM_INT); 
 
@@ -61,9 +65,8 @@
     }
     
     public function updateProfile($id, $userData){
-      $pdo = $this -> dbConnect();
       $sql = "UPDATE users SET user_name=?, user_mail=?, user_pass=?, user_profile=?, thema_color_id=? WHERE user_id=?";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $userData['user_name'], PDO::PARAM_STR);
       $ps->bindValue(2, $userData['user_mail'], PDO::PARAM_STR);
       $ps->bindValue(3, password_hash($userData['user_pass'],PASSWORD_DEFAULT), PDO::PARAM_STR);
@@ -76,9 +79,8 @@
     
 
     public function isEmailInDatabase(){
-      $pdo = $this -> dbConnect();
       $sql = "SELECT user_mail FROM users WHERE user_mail=?";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $_POST['user_mail'], PDO::PARAM_STR); 
       $ps->execute();
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -91,9 +93,8 @@
     }
 
     public function getUserNameById($id){
-      $pdo = $this -> dbConnect();
       $sql = "SELECT user_name FROM users WHERE user_id=?";
-      $ps = $pdo -> prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $id, PDO::PARAM_INT); 
       $ps->execute();
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -109,11 +110,10 @@
     }
 
     public function getUsercolor_code($id){
-      $pdo = $this->dbConnect();
       $sql = "SELECT thema_color_code, sub_color_code FROM thema_colors WHERE thema_color_id = (
           SELECT thema_color_id FROM users WHERE user_id = ?
       )";
-      $ps = $pdo->prepare($sql);
+      $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $id, PDO::PARAM_INT); 
       $ps->execute();
       $result = $ps->fetchAll();
