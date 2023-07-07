@@ -294,7 +294,7 @@
     
     public function insertpost($id, $coment, $USER_ID, $parent_post_id) {
       // $pdo = $this->dbConnect();
-      $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time)";
+      $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time, parent_post_id) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time, :parent_post_id)";
       $ps = $this->pdo->prepare($sql);
 
       $ps->bindValue(':destination_post_id', $id, PDO::PARAM_INT);
