@@ -13,6 +13,7 @@
     private $username = "root";
     private $password = "root";
     private $dbname = "asoda";
+    private $push = "push";
 
   
     // タグの追加処理
