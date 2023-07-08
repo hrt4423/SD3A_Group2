@@ -5,7 +5,7 @@
     private $username;
     private $password;
     private $dbname;
-    
+
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
@@ -14,7 +14,7 @@
       $this->username = $connection->getUsername();
       $this->password = $connection->getPassword();
       $this->dbname = $connection->getDbname();
-    }    
+    }
 
         // タグと投稿の関連付け
         public function addTags($post_id, $tagIds) {
@@ -43,6 +43,8 @@
             $stmt->close();
             $conn->close();
         }
+    
+    
   }
 
   class AttachedTags{
@@ -51,8 +53,8 @@
       require_once('connection.php');
       $connection = new Connection();
       $this->pdo = $connection->getPdo();
-    }    
-
+    } 
+  
     public function getAttachedTagsByPostId($postId){
       //SQLの生成
       $sql = "SELECT T.tag_name
@@ -75,6 +77,73 @@
       }else{
         return $result;
       } 
+    }
+
+    public function searchPostIdsByTag($tagId){
+      //SQLの生成
+      $sql = "SELECT post_id FROM attached_tags WHERE tag_id=?";
+      //prepare:準備　戻り値を変数に保持
+      $ps = $this->pdo -> prepare($sql);
+
+      //”？”に値を設定する。
+      $ps->bindValue(1, $tagId, PDO::PARAM_INT); 
+
+      //SQLの実行
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        throw new Exception('指定したIDに該当するデータはありません。');
+      }else{
+        return $result;
+      }
+    }
+
+    public function filterPostByTag(array $tagIds){
+      require_once('posts.php');
+      $posts = new Posts();
+      $postIds = array();
+      $postRecords = array();
+
+      //タグIDを元に投稿IDを取得（タグが複数の場合があるのでforeach）
+      foreach($tagIds as $tagId){
+        $tmp = $this->searchPostIdsByTag($tagId);
+        foreach($tmp as $row){
+          array_push($postIds, $row['post_id']);
+        }
+      }
+
+      echo '選択したタグに該当する投稿ID<br>';
+      foreach($postIds as $row){
+        var_export($row);
+        echo '<br>';
+      }
+      echo '<hr>';
+      
+      foreach($postIds as $row){
+        array_push($postRecords, $posts->findPostById($row));
+      }
+
+      echo 'IDから検索したレコード<br>';
+      foreach($postRecords as $row){
+        var_export($row);
+        echo '<br>';
+      }
+      echo '<hr>';
+
+      //投稿日時でソート
+
+      /* TODO ここがうまくいってない
+        //日付だけの配列を作成
+        $postTimeArray = array_column($postRecords, 'post_time');
+        echo 'postTimeArray<br>';
+        var_export($postTimeArray);
+      */
+      
+      //日付を基準にもとの配列をソート
+      array_multisort($postTimeArray, SORT_DESC, $postRecords);
+      
+      return $postRecords;
     }
   }
 ?>

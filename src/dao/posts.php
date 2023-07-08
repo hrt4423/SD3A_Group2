@@ -1,5 +1,5 @@
 <?php
-  class posts {
+  class Posts {
     private $pdo;
     private $hostname;
     private $username;
