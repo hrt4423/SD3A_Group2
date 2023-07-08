@@ -41,7 +41,7 @@
       return $this->hostname;
     }
     
-    //こちらは古い仕様です。getPdo()を使ってください。※リファクタリング前のため残しています。
+    //こちらは古い仕様です。getPdo()を使ってください。※安全のため残しています。
     public function dbConnect(){
       // DB接続情報
       $dsn = 'mysql:dbname=asoda;host=localhost';
