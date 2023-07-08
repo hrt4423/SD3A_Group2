@@ -10,10 +10,10 @@
       $password = 'root';
 
       try{
-      $dbh = new PDO($dsn, $user, $password);
+        $dbh = new PDO($dsn, $user, $password);
       }catch (PDOException $e){
-      print('Error:'.$e->getMessage());
-      die();
+        print('Error:'.$e->getMessage());
+        die();
       }
 
       return $dbh;
