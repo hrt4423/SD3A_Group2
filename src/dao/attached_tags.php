@@ -1,15 +1,25 @@
 <?php
   class attached_tags {
-        // データベース接続設定
-        private $servername = "localhost";
-        private $username = "root";
-        private $password = "";
-        private $dbname = "asoda";
+    private $pdo;
+    private $hostname;
+    private $username;
+    private $password;
+    private $dbname;
+    
+    public function __construct() {
+      require_once('connection.php');
+      $connection = new Connection();
+      $this->pdo = $connection->getPdo();
+      $this->hostname = $connection->getHostname();
+      $this->username = $connection->getUsername();
+      $this->password = $connection->getPassword();
+      $this->dbname = $connection->getDbname();
+    }    
 
         // タグと投稿の関連付け
         public function addTags($post_id, $tagIds) {
             // データベース接続
-            $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = new mysqli($this->hostname, $this->username, $this->password, $this->dbname);
             if ($conn->connect_error) {
                 die("データベースへの接続に失敗しました: " . $conn->connect_error);
             }
@@ -40,9 +50,9 @@
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-    }
-  
+      $this->pdo = $connection->getPdo();
+    }    
+
     public function getAttachedTagsByPostId($postId){
       //SQLの生成
       $sql = "SELECT T.tag_name

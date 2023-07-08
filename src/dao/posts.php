@@ -1,12 +1,22 @@
 <?php
   class posts {
-    //DB接続（推奨）
     private $pdo;
+    private $hostname;
+    private $username;
+    private $password;
+    private $dbname;
+    private $dsn;
+    
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-    }
+      $this->pdo = $connection->getPdo();
+      $this->hostname = $connection->getHostname();
+      $this->username = $connection->getUsername();
+      $this->password = $connection->getPassword();
+      $this->dbname = $connection->getDbname();
+      $this->dsn = $connection->getDsn();
+    }    
 
     public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
       // 検索
@@ -54,13 +64,8 @@
     }
 
     public function insertpost($title, $detail, $user_id, $post_priority) {
-      // DB接続情報
-      $dsn = 'mysql:dbname=asoda;host=localhost';
-      $user = 'root';
-      $password = '';
-
       try {
-          $dbh = new PDO($dsn, $user, $password);
+          $dbh = new PDO($this->dsn, $this->username, $this->password);
       } catch (PDOException $e) {
           print('Error:' . $e->getMessage());
           die();
@@ -181,8 +186,7 @@
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-
+      $this->pdo = $connection->getPdo();
     }
 
     public function post () {

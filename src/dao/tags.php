@@ -5,11 +5,9 @@
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
+      $this->pdo = $connection->getPdo();
     }
 
-
-  
     // タグの追加処理
     public function addTag($tagNames)
     {
@@ -75,12 +73,10 @@
 
   class DAO_tag{
     private $pdo;
-    
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-
+      $this->pdo = $connection->getPdo();
     }
 
     public function tags () {
