@@ -10,11 +10,4 @@
   echo '</script>';
 ?>
 
-<?php foreach($result as $row) : ?>
-  <div>
-    <p>ID: <?= $row['post_id'] ?></p>
-    <p>post_time: <?= $row['post_time'] ?></p>
-    <p>user_id: <?= $row['user_id'] ?></p>
-    <p>post_detail: <?= $row['post_detail'] ?></p>
-  </div>
-<?php endforeach; ?>
+

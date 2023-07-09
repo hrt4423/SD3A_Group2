@@ -103,7 +103,7 @@
       require_once('posts.php');
       $posts = new Posts();
       $postIds = array();
-      $postRecords = array();
+      $postRecords;
 
       //タグIDを元に投稿IDを取得（タグが複数の場合があるのでforeach）
       foreach($tagIds as $tagId){
@@ -120,29 +120,25 @@
       }
       echo '<hr>';
       
+      $count=0;
       foreach($postIds as $row){
-        array_push($postRecords, $posts->findPostById($row));
+        $postRecords[$count] = $posts->findPostById($row);
+        $count++;
       }
+      
 
-      echo 'IDから検索したレコード<br>';
-      foreach($postRecords as $row){
-        var_export($row);
-        echo '<br>';
-      }
+      echo '<h1>$postRecords</h1>';
+      var_export($postRecords);
       echo '<hr>';
 
-      //投稿日時でソート
+      echo '<h1>postsレコード</h1>';
+      for($i = 0; $i < 4; $i++){
+        echo "<h3>$i</h3>";
+        var_dump($postRecords[$i]);
+        echo '<hr>';
+      }
 
-      /* TODO ここがうまくいってない
-        //日付だけの配列を作成
-        $postTimeArray = array_column($postRecords, 'post_time');
-        echo 'postTimeArray<br>';
-        var_export($postTimeArray);
-      */
-      
-      //日付を基準にもとの配列をソート
-      array_multisort($postTimeArray, SORT_DESC, $postRecords);
-      
+
       return $postRecords;
     }
   }
