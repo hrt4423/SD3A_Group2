@@ -75,7 +75,7 @@ require_once('config.php');
     width: 37px;
     height: 37px;
     border-radius: 50%;
-    background-color: #653A91;
+    /* background-color: #653A91; */
     margin-right: 20px;
   }
 
@@ -104,6 +104,9 @@ require_once('config.php');
     width: 10vw;
     height: 2.7vw;
   }
+  .search-icon {
+    height: 38px;
+  }
   </style>
 </head>
 <body class="body">
@@ -129,13 +132,16 @@ require_once('config.php');
           <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
             <form action="./search_result.php" method="GET" id="search-form">
-              <div class="input-group-prepend">
-                <button type="submit" class="input-group-text" id="search-button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-            </form>
+                <div class="horizontal">
+                  <div class="input-group-prepend search-icon">
+                    <button type="submit" class="input-group-text" id="search-button">
+                    <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <input type="hidden" name="sort_type" value="0">
+                  <input type="text" name="keyword" class="col-8 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+                </div>
+              </form>
           </div>
           <a href="./profile_question.php" class="circle">
             <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">

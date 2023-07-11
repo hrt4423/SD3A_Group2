@@ -1,3 +1,6 @@
+<?php 
+  session_start();
+?>
 <?php
   // データベース接続情報
   $servername = "localhost";
@@ -143,7 +146,7 @@
         width: 37px;
         height: 37px;
         border-radius: 50%;
-        background-color: #653a91;
+        /* background-color: #653a91; */
         margin-right: 20px;
       }
 
@@ -298,6 +301,12 @@
   <body>
     <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
     <div class="header_size">
+    <?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
         <div class="right">
@@ -316,7 +325,9 @@
             />
           </div>
 
-          <div class="circle"></div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
 
           <div class="dropdown">
             <button

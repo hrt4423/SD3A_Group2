@@ -1,6 +1,6 @@
 .btn-purple {
-  background-color: #653A91;
-  border-color: #653A91;
+  background-color: #653a91;
+  border-color: #653a91;
   color: #fff;
 }
 .btn-purple:hover {
@@ -24,7 +24,7 @@
 }
 
 .search {
-  width: 200px;
+  width: 300px;
   height: 37px;
   margin-right: 20px;
 }
@@ -69,8 +69,8 @@
 }
 
 .underline.active {
-  text-decoration: underline; 
-  border-bottom: 10px solid #653A91;
+  text-decoration: underline;
+  border-bottom: 10px solid #653a91;
   text-decoration: none;
 }
 
