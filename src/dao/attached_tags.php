@@ -107,9 +107,10 @@
       $postRecords = array();
 
       //タグIDを元に'post_id'を取得（タグが複数の場合があるのでforeach）
+      //配列に格納
       foreach($tagIds as $tagId){
-        $postId = $this->searchPostIdsByTag($tagId);
-        foreach($postId as $row){
+        $tmp = $this->searchPostIdsByTag($tagId);
+        foreach($tmp as $row){
           array_push($postIds, $row['post_id']);
         }
       }
