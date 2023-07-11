@@ -127,7 +127,15 @@
           break;
       }
 
-      var_dump($result[0]['post_time']);
+      echo '<script>';
+      echo 'console.log(' . json_encode($result) . ')';
+      echo '</script>';
+
+      // for($i = 0; $i < 4; $i++){
+      //   echo "<h3>$i</h3>";
+      //   var_dump($result[$i]);
+      //   echo '<hr>';
+      // }
 
       foreach($result as $row) { 
   ?>
@@ -161,9 +169,6 @@
     </button>
              
 </div>
-
-
-
   <?php
       } //end foreach
     }catch(Exception $e){

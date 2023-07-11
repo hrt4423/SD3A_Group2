@@ -5,15 +5,8 @@
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
+      $this->pdo = $connection->getPdo();
     }
-
-    // private function dbConnect(){
-    //   //データベースに接続
-    //   $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-    //                   'root', '');
-    //   return $pdo;
-    // }
 
     public function getUserDataById($id){
       $sql = "SELECT * FROM users WHERE user_id=?";

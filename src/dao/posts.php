@@ -1,12 +1,22 @@
 <?php
-  class posts {
-    //DB接続（推奨）
+  class Posts {
     private $pdo;
+    private $hostname;
+    private $username;
+    private $password;
+    private $dbname;
+    private $dsn;
+    
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-    }
+      $this->pdo = $connection->getPdo();
+      $this->hostname = $connection->getHostname();
+      $this->username = $connection->getUsername();
+      $this->password = $connection->getPassword();
+      $this->dbname = $connection->getDbname();
+      $this->dsn = $connection->getDsn();
+    }    
 
     public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
       // 検索
@@ -54,13 +64,8 @@
     }
 
     public function insertpost($title, $detail, $user_id, $post_priority) {
-      // DB接続情報
-      $dsn = 'mysql:dbname=asoda;host=localhost';
-      $user = 'root';
-      $password = '';
-
       try {
-          $dbh = new PDO($dsn, $user, $password);
+          $dbh = new PDO($this->dsn, $this->username, $this->password);
       } catch (PDOException $e) {
           print('Error:' . $e->getMessage());
           die();
@@ -148,9 +153,25 @@
       }
     }
 
-    //引数で指定したIDの投稿を取得
+    //引数で指定したIDの投稿を取得。該当する投稿がない場合は例外を投げる。
     public function findPostById($postId){
+      $sql = "SELECT * FROM posts WHERE post_id = ?";
       
+      
+      //prepare:準備　戻り値を変数に保持
+      $ps = $this->pdo->prepare($sql);
+
+      //”？”に値を設定する。
+      $ps->bindValue(1, $postId, PDO::PARAM_INT); 
+      //SQLの実行
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        throw new Exception('キーワードに該当する投稿はありませんでした');
+      }else{
+        return $result;
+      }
     }
   }      
 
@@ -165,12 +186,10 @@
     public function __construct() {
       require_once('connection.php');
       $connection = new Connection();
-      $this->pdo = $connection->dbConnect();
-
+      $this->pdo = $connection->getPdo();
     }
 
     public function post () {
-      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
@@ -186,7 +205,6 @@
 
     public function prof_post () {
       $id=$_SESSION['user_id'];
-      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
@@ -202,7 +220,6 @@
     }
     public function prof_kizi_post () {
       $id=$_SESSION['user_id'];
-      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
@@ -218,7 +235,6 @@
     }
     public function prof_coment_post () {
       $id=$_SESSION['user_id'];
-      // $pdo=$this->dbConnect();
       $sql = "SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
       FROM posts 
       JOIN users ON posts.user_id = users.user_id
@@ -232,9 +248,7 @@
       return $search;
 
     }
-    public function post_detail($id) {
-      // $pdo = $this->dbConnect();
-    
+    public function post_detail($id) {    
       $sql = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
         FROM posts
@@ -276,8 +290,6 @@
     
 
     public function post_return($id) {
-      // $pdo = $this->dbConnect();
-    
       $sql1 = "
         SELECT posts.*, users.user_name, COUNT(goods.post_id) AS good_count
         FROM posts
@@ -316,7 +328,6 @@
     
     
     public function insertpost($id, $coment, $USER_ID, $parent_post_id) {
-      // $pdo = $this->dbConnect();
       $sql = "INSERT INTO posts (destination_post_id, post_title, post_detail, user_id, post_category_id, post_time, parent_post_id) VALUES (:destination_post_id, :post_title, :post_detail, :user_id, :post_category_id, :post_time, :parent_post_id)";
       $ps = $this->pdo->prepare($sql);
 

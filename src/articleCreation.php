@@ -9,7 +9,7 @@
   // データベース接続情報
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "root";
   $dbname = "asoda";
 
   // データベースに接続する関数
