@@ -99,13 +99,15 @@
       }
     }
 
+    //タグIDを元に投稿を絞り込む
     public function filterPostByTag(array $tagIds){
       require_once('posts.php');
       $posts = new Posts();
       $postIds = array();
-      $postRecords;
+      $postRecords = array();
 
-      //タグIDを元に投稿IDを取得（タグが複数の場合があるのでforeach）
+      //タグIDを元に'post_id'を取得（タグが複数の場合があるのでforeach）
+      //配列に格納
       foreach($tagIds as $tagId){
         $tmp = $this->searchPostIdsByTag($tagId);
         foreach($tmp as $row){
@@ -113,31 +115,17 @@
         }
       }
 
-      echo '選択したタグに該当する投稿ID<br>';
+      //'post_id'から投稿を取得
       foreach($postIds as $row){
-        var_export($row);
-        echo '<br>';
-      }
-      echo '<hr>';
-      
-      $count=0;
-      foreach($postIds as $row){
-        $postRecords[$count] = $posts->findPostById($row);
-        $count++;
-      }
-      
-
-      echo '<h1>$postRecords</h1>';
-      var_export($postRecords);
-      echo '<hr>';
-
-      echo '<h1>postsレコード</h1>';
-      for($i = 0; $i < 4; $i++){
-        echo "<h3>$i</h3>";
-        var_dump($postRecords[$i]);
-        echo '<hr>';
+        $tmp = $posts->findPostById($row);
+        array_push($postRecords, $tmp);
       }
 
+      //post_time列だけ抽出
+      $timeArray = array_column( $postRecords, "post_time" );
+
+      //post_timeを基準にソート
+      array_multisort( array_map( "strtotime", $timeArray ), SORT_DESC, $postRecords );
 
       return $postRecords;
     }

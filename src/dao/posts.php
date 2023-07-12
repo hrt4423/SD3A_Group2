@@ -156,31 +156,25 @@
     //引数で指定したIDの投稿を取得。該当する投稿がない場合は例外を投げる。
     public function findPostById($postId){
       $sql = "SELECT * FROM posts WHERE post_id = ?";
-      
-      
-      //prepare:準備　戻り値を変数に保持
+  
       $ps = $this->pdo->prepare($sql);
-
-      //”？”に値を設定する。
       $ps->bindValue(1, $postId, PDO::PARAM_INT); 
-      //SQLの実行
       $ps->execute();
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
+      //1次元の連想配列をかえす
       if(empty($result)){
         throw new Exception('キーワードに該当する投稿はありませんでした');
       }else{
-        return $result;
+        foreach($result as $row){
+          $postRecord = $row;
+        }
+        return $postRecord;
       }
     }
   }      
 
   class DAO_post{
-    // private function dbConnect(){
-    //   $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
-    //   return $pdo;
-    // }
-
     //DB接続（推奨）
     private $pdo;
     public function __construct() {

@@ -41,39 +41,56 @@
     require_once './dao/posts.php';
     require_once './dao/users.php';
     require_once './dao/good.php';
+    require_once './dao/attached_tags.php';
+    require_once './dao/tags.php';
 
-    $postAll = new DAO_post();
-    $search = $postAll->post();//データ取得
-    echo '<script>';
-    echo 'console.log(' . json_encode($search) . ')';
-    echo '</script>';
-    
     $posts = new Posts;
-    //質問を取得
-    $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
-
     $users = new Users;
     $good = new Good;
+    $attachedTags = new AttachedTags;
+    $dao_tag = new DAO_tag;
+    $tags = new Tags;
     
-    require_once './dao/tags.php';
-    $tags = new DAO_tag();
-    $allTags = $tags->tags();
-    echo '<script>';
-    echo 'console.log(' . json_encode($allTags) . ')';
-    echo '</script>';
+    //質問を取得
+    $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
+    //タグを取得
+    $allTags = $dao_tag->tags();
+
+    //絞り込み検索時の処理
+    if(isset($_GET['tag-checkbox'])){
+      $tagIds = $_GET['tag-checkbox'];
+      $result = $attachedTags->filterPostByTag($tagIds);
+
+      //検索しているタグの名前を取得
+      foreach($tagIds as $tagId){
+        $tagNames[] = $tags->getTagNameByTagId($tagId);
+      }
+    }
+    
   }catch(Exception $ex){
     echo $ex->getMessage();
   }catch(Error $err){
     echo $err->getMessage();
   }
+
+  //コンソールでの確認用
+  echo '<script>';
+  echo 'console.log(' . json_encode($allTags) . ')';
+  echo '</script>';
 ?>
 <script>
+  //ページが読み込まれたときに チェックボックスをクリア
+  $(document).ready(function(){
+    $('input[name="tag-checkbox"]').prop('checked', false);
+  });
+
+
   $(document).ready(function(){
     //タグがクリックされた時の処理
-    $('input[name="tag-checkbox"]').change(function(){
+    $('input[name="tag-checkbox[]"]').change(function(){
       var selectedTags = [];
 
-      $('input[name="tag-checkbox"]:checked').each(function(index, element){
+      $('input[name="tag-checkbox[]"]:checked').each(function(index, element){
         //チェックボックスのもつID（tags: tag_id）
         var tagId =  $(element).attr('id');
 
@@ -168,6 +185,13 @@
     <div class="col-3" >
       <form action="./questiontimeline.php" method="GET" id="tag-filter-form"></form> 
 
+      <div>
+        <?php if(isset($tagNames)) foreach($tagNames as $tagName) : ?>
+          <?= $tagName ?><span>, </span>
+        <?php endforeach; ?>
+        <span>での絞り込み結果</span>
+      </div>
+
       <div id="selected-tags"></div>
       <button type="submit" form="tag-filter-form" class="btn btn-purple" id="filter-button">絞り込む</button>
       <hr>
@@ -177,7 +201,7 @@
           <input 
             type="checkbox" 
             id="<?=$tag['tag_id']?>" 
-            name="tag-checkbox"
+            name="tag-checkbox[]"
             class="checkbox" 
             value="<?=$tag['tag_id']?>" 
             form="tag-filter-form"
