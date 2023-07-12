@@ -1,5 +1,5 @@
 <?php
-  class tags {
+  class Tags {
     //DB接続（推奨）
     private $pdo;
     public function __construct() {
@@ -67,8 +67,16 @@
             return null; // 既存タグが見つからなかった場合は null を返す
         }
     }
-
     
+
+    public function getTagNameByTagId($tagId){
+      $sql = "SELECT tag_name FROM tags WHERE tag_id = :tagId";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(':tagId', $tagId, PDO::PARAM_INT);
+      $stmt->execute();
+      $tag = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $tag['tag_name'];
+    }
   }
 
   class DAO_tag{
