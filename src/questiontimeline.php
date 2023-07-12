@@ -189,7 +189,9 @@
         <?php if(isset($tagNames)) foreach($tagNames as $tagName) : ?>
           <?= $tagName ?><span>, </span>
         <?php endforeach; ?>
-        <span>での絞り込み結果</span>
+        <?php 
+          if(isset($tagNames)) echo '<span>での絞り込み結果</span>'; 
+        ?>
       </div>
 
       <div id="selected-tags"></div>
