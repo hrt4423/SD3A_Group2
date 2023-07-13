@@ -129,7 +129,7 @@
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+        // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
           $USESR_ID = $_SESSION['user_id'];
           $userIconPath = $users->getUserIconPathById($USESR_ID);
