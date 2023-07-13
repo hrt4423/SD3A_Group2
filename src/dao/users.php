@@ -101,10 +101,11 @@
       } 
       return $userName;
     }
-
+    
+    //TODO: いつも黒が帰ってくる。検索がうまくいってない？
     public function getUsercolor_code($id){
-      $sql = "SELECT thema_color_code, sub_color_code FROM thema_colors WHERE thema_color_id = (
-          SELECT thema_color_id FROM users WHERE user_id = ?
+      $sql = "SELECT theme_color_code, sub_color_code FROM theme_colors WHERE theme_color_id = (
+          SELECT theme_color_id FROM users WHERE user_id = ?
       )";
       $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $id, PDO::PARAM_INT); 
@@ -115,11 +116,11 @@
           echo '指定したIDに該当するデータはありません。';
       }else{
         foreach($result as $row){
-          $row['thema_color_code'];
+          $themeColorCode =  $row['theme_color_code'];
         }
       }
       
-      return $row;
-  }
+      return $themeColorCode;
+    }
   }
 ?>
