@@ -131,8 +131,12 @@
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
+        // ユーザセッションがある場合はセッションを入れて処理を実行
+        if (!empty($_SESSION['user_id'])) {
+          $USESR_ID = $_SESSION['user_id'];
+          $userIconPath = $users->getUserIconPathById($USESR_ID);
+        }
+        
       ?>
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
@@ -158,7 +162,14 @@
             </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          <?php
+                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                if (!empty($userIconPath)) {
+                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                } else {
+                  echo '<a href="login.php" class="login_atag">ログイン</a>';
+                }
+            ?>
           </a>
           
           <div class="dropdown">
@@ -235,7 +246,9 @@
 
                 <div class="tag_area">
                   <img src="./images/pin.png" alt="" class="img2">
-                  <p class="tag">タグ</p>
+                  <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
+                    <span><?= $tag['tag_name'] ?>  </span>
+                  <?php endforeach; ?>
                 </div>
                 
                 <div class="good_area">
