@@ -135,7 +135,7 @@
     <p><?= $row['post_time'] ?></p>
     <!-- 付与されたタグ一覧 -->
     <?php 
-    if($attachedTags -> getAttachedTagsByPostId($row['post_id'])==null){
+    if($attachedTags -> getAttachedTagsByPostId($row['post_id'])==true){
 
     }else{
     foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
