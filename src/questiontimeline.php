@@ -156,7 +156,14 @@
             </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          <?php
+                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                if (!empty($userIconPath)) {
+                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                } else {
+                  echo '<a href="login.php" class="login_atag">ログイン</a>';
+                }
+            ?>
           </a>
           
           <div class="dropdown">
