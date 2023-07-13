@@ -15,4 +15,8 @@
       return $search;
     }
   }
+
+  class themeColors{
+    
+  }
 ?>

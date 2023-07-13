@@ -43,6 +43,7 @@
     require_once './dao/good.php';
     require_once './dao/attached_tags.php';
     require_once './dao/tags.php';
+    require_once './dao/theme_colors.php';
 
     $posts = new Posts;
     $users = new Users;
@@ -50,6 +51,7 @@
     $attachedTags = new AttachedTags;
     $dao_tag = new DAO_tag;
     $tags = new Tags;
+    $themeColors = new ThemeColors;
     
     //質問を取得
     $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
