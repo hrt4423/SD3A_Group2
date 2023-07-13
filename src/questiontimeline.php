@@ -233,7 +233,9 @@
 
                 <div class="tag_area">
                   <img src="./images/pin.png" alt="" class="img2">
-                  <p class="tag">タグ</p>
+                  <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
+                    <span><?= $tag['tag_name'] ?>  </span>
+                  <?php endforeach; ?>
                 </div>
                 
                 <div class="good_area">
