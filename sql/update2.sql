@@ -1,9 +1,12 @@
 START TRANSACTION;
 
-ALTER TABLE thema_colors RENAME COLUMN thema_color_id, TO theme_color_id,
+ALTER TABLE `theme_colors` CHANGE `thema_color_id` `theme_color_id` 
+INT(11) NOT NULL AUTO_INCREMENT;
 
-RENAME COLUMN thema_color_name, TO theme_color_name,
+ALTER TABLE `theme_colors` CHANGE `thema_color_name` `theme_color_name` 
+VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
-RENAME COLUMN thema_color_code, TO theme_color_code;
+ALTER TABLE `theme_colors` CHANGE `thema_color_code` `theme_color_code` 
+VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 COMMIT;
