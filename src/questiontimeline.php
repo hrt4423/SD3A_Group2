@@ -128,7 +128,10 @@
   });
 </script>
 
-<body id="body" class="container-fluid">
+<body id="body" class="container-fluid" 
+  style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>
+">
+
   <!-- ここからがヘッダー -->
     <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
