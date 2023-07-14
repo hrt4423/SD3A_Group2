@@ -37,12 +37,14 @@
   </style>
 </head>
 <?php
+
   try{
     require_once './dao/posts.php';
     require_once './dao/users.php';
     require_once './dao/good.php';
     require_once './dao/attached_tags.php';
     require_once './dao/tags.php';
+    require_once './dao/theme_colors.php';
 
     $posts = new Posts;
     $users = new Users;
@@ -50,11 +52,14 @@
     $attachedTags = new AttachedTags;
     $dao_tag = new DAO_tag;
     $tags = new Tags;
+    $themeColors = new ThemeColors;
     
     //質問を取得
     $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
     //タグを取得
     $allTags = $dao_tag->tags();
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+    //TODO: 未ログイン時のカラーコード参照の処理
 
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
@@ -123,9 +128,12 @@
   });
 </script>
 
-<body id="body" class="container-fluid">
+<body id="body" class="container-fluid" 
+  style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>
+">
+
   <!-- ここからがヘッダー -->
-    <div class="header_size">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
@@ -137,7 +145,7 @@
         
       ?>
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->
