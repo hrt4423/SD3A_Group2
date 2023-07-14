@@ -1,46 +1,51 @@
+.btn.btn-purple.ml-3{
+  height: 3vw;
+}
+
 #body{
   padding: 0;
   margin: 0;
   background-color: #FAEEFF;
 }
-.select_area{
+/* .select_area{
   display: flex;
   margin-top: 3vw;
   margin-left: 5vw;
-}
+} */
 
 .select1{
-  width: 6vw;
+  margin-top: 0.5rem;
+  /* width: 6vw; */
   height: 3vw;
-  border-radius: 0.5vw;
-  -webkit-appearance: none;
+  border-radius: 0.6vw;
+  /* -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
+  appearance: none; */
   text-align: center;
 }
 option{
   color: black;
 }
 .select2{
-  margin-left: 70vw;
-  width: 7vw;
+  /* margin-left: 70vw; */
+  width: 8vw;
   height: 3vw;
   border-radius: 0.5vw;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
+  appearance: none; */
   text-align: center;
 }
 .question_area{
   margin-top: 3vw;
-  margin-left: 18vw;
-  width: 60vw;
+  margin-left: 1.5vw;
+  width: 40vw;
   height: 33vw;
-  overflow:auto;
+  /* overflow:auto; */
  
 }
 .question{
-  width: 60vw;
+  width: 45vw;
   height: 10vw;
   margin-top: 1vw;
   background-color: white;
@@ -58,7 +63,7 @@ option{
   align-items: center;
   position: absolute;
   top: 1.2vw;
-  left: 53vw;
+  left: 37.99vw;
 }
 .good_img{
   width: 5vw;
@@ -117,6 +122,54 @@ option{
   font-size: 1.5vw;
   font-weight: 0.7vw;
   top: 5.5vw;
-  left: 55vw;
+  left: 40.18vw;
 }
 
+.checkbox{
+  display: none;
+}
+
+.tag-element input:checked + label{
+  display: none;
+}
+
+.tag-view{
+  border-radius: 10px;
+  border: 0.5px solid #989898;
+  background-color: #FFFFFF;
+  width:fit-content;
+  padding: 5px 10px 5px 10px;
+}
+
+.tag-name{
+  margin-left: 10px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  border: 0.5px solid #989898;
+  background-color: #FFFFFF;
+  cursor: pointer;
+
+  display: blcok;
+  box-sizing: border-box;
+  text-decoration: none;
+
+}
+
+.row{
+  margin-top: 1rem;
+}
+
+.remove-button{
+  margin-left: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#filter-button{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.login_atag{
+  color: white;
+}

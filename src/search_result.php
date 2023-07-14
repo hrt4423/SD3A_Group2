@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="./css/header.css" >
+  <link href="./css/search_result.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+  <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+ 
   <title>search-result</title>
 </head>
 <body>
@@ -35,18 +37,28 @@
           <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
             <form action="./search_result.php" method="GET" id="search-form">
-              <div class="input-group-prepend">
-                <button type="submit" class="input-group-text" id="search-button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-            </form>
+                <div class="horizontal">
+                  <div class="input-group-prepend">
+                    <button type="submit" class="input-group-text" id="search-button">
+                    <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <input type="hidden" name="sort_type" value="0">
+                  <input type="text" name="keyword" class="col-8 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+                </div>
+              </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+            <?php
+                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                if (!empty($userIconPath)) {
+                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                } else {
+                  echo '<a href="login.php">ログイン</a>';
+                }
+            ?>
           </a>
-          
+         
           <div class="dropdown">
             <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
@@ -68,7 +80,7 @@
 
     </div>
   <!-- ここまでがヘッダー -->
-
+<div class="background">
   <h1>検索結果</h1>
   <form action="./search_result.php" method="GET" id="sort-form">
     <select name="sort_type" id="sort-type">
@@ -123,7 +135,19 @@
           
       }
 
-      foreach($result as $row){ 
+
+        echo '<script>';
+        echo 'console.log(' . json_encode($result) . ')';
+        echo '</script>';
+  
+        // for($i = 0; $i < 4; $i++){
+        //   echo "<h3>$i</h3>";
+        //   var_dump($result[$i]);
+        //   echo '<hr>';
+        // }
+  
+        foreach($result as $row) { 
+    ?> 
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
@@ -148,13 +172,16 @@
     </form>
     
 
+=======            
+</div>
+>>>>>>> main
   <?php
       }//end foreach
     }catch(Exception $e){
       echo $e->getMessage();
     }
   ?>
-
+</div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

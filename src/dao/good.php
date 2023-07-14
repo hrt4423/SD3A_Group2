@@ -36,17 +36,38 @@
       } 
     }
 
-    public function insertgood($user_id,$post_id){
+    public function insertgood($user_id,$post_id,$user_point_id){
       $pdo = $this->dbConnect();
       $sql = "INSERT INTO goods (user_id,post_id) VALUES (?, ?)";
+      $sqlUpdatePoints = "UPDATE users SET user_point = user_point + 20, point_sum = point_sum + 20 WHERE user_id = ?";
+
       $ps = $pdo->prepare($sql);
       $ps->bindValue(1, $user_id, PDO::PARAM_INT);
       $ps->bindValue(2, $post_id, PDO::PARAM_INT);
+
+      $psUpdatePoints = $pdo->prepare($sqlUpdatePoints);
+      $psUpdatePoints->bindValue(1, $user_point_id, PDO::PARAM_INT);
+      try{
       if ($ps->execute()) {
-        return  "データが正常に挿入されました";
+        
+        // 重複エラーが発生した場合にエラーコードが返る可能性があるため、ここで明示的に例外をスローする
+        if ($ps->rowCount() == 0) {
+          throw new Exception("データの挿入中に重複エラーが発生しました");
+        }else{
+          $psUpdatePoints->execute();
+        }
+        $url = 'question-detail.php?post_id=' . urlencode($post_id);
+        header('Location: ' . $url);
+        exit; // リダイレクト後にスクリプトの実行を終了する
       } else {
-        return  "データの挿入中にエラーが発生しました: " . $ps->errorInfo()[2];
+        throw new Exception("データの挿入中に重複エラーが発生しました");
       }
+    } catch (Exception $e) {
+
+      $url = 'question-detail.php?post_id=' . urlencode($post_id);
+      header('Location: ' . $url);
+      exit; // リダイレクト後にスクリプトの実行を終了する
+  }
     }
     
   }

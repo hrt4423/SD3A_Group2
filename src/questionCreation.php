@@ -1,9 +1,14 @@
+<?php 
+  session_start();
+?>
 <?php
   // データベース接続情報
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "root";
   $dbname = "asoda";
+
+  $post_id = $_GET['post_id'];
 
   // データベースに接続する関数
   function connectToDatabase()
@@ -42,10 +47,14 @@
       } else {
           $post_priority = 24;
       }
+      //ここにセッションID入れてほしい
       $user_id = 1;
 
+      //質問のID
+      $post_category_id = 1;
+
       // 投稿を挿入し、post_idを取得
-      $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority);
+      $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
 
       // タグを追加
       $tagValues = $_POST['tagValues'];
@@ -56,7 +65,7 @@
 
 
       ob_start(); // バッファリングを開始
-      header("Location: home.php");
+      header("Location: questiontimeline.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
   }
@@ -137,7 +146,7 @@
         width: 37px;
         height: 37px;
         border-radius: 50%;
-        background-color: #653a91;
+        /* background-color: #653a91; */
         margin-right: 20px;
       }
 
@@ -292,6 +301,12 @@
   <body>
     <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
     <div class="header_size">
+    <?php
+        require_once('./dao/Users.php');
+        $users = new Users;
+        $USESR_ID = $_SESSION['user_id'];
+        $userIconPath = $users->getUserIconPathById($USESR_ID);
+      ?>
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
         <div class="right">
@@ -310,7 +325,9 @@
             />
           </div>
 
-          <div class="circle"></div>
+          <a href="./profile_question.php" class="circle">
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          </a>
 
           <div class="dropdown">
             <button
