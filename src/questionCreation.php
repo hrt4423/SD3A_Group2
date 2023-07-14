@@ -318,8 +318,6 @@
   <body>
     <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
     <div class="header_size">
-<<<<<<< HEAD
-=======
     <?php
         require_once('./dao/Users.php');
         $users = new Users;
@@ -329,7 +327,6 @@
           $userIconPath = $users->getUserIconPathById($USESR_ID);
         }
       ?>
->>>>>>> 216de7a7a038ccc9aa29d85c5ded17171333f729
       <div class="horizontal">
         <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
         <div class="right">
