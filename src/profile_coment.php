@@ -75,7 +75,7 @@ require_once('config.php');
     width: 37px;
     height: 37px;
     border-radius: 50%;
-    background-color: #653A91;
+    /* background-color: #653A91; */
     margin-right: 20px;
   }
 
@@ -93,32 +93,39 @@ require_once('config.php');
     display: inline-block;
     border-bottom: 10px solid #653A91;
   }
-
-  a:hover {
-    text-decoration: none;
-    color: white;
-    width: 2vw;
-  }
   .logo{
     margin-top: 0.9vw;
     width: 10vw;
     height: 2.7vw;
   }
+  .search-icon {
+    height: 38px;
+  }
+  .link1{
+  text-decoration: none;  
+  font-size: 0.9vw;
+  font-weight: 0.2vw;
+  text-align: center;
+  margin-top: 1.3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   </style>
 </head>
 <body class="body">
 
   <!-- ここからがヘッダー -->
   <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
-    <div class="header_size">
+  <div class="header_size">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        echo '<script>';
-        echo 'console.log(' . json_encode($USESR_ID) . ')';
-        echo '</script>';
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
+        // ユーザセッションがある場合はセッションを入れて処理を実行
+        if (!empty($_SESSION['user_id'])) {
+          $USESR_ID = $_SESSION['user_id'];
+          $userIconPath = $users->getUserIconPathById($USESR_ID);
+        }
       ?>
       <div class="horizontal">
         <a href="./questiontimeline.php">
@@ -129,16 +136,26 @@ require_once('config.php');
           <!-- 検索フォーム -->
           <div class="input-group mb-3 search" >
             <form action="./search_result.php" method="GET" id="search-form">
-              <div class="input-group-prepend">
-                <button type="submit" class="input-group-text" id="search-button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-              <input type="text" name="keyword" class="col-6 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-            </form>
+                <div class="horizontal">
+                  <div class="input-group-prepend search-icon">
+                    <button type="submit" class="input-group-text" id="search-button">
+                    <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <input type="hidden" name="sort_type" value="0">
+                  <input type="text" name="keyword" class="col-8 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
+                </div>
+              </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+            <?php
+                  // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                  if (!empty($userIconPath)) {
+                    echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                  } else {
+                    echo '<a href="login.php" class="login_atag">ログイン</a>';
+                  }
+              ?>
           </a>
           
           <div class="dropdown">
@@ -153,25 +170,26 @@ require_once('config.php');
         </div>
       </div>
 
-      <!-- <div class="horizontal">
-        <a href="./questiontimeline.php" class="underline text">質問</a>
-        <a href="./articlelist.php" class="underline text">記事</a>
-        <a href="./Ranking.php" class="underline text">ランキング</a>
-        <a href="./classroom.php" class="underline text">空き教室</a>
-      </div> -->
+      <div class="horizontal">
+        <a href="./questiontimeline.php" class=" text">質問</a>
+        <a href="./articlelist.php" class=" text">記事</a>
+        <a href="./Ranking.php" class=" text">ランキング</a>
+        <a href="./classroom.php" class=" text">空き教室</a>
+      </div>
     </div>
   <!-- ここまでがヘッダー -->
 <div class="profile">
     <div class="profile_area">
       <div class="circle_area">
-        <div class="circle1"></div>
+        <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 50px;">
       </div>
       <?php
       echo"<p class='user_name'>".h($row['user_name'])."</p>";
       echo"<p class='user_mail'>".h($row['user_mail'])."</p>";
-      echo"<p class='user_point'>".h($row['user_point'])."</p>";
+      echo"<p class='user_point'>".h($row['user_point'])."pt</p>";
       ?>
-      <a href='./profile_edit.php' class='link'>編集</a>
+      <a href='./profile_edit.php' class="link1">編集</a>
+      <a href='logout.php' class="link1">ログアウト</a>
     </div>
 
     <?php
@@ -198,12 +216,12 @@ echo '</script>';
 ?>
 
     <div class="my_area">
-      <p class="p1">投稿した質問</p>
+      <p class="p1">投稿したコメント</p>
       <div class="question_area">
           <div class="horizontal1">
-            <a href="profile_question.php" class="text2">質問</a>
+            <a href="profile_question.php" class="text1">質問</a>
             <a href="profile_kizi.php" class="text1 ">記事</a>
-            <a href="#" class="text1 ">コメント</a>
+            <a href="#" class="text2 ">コメント</a>
           </div>
           
           <div class="naiyou_area">

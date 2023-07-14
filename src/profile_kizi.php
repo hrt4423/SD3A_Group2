@@ -42,7 +42,7 @@ require_once('config.php');
   }
 
   .header_size {
-    height: 70px;
+    /* height: 150px; */
     background-color: #b164ff;
   }
 
@@ -93,12 +93,6 @@ require_once('config.php');
     display: inline-block;
     border-bottom: 10px solid #653A91;
   }
-
-  a:hover {
-    text-decoration: none;
-    color: white;
-    width: 2vw;
-  }
   .logo{
     margin-top: 0.9vw;
     width: 10vw;
@@ -107,21 +101,31 @@ require_once('config.php');
   .search-icon {
     height: 38px;
   }
+  .link1{
+  text-decoration: none;  
+  font-size: 0.9vw;
+  font-weight: 0.2vw;
+  text-align: center;
+  margin-top: 1.3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   </style>
 </head>
 <body class="body">
 
   <!-- ここからがヘッダー -->
   <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
-    <div class="header_size">
+  <div class="header_size">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        echo '<script>';
-        echo 'console.log(' . json_encode($USESR_ID) . ')';
-        echo '</script>';
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
+        // ユーザセッションがある場合はセッションを入れて処理を実行
+        if (!empty($_SESSION['user_id'])) {
+          $USESR_ID = $_SESSION['user_id'];
+          $userIconPath = $users->getUserIconPathById($USESR_ID);
+        }
       ?>
       <div class="horizontal">
         <a href="./questiontimeline.php">
@@ -144,7 +148,14 @@ require_once('config.php');
               </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+            <?php
+                  // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                  if (!empty($userIconPath)) {
+                    echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                  } else {
+                    echo '<a href="login.php" class="login_atag">ログイン</a>';
+                  }
+              ?>
           </a>
           
           <div class="dropdown">
@@ -159,25 +170,26 @@ require_once('config.php');
         </div>
       </div>
 
-      <!-- <div class="horizontal">
-        <a href="./questiontimeline.php" class="underline text">質問</a>
-        <a href="./articlelist.php" class="underline text">記事</a>
-        <a href="./Ranking.php" class="underline text">ランキング</a>
-        <a href="./classroom.php" class="underline text">空き教室</a>
-      </div> -->
+      <div class="horizontal">
+        <a href="./questiontimeline.php" class=" text">質問</a>
+        <a href="./articlelist.php" class="text">記事</a>
+        <a href="./Ranking.php" class="text">ランキング</a>
+        <a href="./classroom.php" class="text">空き教室</a>
+      </div>
     </div>
   <!-- ここまでがヘッダー -->
 <div class="profile">
     <div class="profile_area">
       <div class="circle_area">
-        <div class="circle1"></div>
+        <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 50px;">
       </div>
       <?php
       echo"<p class='user_name'>".h($row['user_name'])."</p>";
       echo"<p class='user_mail'>".h($row['user_mail'])."</p>";
-      echo"<p class='user_point'>".h($row['user_point'])."</p>";
+      echo"<p class='user_point'>".h($row['user_point'])."pt</p>";
       ?>
-      <a href='./profile_edit.php' class='link'>編集</a>
+      <a href='./profile_edit.php' class="link1">編集</a>
+      <a href='logout.php' class="link1">ログアウト</a>
     </div>
 
     <?php
@@ -204,11 +216,11 @@ echo '</script>';
 ?>
 
     <div class="my_area">
-      <p class="p1">投稿した質問</p>
+      <p class="p1">投稿した記事</p>
       <div class="question_area">
           <div class="horizontal1">
-            <a href="profile_question.php" class="text2">質問</a>
-            <a href="#" class="text1 ">記事</a>
+            <a href="profile_question.php" class="text1">質問</a>
+            <a href="#" class="text2 ">記事</a>
             <a href="profile_coment.php" class="text1 ">コメント</a>
           </div>
           

@@ -43,6 +43,7 @@
     require_once './dao/good.php';
     require_once './dao/attached_tags.php';
     require_once './dao/tags.php';
+    
 
     $posts = new Posts;
     $users = new Users;
@@ -50,11 +51,22 @@
     $attachedTags = new AttachedTags;
     $dao_tag = new DAO_tag;
     $tags = new Tags;
+
+    //テーマカラ機能
+    require_once './dao/theme_colors.php';
+    $themeColors = new ThemeColors;
+    if(isset($_SESSION['user_id'])){
+      $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+    }else{
+      $currentThemeColorId = 1;
+    }
     
     //質問を取得
     $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
     //タグを取得
     $allTags = $dao_tag->tags();
+
+    
 
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
@@ -123,17 +135,24 @@
   });
 </script>
 
-<body id="body" class="container-fluid">
+<body id="body" class="container-fluid" 
+  style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>
+">
+
   <!-- ここからがヘッダー -->
-    <div class="header_size">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
-        $USESR_ID = $_SESSION['user_id'];
-        $userIconPath = $users->getUserIconPathById($USESR_ID);
+        // ユーザセッションがある場合はセッションを入れて処理を実行
+        if (!empty($_SESSION['user_id'])) {
+          $USESR_ID = $_SESSION['user_id'];
+          $userIconPath = $users->getUserIconPathById($USESR_ID);
+        }
+        
       ?>
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->
@@ -156,7 +175,14 @@
             </form>
           </div>
           <a href="./profile_question.php" class="circle">
-            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
+          <?php
+                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+                if (!empty($userIconPath)) {
+                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+                } else {
+                  echo '<a href="login.php" class="login_atag">ログイン</a>';
+                }
+            ?>
           </a>
           
           <div class="dropdown">
@@ -233,7 +259,9 @@
 
                 <div class="tag_area">
                   <img src="./images/pin.png" alt="" class="img2">
-                  <p class="tag">タグ</p>
+                  <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
+                    <span><?= $tag['tag_name'] ?>  </span>
+                  <?php endforeach; ?>
                 </div>
                 
                 <div class="good_area">
