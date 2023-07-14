@@ -20,6 +20,7 @@ try {
 //emailがDB内に存在しているか確認
 if (!isset($row['user_mail'])) {
   echo 'メールアドレスが間違っています。';
+  echo "<br><a href='login.php'>戻る</a>";
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
