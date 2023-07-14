@@ -58,14 +58,8 @@
     }
     
     public function updateProfile($id, $userData){
-<<<<<<< HEAD
-      $pdo = $this -> dbConnect();
-      $sql = "UPDATE users SET user_name=?, user_mail=?, user_profile=?, thema_color_id=? WHERE user_id=?";
-      $ps = $pdo -> prepare($sql);
-=======
       $sql = "UPDATE users SET user_name=?, user_mail=?, user_pass=?, user_profile=?, thema_color_id=? WHERE user_id=?";
       $ps = $this->pdo->prepare($sql);
->>>>>>> main
       $ps->bindValue(1, $userData['user_name'], PDO::PARAM_STR);
       $ps->bindValue(2, $userData['user_mail'], PDO::PARAM_STR);
       $ps->bindValue(3, $userData['user_profile'], PDO::PARAM_STR);
