@@ -20,6 +20,7 @@ try {
 //emailがDB内に存在しているか確認
 if (!isset($row['user_mail'])) {
   echo 'メールアドレスが間違っています。';
+  echo "<br><a href='login.php'>戻る</a>";
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
@@ -30,5 +31,6 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   header('Refresh: 3; URL=questiontimeline.php');
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
+  echo "<br><a href='login.php'>戻る</a>";
   return false;
 }
