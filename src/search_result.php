@@ -132,52 +132,51 @@
         case 2: //DESC
           $result = $posts -> searchPostsByKeyword($_GET['keyword'], 2);
           break;
+          
       }
 
-      echo '<script>';
-      echo 'console.log(' . json_encode($result) . ')';
-      echo '</script>';
 
-      // for($i = 0; $i < 4; $i++){
-      //   echo "<h3>$i</h3>";
-      //   var_dump($result[$i]);
-      //   echo '<hr>';
-      // }
-
-      foreach($result as $row) { 
+        echo '<script>';
+        echo 'console.log(' . json_encode($result) . ')';
+        echo '</script>';
+  
+        // for($i = 0; $i < 4; $i++){
+        //   echo "<h3>$i</h3>";
+        //   var_dump($result[$i]);
+        //   echo '<hr>';
+        // }
+  
+        foreach($result as $row) { 
+    ?> 
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
-    <div class="article_area">  
-    <button class="result">          
-    <p class="user2">
-      <?= $users -> getUserNameById($row['user_id']) ?>
-    </p>
-    <p class="title">
-      <?= $row['post_title'] ?>
-    </p>
-    <p class="day">
-      <?= $row['post_time'] ?>
-    </p>
+    <form action="question-detail.php" method="GET">
+    <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
+    <button>
+    <p><?= $users -> getUserNameById($row['user_id']) ?></p>
+    <p><?= $row['post_title'] ?></p>
+    <p><?= $row['post_time'] ?></p>
     <!-- 付与されたタグ一覧 -->
-    <div class="tag_area">
-    <img src="./images/pin.png" alt="" class="img2">
-    <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
-      <span><?= $tag['tag_name'] ?>,</span>
-    <?php endforeach; ?>
-    </div>
+    <?php 
+    if($attachedTags -> getAttachedTagsByPostId($row['post_id'])==true){
+
+    }else{
+    foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag)
+      echo "<span><?= ".$tag['tag_name']." ?>,</span>";
+    }
+    ?>
     <!-- いいね数 -->
-         <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good"><?= $good -> goodCount($row['post_id']) ?></p>
-    </button>
-             
+    <p><?= $good -> goodCount($row['post_id']) ?></p>
+    </button>   
+    </form>
+    
+
+=======            
 </div>
+>>>>>>> main
   <?php
-      } //end foreach
+      }//end foreach
     }catch(Exception $e){
       echo $e->getMessage();
     }

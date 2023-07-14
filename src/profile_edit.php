@@ -237,14 +237,6 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <p>パスワード</p>
-                </div>
-                <div class="col">
-                  <input type="text" name="user_pass" value="<?= $userPassword ?>">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
                   <p>カラー</p>
                 </div>
                 <div class="col">
