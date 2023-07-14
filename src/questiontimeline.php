@@ -37,14 +37,13 @@
   </style>
 </head>
 <?php
-
   try{
     require_once './dao/posts.php';
     require_once './dao/users.php';
     require_once './dao/good.php';
     require_once './dao/attached_tags.php';
     require_once './dao/tags.php';
-    require_once './dao/theme_colors.php';
+    
 
     $posts = new Posts;
     $users = new Users;
@@ -52,14 +51,22 @@
     $attachedTags = new AttachedTags;
     $dao_tag = new DAO_tag;
     $tags = new Tags;
+
+    //テーマカラ機能
+    require_once './dao/theme_colors.php';
     $themeColors = new ThemeColors;
+    if(isset($_SESSION['user_id'])){
+      $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+    }else{
+      $currentThemeColorId = 1;
+    }
     
     //質問を取得
     $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
     //タグを取得
     $allTags = $dao_tag->tags();
-    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
-    //TODO: 未ログイン時のカラーコード参照の処理
+
+    
 
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
