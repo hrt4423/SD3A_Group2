@@ -9,4 +9,7 @@ VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE `theme_colors` CHANGE `thema_color_code` `theme_color_code` 
 VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
+ALTER TABLE `theme_colors` CHANGE `rogo_img` `rogo_path` VARCHAR(128) 
+CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
 COMMIT;

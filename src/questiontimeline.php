@@ -58,8 +58,8 @@
     $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
     //タグを取得
     $allTags = $dao_tag->tags();
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
     //TODO: 未ログイン時のカラーコード参照の処理
-    //echo $users->getUsercolor_code($_SESSION['user_id']);
 
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
@@ -130,7 +130,7 @@
 
 <body id="body" class="container-fluid">
   <!-- ここからがヘッダー -->
-    <div class="header_size" style="background-color: <?=$users->getUsercolor_code($_SESSION['user_id'])?> ;">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
@@ -142,7 +142,7 @@
         
       ?>
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->

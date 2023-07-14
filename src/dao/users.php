@@ -122,5 +122,23 @@
       
       return $themeColorCode;
     }
+
+    //ユーザの設定色を取得
+    public function getThemeColorId($userId){
+      $sql = "SELECT thema_color_id FROM users WHERE user_id=?";
+      $ps = $this->pdo->prepare($sql);
+      $ps->bindValue(1, $userId, PDO::PARAM_INT); 
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(empty($result)){
+        echo '指定したIDに該当するデータはありません。';
+      }else{
+        foreach($result as $row){
+          $themeColorId = $row['thema_color_id'];
+        }
+      } 
+      return $themeColorId;
+    }
   }
 ?>
