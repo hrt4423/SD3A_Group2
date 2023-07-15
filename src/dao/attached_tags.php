@@ -122,7 +122,8 @@
       $connection = new Connection();
       $this->pdo = $connection->getPdo();
     } 
-  
+    
+    //タグが設定されていない場合はエラーを投げる
     public function getAttachedTagsByPostId($postId){
       //SQLの生成
       $sql = "SELECT T.tag_name
