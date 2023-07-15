@@ -141,7 +141,7 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        return '指定したIDに該当するデータはありません。';
+        throw new Exception('指定したIDに該当するデータはありません。');
       }else{
         return $result;
       } 

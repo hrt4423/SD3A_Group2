@@ -176,13 +176,13 @@
           </div>
           <a href="./profile_question.php" class="circle">
           <?php
-                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
-                if (!empty($userIconPath)) {
-                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
-                } else {
-                  echo '<a href="login.php" class="login_atag">ログイン</a>';
-                }
-            ?>
+            // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
+            if (!empty($userIconPath)) {
+              echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
+            } else {
+              echo '<a href="login.php" class="login_atag">ログイン</a>';
+            }
+          ?>
           </a>
           
           <div class="dropdown">
@@ -259,9 +259,19 @@
 
                 <div class="tag_area">
                   <img src="./images/pin.png" alt="" class="img2">
-                  <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
-                    <span><?= $tag['tag_name'] ?>  </span>
-                  <?php endforeach; ?>
+                  <?php
+                    try{
+                  ?>
+                    <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) :?>
+                      <span><?= $tag['tag_name'] ?>  </span>
+                    <?php endforeach; ?>
+                  <?php
+                    }catch(Exception $ex){
+                      echo 'タグなし';
+                    }catch(Error $err){
+                      echo 'タグなし';
+                    }
+                  ?>
                 </div>
                 
                 <div class="good_area">
