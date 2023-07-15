@@ -8,7 +8,7 @@
     $userIconPath = $users->getUserIconPathById($USESR_ID);
 
     $post_id = $_POST['post_id'];
-    var_dump($post_id);
+    // var_dump($post_id);
     
     //投稿もってくる
     require_once './DAO/posts.php';
