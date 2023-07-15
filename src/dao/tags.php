@@ -153,9 +153,12 @@
         $ps->execute();
         $tags = $ps->fetchAll(PDO::FETCH_COLUMN);
 
-        return $tags;
+        if(empty($tags)){
+          throw new Exception('指定したIDに該当するデータはありません。');
+        }else{
+          return $tags;
+        } 
       }
-      
   }
 
 ?>

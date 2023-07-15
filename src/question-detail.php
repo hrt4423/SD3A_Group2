@@ -166,7 +166,7 @@
         //タグ処理
         require_once './DAO/tags.php';
         $tagAll = new DAO_tag();
-        $tag = $tagAll->postTags($post_id);
+        //$tag = $tagAll->postTags($post_id);
         echo '<script>';
         echo 'console.log(' . json_encode($tag) . ')';
         echo '</script>';
@@ -233,9 +233,19 @@
 
               <div name="card-tags">
                 <i class="bi bi-tags"></i>
-                <?php foreach ($tag as $tags): ?>
-                  <span class="tag"><?php echo $tags; ?></span>
-                <?php endforeach; ?>
+                <?php 
+                  try{
+                ?>
+                  <?php foreach ($tagAll->postTags($post_id) as $tag): ?>
+                    <span class="tag"><?php echo $tag; ?></span>
+                  <?php endforeach; ?>
+                <?php 
+                  }catch(Exception $ex){
+                    echo 'タグなし';
+                  }catch(Error $err){
+                    echo 'タグなし';
+                  }
+                ?>
               </div>
 
             <p class="card-text"><?php echo $search[0]['post_detail'] ?></p>

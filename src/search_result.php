@@ -122,7 +122,6 @@
     require_once('./dao/attached_tags.php');
     $attachedTags = new AttachedTags;
 
-
     //検索処理。検索結果がない場合は例外が投げられるので例外処理を行う
     try{
       switch ($_GET['sort_type']) {
@@ -165,9 +164,19 @@
     <!-- 付与されたタグ一覧 -->
     <div class="tag_area">
     <img src="./images/pin.png" alt="" class="img2">
-    <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
-      <span><?= $tag['tag_name'] ?>,</span>
-    <?php endforeach; ?>
+    <?php
+      try{
+    ?>
+      <?php foreach($attachedTags -> getAttachedTagsByPostId($row['post_id']) as $tag) : ?>
+        <span><?= $tag['tag_name'] ?>,</span>
+      <?php endforeach; ?>
+    <?php
+      }catch(Exception $e){
+        echo 'タグなし';
+      }catch(Error $e){
+        echo 'タグなし';
+      }
+    ?>
     </div>
     <!-- いいね数 -->
          <div class="good_area">
