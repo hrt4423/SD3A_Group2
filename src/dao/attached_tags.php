@@ -43,6 +43,71 @@
             $stmt->close();
             $conn->close();
         }
+
+        public function updateTags($post_id, $tagIds)
+          {
+              // データベース接続
+              $conn = new mysqli($this->hostname, $this->username, $this->password, $this->dbname);
+              if ($conn->connect_error) {
+                  die("データベースへの接続に失敗しました: " . $conn->connect_error);
+              }
+
+              // 既存のタグIDを取得
+              $existingSql = "SELECT tag_id FROM attached_tags WHERE post_id = ?";
+              $existingStmt = $conn->prepare($existingSql);
+
+              // パラメータをバインド
+              $existingStmt->bind_param("i", $post_id);
+
+              // タグIDを取得
+              $existingStmt->execute();
+              $result = $existingStmt->get_result();
+              $existingTagIds = array();
+              while ($row = $result->fetch_assoc()) {
+                  $existingTagIds[] = $row["tag_id"];
+              }
+              $existingStmt->close();
+
+              // 重複を削除した新しいタグIDのリストを作成
+              $uniqueTagIds = array_unique($tagIds);
+
+              // 既存の関連付けを削除
+              $deleteSql = "DELETE FROM attached_tags WHERE post_id = ? AND tag_id IN (". implode(",", $existingTagIds) .")";
+              $deleteStmt = $conn->prepare($deleteSql);
+
+              // パラメータをバインド
+              $deleteStmt->bind_param("i", $post_id);
+
+              // ステートメントを実行
+              if ($deleteStmt->execute()) {
+                  echo "投稿に関連付けられていたタグが削除されました: post_id=$post_id<br>";
+              } else {
+                  echo "タグの関連付けの削除に失敗しました: " . $deleteStmt->error . "<br>";
+              }
+              $deleteStmt->close();
+
+              // 新しい関連付けを追加
+              $insertSql = "INSERT INTO attached_tags (post_id, tag_id) VALUES (?, ?)";
+              $insertStmt = $conn->prepare($insertSql);
+
+              // パラメータをバインド
+              $insertStmt->bind_param("ii", $post_id, $tag_id);
+
+              // 新しい関連付けを追加
+              foreach ($uniqueTagIds as $tag_id) {
+                  // ステートメントを実行
+                  if ($insertStmt->execute()) {
+                      echo "タグが投稿に関連付けられました: post_id=$post_id, tag_id=$tag_id<br>";
+                  } else {
+                      echo "タグの関連付けに失敗しました: " . $insertStmt->error . "<br>";
+                  }
+              }
+              $insertStmt->close();
+
+              $conn->close();
+          }
+
+
     
     
   }

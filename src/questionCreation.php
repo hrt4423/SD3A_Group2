@@ -2,13 +2,29 @@
   session_start();
 ?>
 <?php
-  // データベース接続情報
-  $servername = "localhost";
-  $username = "root";
-  $password = "root";
-  $dbname = "asoda";
 
-  $post_id = $_GET['post_id'];
+    require_once('./dao/Users.php');
+    $users = new Users;
+    $USESR_ID = $_SESSION['user_id'];
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+?>
+<?php
+  require_once './dao/connection.php';
+  $connection = new Connection();
+  $connection->getPdo();
+  $connection->getHostname();
+  $connection->getUsername();
+  $connection->getPassword();
+  $connection->getDbname();
+  $connection->getDsn();
+
+  // データベース接続情報
+  $servername = $connection->getHostname();
+  $username = $connection->getUsername();
+  $password = $connection->getPassword();
+  $dbname = $connection->getDbname();
+
+  // $post_id = $_GET['post_id'];
 
   // データベースに接続する関数
   function connectToDatabase()
@@ -40,6 +56,7 @@
       // ボタンがクリックされたときの処理をここに記述する
       $title = $_POST['title'];
       $detail = $_POST['htmlText'];
+      $post_detail_markdown = $_POST['detail_textArea'];
       $postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
       $post_priority = 0;
       if ($postPriority) {
@@ -48,13 +65,13 @@
           $post_priority = 24;
       }
       //ここにセッションID入れてほしい
-      $user_id = 1;
+      $user_id = $USESR_ID;
 
       //質問のID
       $post_category_id = 1;
 
       // 投稿を挿入し、post_idを取得
-      $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id);
+      $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id, $post_detail_markdown);
 
       // タグを追加
       $tagValues = $_POST['tagValues'];

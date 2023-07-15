@@ -122,6 +122,7 @@
         require_once './dao/good.php';
         require_once './dao/users.php';
         $postAll = new DAO_post();
+        $findPost = new posts();
         $goodAll = new Good();
         $userAll = new Users();
         $post_id = $_GET['post_id'];
@@ -146,6 +147,8 @@
         echo '<script>';
         echo 'console.log(' . json_encode($goodcount) . ')';
         echo '</script>';
+
+        $post = $findPost->findPostById($post_id);
 
         // $username = $userAll->getUserNameById($user_search);
 
@@ -181,14 +184,23 @@
           <div name="user-info" class="col-3">
             <span name="user-icon"><i class="bi bi-person-circle"></i></span>
             <span name="user-rank"><i class="bi bi-gem"></i></span>
-            <span name="user-name"><?php echo $search[0]['user_info'][0]['user_name'] ?></span>
+            <span name="user-name"><?php echo $search[0]['user_name'] ?></span>
           </div>
 
         <div style="display: flex;">
         <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
           <!-- ボタンの位置 -->
           <div class="text-center">
-            <button class="btn" id="edit">編集</button>
+          <form method="POST" action="questionArticle_edit.php">
+            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+            <?php
+              if ($post['user_id'] === $USESR_ID){
+                echo '<button class="btn" id="edit" type="submit">編集</button>';
+              }
+            ?>
+            <!-- <button class="btn" id="edit" type="submit">編集</button> -->
+          </form>
+
             <br />
             <div class="good">
               <!-- 記事に対するいいね処理 ↓-->
