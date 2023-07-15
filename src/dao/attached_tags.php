@@ -71,20 +71,23 @@
               // 重複を削除した新しいタグIDのリストを作成
               $uniqueTagIds = array_unique($tagIds);
 
-              // 既存の関連付けを削除
-              $deleteSql = "DELETE FROM attached_tags WHERE post_id = ? AND tag_id IN (". implode(",", $existingTagIds) .")";
-              $deleteStmt = $conn->prepare($deleteSql);
+              if(isset($uniqueTagIds[0])){
+                // 既存の関連付けを削除
+                $deleteSql = "DELETE FROM attached_tags WHERE post_id = ? AND tag_id IN (". implode(",", $existingTagIds) .")";
+                $deleteStmt = $conn->prepare($deleteSql);
 
-              // パラメータをバインド
-              $deleteStmt->bind_param("i", $post_id);
+                // パラメータをバインド
+                $deleteStmt->bind_param("i", $post_id);
 
-              // ステートメントを実行
-              if ($deleteStmt->execute()) {
-                  echo "投稿に関連付けられていたタグが削除されました: post_id=$post_id<br>";
-              } else {
-                  echo "タグの関連付けの削除に失敗しました: " . $deleteStmt->error . "<br>";
+                // ステートメントを実行
+                if ($deleteStmt->execute()) {
+                    echo "投稿に関連付けられていたタグが削除されました: post_id=$post_id<br>";
+                } else {
+                    echo "タグの関連付けの削除に失敗しました: " . $deleteStmt->error . "<br>";
+                }
+                $deleteStmt->close();
               }
-              $deleteStmt->close();
+
 
               // 新しい関連付けを追加
               $insertSql = "INSERT INTO attached_tags (post_id, tag_id) VALUES (?, ?)";
