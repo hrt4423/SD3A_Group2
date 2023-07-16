@@ -16,7 +16,7 @@ CREATE TABLE post_categories(
 CREATE TABLE users(
   user_id       INT AUTO_INCREMENT,
   user_name     VARCHAR(128) NOT NULL,
-  user_icon     VARCHAR(128) DEFAULT 'imagePath',
+  user_icon     VARCHAR(128) DEFAULT './images/default_icon.png',
   user_mail     VARCHAR(128) NOT NULL UNIQUE,
   user_pass     VARCHAR(256) NOT NULL,
   user_point    INT NOT NULL DEFAULT 0,
