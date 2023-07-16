@@ -1,3 +1,2 @@
 src/images/*
 !logo*.png
-connection.php
