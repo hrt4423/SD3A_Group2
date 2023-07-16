@@ -1,12 +1,32 @@
-<?php session_start(); ?>
+<?php 
+  session_start();
+?>
 <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
-        // ユーザセッションがある場合はセッションを入れて処理を実行
-        if (!empty($_SESSION['user_id'])) {
-          $USESR_ID = $_SESSION['user_id'];
-          $userIconPath = $users->getUserIconPathById($USESR_ID);
-        }
+    require_once('./dao/Users.php');
+    $users = new Users;
+    $USESR_ID = $_SESSION['user_id'];
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+
+    $post_id = $_POST['post_id'];
+    // var_dump($post_id);
+    
+    //投稿もってくる
+    require_once './DAO/posts.php';
+    $postAll = new Posts();
+    $search = $postAll->findPostById($post_id);
+    // var_dump($search);
+
+    //対応するタグ
+    require_once './DAO/attached_tags.php';
+    $attached_tags = new AttachedTags();
+    $tags = $attached_tags->getAttachedTagsByPostId($post_id);
+
+
+    // foreach ($tags as $tag) {
+    //   $tag_name = $tag['tag_name'];
+    //   echo $tag_name;
+    // }
+
 ?>
 <?php
 
@@ -24,6 +44,8 @@
   $username = $connection->getUsername();
   $password = $connection->getPassword();
   $dbname = $connection->getDbname();
+
+
 
   // データベースに接続する関数
   function connectToDatabase()
@@ -49,66 +71,38 @@
   require_once './dao/attached_tags.php';
   $postClass = new posts();
   $tagClass = new tags($servername, $username, $password, $dbname); 
-  $attachedClass = new attached_tags($servername, $username, $password, $dbname);
+  $attachedClass = new attached_tags($servername, $username, $password, $dbname); 
 
-  if(isset($_GET['post_id'])){
-    $post_id = $_GET['post_id'];
-    try {
-      $dbh = new PDO($dsn, $user, $password);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-      // クエリの準備
-      $sql = "SELECT *
-              FROM posts
-              WHERE post_id = :post_id";
-      $stmt = $dbh->prepare($sql);
-      $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
-      $stmt->execute();
-      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    } catch (PDOException $e) {
-        // エラーハンドリング
-        echo 'Error: ' . $e->getMessage();
-        die();
-    }
-
-
-  }
-  
-
-
-
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['submitEdit'])) {
       // ボタンがクリックされたときの処理をここに記述する
       $title = $_POST['title'];
       $detail = $_POST['htmlText'];
       $post_detail_markdown = $_POST['detail_textArea'];
-
-      //質問は優先表示機能を使わないので、優先表示の値は0にする
-      //$postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
+      $postPriority = isset($_POST['post_priority']) ? $_POST['post_priority'] : '';
       $post_priority = 0;
-
-      // if ($postPriority) {
-      //     $post_priority = 72;
-      // } else {
-      //     $post_priority = 24;
-      // }
-
-      //ここにセッションIDいれてほしい
+      if ($postPriority) {
+          $post_priority = 72;
+      } else {
+          $post_priority = 24;
+      }
+      //ここにセッションID入れてほしい
       $user_id = $USESR_ID;
 
-      //記事のID
-      $post_category_id = 2;
 
-      // 投稿を挿入し、post_idを取得
-      $post_id = $postClass->insertPosts($title, $detail, $user_id, $post_priority, $post_category_id,$post_detail_markdown);
+      // 投稿を変更
+      $postClass->updatePosts($post_id, $title, $detail, $post_priority, $post_detail_markdown);
 
-      // タグを追加
+
+      // タグを変更
       $tagValues = $_POST['tagValues'];
-      $tagIds = $tagClass->addTag($tagValues);
+      $tagIds = $tagClass->upsertTags($tagValues);
+        //コンソールでの確認用
+        echo '<script>';
+        echo 'console.log(' . json_encode($tagValues) . ')';
+        echo '</script>';
 
       // タグを投稿に関連付ける
-      $attachedClass->addTags($post_id, $tagIds);
+      $attachedClass->updateTags($post_id, $tagIds);
 
 
       ob_start(); // バッファリングを開始
@@ -346,62 +340,56 @@
     </style>
   </head>
   <body>
-
-      <!-- ここからがヘッダー -->
-      <div class="header_size">
+    <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
+    <div class="header_size">
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
         <div class="right">
-
-          <!-- 検索フォーム -->
-          <div class="input-group mb-3 search" >
-            <form action="./search_result.php" method="GET" id="search-form">
-                <div class="horizontal">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="input-group-text" id="search-button">
-                    <i class="fa fa-search"></i>
-                    </button>
-                  </div>
-                  <input type="hidden" name="sort_type" value="0">
-                  <input type="text" name="keyword" class="col-8 form-control" placeholder="検索" aria-label="検索" aria-describedby="basic-addon2">
-                </div>
-              </form>
+          <div class="input-group mb-3 search">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="検索"
+              aria-label="検索"
+              aria-describedby="basic-addon2"
+            />
           </div>
+
           <a href="./profile_question.php" class="circle">
-          <?php
-                // ユーザアイコンパスが空でない場合は画像を表示し、空の場合はログインページに遷移するボタンを表示する
-                if (!empty($userIconPath)) {
-                  echo '<img src="' . $userIconPath . '" alt="ユーザアイコン" style="width: 30px;">';
-                } else {
-                  echo '<a href="login.php" class="login_atag">ログイン</a>';
-                }
-            ?>
+            <img src="./<?= $userIconPath ?>" alt="ユーザアイコン" style="width: 30px;">
           </a>
-          
+
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+              class="btn btn-purple dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               投稿する
             </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
-              </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">質問</a>
+              <a class="dropdown-item" href="#">記事</a>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="horizontal">
-        <a href="./questiontimeline.php" class="underline text">質問</a>
-        <a href="./articlelist.php" class="underline text">記事</a>
-        <a href="./Ranking.php" class="underline text">ランキング</a>
-        <a href="./classroom2.html" class="underline text">空き教室</a>
-      </div>
-      </div>
+    </div>
     <!-- ここまでがヘッダー -->
 
 
-    <form action="articleCreation.php" method="post">
-      <input type="text" class="form-control title" name="title" placeholder="タイトル" />
+    <form action="" method="post">
+      <input type="text" class="form-control title" name="title" placeholder="タイトル" value="<?php echo isset($search['post_title']) ? htmlspecialchars($search['post_title']) : ''; ?>">
+
+      <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
 
     <!-- <input type="text" id="tag-input" class="tag-input" placeholder="タグを入力してください"> -->
     <div style="display: flex;">
@@ -430,79 +418,103 @@
       </select>
     </div>
 
-    <div id="tag-container"></div>
+    <div id="tag-container">
+      <?php
+        $existingTags = array();
+        foreach ($tags as $tag) {
+            $tag_name = $tag['tag_name'];
+            // 既存のタグが重複していない場合のみ表示
+            if (!in_array($tag_name, $existingTags)) {
+                echo '<div class="tag">' . $tag_name . '<span>×</span></div>';
+                echo '<input type="hidden" name="tagValues[]" value="' . $tag_name . '">';
+                // 既存のタグを配列に追加
+                $existingTags[] = $tag_name;
+            }
+        }
+      ?>
+
+    </div>
+
 
     <script>
-        $(document).ready(function() {
-            // ボタンがクリックされた時の処理
-            $('#add-tag-btn').click(function() {
-                var tag = $('#tag-input').val();
-                addTag(tag);
-            });
-
-            // プルダウンの選択が変更された時の処理
-            $('#tag-select').change(function() {
-                var selectedTag = $(this).val();
-                if (selectedTag !== '') {
-                    addTag(selectedTag);
-                }
-            });
-
-            // タグ削除ボタンがクリックされた時の処理
-            $(document).on('click', '.tag span', function() {
-                $(this).closest('.tag').remove();
-            });
-
-            // フォームがサブミットされた時の処理
-            $('form').submit(function() {
-                var tagValues = [];
-                $('.tag').each(function() {
-                    var tagValue = $(this).text().trim();
-                    tagValues.push(tagValue);
-                });
-
-                // 隠しフィールドの値を更新
-                $('#tag-values-container').empty();
-                for (var i = 0; i < tagValues.length; i++) {
-                    var tagValue = tagValues[i];
-                    var inputTag = $('<input type="hidden">')
-                        .attr('name', 'tagValues[]')
-                        .val(tagValue);
-                    $('#tag-values-container').append(inputTag);
-                }
-            });
+      $(document).ready(function() {
+        // ボタンがクリックされた時の処理
+        $('#add-tag-btn').click(function() {
+          var tag = $('#tag-input').val();
+          addTag(tag);
         });
+
+        // プルダウンの選択が変更された時の処理
+        $('#tag-select').change(function() {
+          var selectedTag = $(this).val();
+          if (selectedTag !== '') {
+            addTag(selectedTag);
+          }
+        });
+
+        // タグ削除ボタンがクリックされた時の処理
+        $(document).on('click', '.tag span', function() {
+          $(this).closest('.tag').remove();
+          updateHiddenInput(); // タグ削除後に隠しフィールドの値を更新する
+        });
+
+        // フォームがサブミットされた時の処理
+        $('form').submit(function() {
+          updateHiddenInput(); // フォーム送信前に隠しフィールドの値を更新する
+        });
+      });
 
       // タグを追加する関数
       function addTag(tag) {
-          var tagElement = $('<div class="tag"></div>');
-          tagElement.text(tag);
+        var tagElement = $('<div class="tag"></div>');
+        tagElement.text(tag);
 
-          var removeButton = $('<span>×</span>');
-          tagElement.append(removeButton);
-          tagElement.append('<input type="hidden" name="tagValues[]" value="' + tag + '">'); // name属性を追加
+        var removeButton = $('<span>×</span>');
+        tagElement.append(removeButton);
+        tagElement.append('<input type="hidden" name="tagValues[]" value="' + tag + '">');
 
+        // 既に同じタグが存在する場合は追加しない
+        if ($('.tag:contains("' + tag + '")').length === 0) {
           $('#tag-container').append(tagElement);
-          $('#tag-input').val('');
+        }
+        $('#tag-input').val('');
+
+        updateHiddenInput(); // タグ追加後に隠しフィールドの値を更新する
+      }
+
+      // 隠しフィールドの値を更新する関数
+      function updateHiddenInput() {
+        var tagValues = [];
+        $('.tag').each(function() {
+          var tagValue = $(this).text().trim();
+          tagValues.push(tagValue);
+        });
+
+        $('#tag-values-container').empty();
+        for (var i = 0; i < tagValues.length; i++) {
+          var tagValue = tagValues[i];
+          var inputTag = $('<input type="hidden">')
+            .attr('name', 'tagValues[]')
+            .val(tagValue);
+          $('#tag-values-container').append(inputTag);
+        }
       }
     </script>
 
+
+
+
     <div class="yoko">
-      <textarea
-        class="form-control main"
-        rows="8"
-        placeholder="本文"
-        name="detail_textArea"
-        id="detail_textArea"
-      ></textarea>
+      <textarea class="form-control main" rows="8" placeholder="本文" name="detail_textArea" id="detail_textArea"><?php echo isset($search['post_detail_markdown']) ? htmlspecialchars($search['post_detail_markdown']) : ''; ?></textarea>
+
+
       <div  name="previewHTML" class="preview">プレビュー</div>
     </div>
-    
+
     <div class="d-flex">
-      <button name="submit" id="button" class="justify-content-center btn custom-button">投稿する</button>
-      <!-- 記事は優先表示機能を実装しない
-      <input type="checkbox" name="post_priority" id="toggleButton" data-toggle="toggle" data-on="ON" data-off="OFF" class="btn custom-point-button">
-      <div class="point-text">ポイントを消費して<br />質問を優先表示</div> -->
+      <button name="submitEdit" id="button" class="justify-content-center btn custom-button">編集する</button>
+      <!-- <input type="checkbox" name="post_priority" id="toggleButton" data-toggle="toggle" data-on="ON" data-off="OFF" class="btn custom-point-button"> -->
+      <!-- <div class="point-text">ポイントを消費して<br />質問を優先表示</div> -->
     </div>
     <input style="display: none;" value="" name="htmlText" id="HTML">
    
