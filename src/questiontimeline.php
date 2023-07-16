@@ -234,7 +234,6 @@
             value="<?=$tag['tag_id']?>" 
             form="tag-filter-form"
           >
-
           <label for="<?=$tag['tag_id']?>" class="tag-name"><?=$tag['tag_name']?></label>
         </div>
       <?php endforeach; ?>
