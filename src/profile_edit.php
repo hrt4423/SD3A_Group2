@@ -205,7 +205,7 @@
     //var_dump($userData);
     $userName = $userData[0]['user_name'];
     $userMail = $userData[0]['user_mail'];
-    $userPassword = $userData[0]['user_pass'];
+    // $userPassword = $userData[0]['user_pass'];
     $userColor = $userData[0]['thema_color_id'];
     $userProfile = $userData[0]['user_profile'];
   ?>
@@ -243,14 +243,6 @@
                 </div>
                 <div class="col">
                   <input type="text" name="user_mail" value="<?= $userMail ?>">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p>パスワード</p>
-                </div>
-                <div class="col">
-                  <input type="text" name="user_pass" value="<?= $userPassword ?>">
                 </div>
               </div>
               <div class="row">
