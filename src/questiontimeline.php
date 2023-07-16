@@ -52,6 +52,13 @@
     $dao_tag = new DAO_tag;
     $tags = new Tags;
 
+  }catch(Exception $ex){
+    echo $ex->getMessage();
+  }catch(Error $err){
+    echo $err->getMessage();
+  }
+
+  try {
     //テーマカラ機能
     require_once './dao/theme_colors.php';
     $themeColors = new ThemeColors;
@@ -66,8 +73,6 @@
     //タグを取得
     $allTags = $dao_tag->tags();
 
-    
-
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
       $tagIds = $_GET['tag-checkbox'];
@@ -78,12 +83,12 @@
         $tagNames[] = $tags->getTagNameByTagId($tagId);
       }
     }
-    
   }catch(Exception $ex){
-    echo $ex->getMessage();
-  }catch(Error $err){
-    echo $err->getMessage();
+    //echo $ex->getMessage();
+  }catch (Error $err){
+    //echo $err->getMessage();
   }
+  
 
   //コンソールでの確認用
   echo '<script>';
@@ -224,6 +229,9 @@
       <button type="submit" form="tag-filter-form" class="btn btn-purple" id="filter-button">絞り込む</button>
       <hr>
 
+      <?php 
+        if(isset($allTags)) { 
+      ?>
       <?php foreach($allTags as $tag) : ?>
         <div class="tag-element">
           <input 
@@ -237,6 +245,11 @@
           <label for="<?=$tag['tag_id']?>" class="tag-name"><?=$tag['tag_name']?></label>
         </div>
       <?php endforeach; ?>
+      <?php 
+        } else { 
+          echo 'タグがありません'; 
+        } 
+      ?>
 
       <hr>
     </div>
@@ -245,6 +258,10 @@
     <!-- 質問一覧 -->
     <div class="col-6 pl-10">
       <div class="question_area">
+        <?php 
+          //質問データがある場合は表示
+          if(isset($result)){
+        ?>
         <?php foreach($result as $row) : ?>
           <div>
             <form action="question-detail.php" method="GET">
@@ -283,6 +300,11 @@
             </form>
           </div>
         <?php endforeach; ?>
+        <?php 
+          } else { 
+            echo '質問がありません'; 
+          }
+        ?>
       </div>
     </div>
     <!-- /質問一覧 -->
