@@ -1,7 +1,15 @@
 <?php 
   session_start(); 
-  if(!isset($_GET['sort_type']))
+  if(!isset($_GET['sort_type'])){
     $_GET['sort_type'] = 0;
+  }
+  require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -17,13 +25,13 @@
  
   <title>search-result</title>
 </head>
-<body>
+<body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
   <?php 
     //優先度を減算する処理
     
   ?>
   <!-- ここからがヘッダー -->
-    <div class="header_size">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
@@ -34,7 +42,7 @@
         }
       ?>
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->
