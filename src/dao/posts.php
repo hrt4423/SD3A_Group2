@@ -179,7 +179,7 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        throw new Exception('キーワードに該当する投稿はありませんでした');
+        throw new Exception('キーワードに該当する投稿はありませんでした: posts->fetchAllPostsByCategory()');
       }else{
         return $result;
       }
