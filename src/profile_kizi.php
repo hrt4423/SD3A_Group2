@@ -11,6 +11,15 @@ require_once('config.php');
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  require_once './dao/users.php';
+$users = new Users;
+require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
