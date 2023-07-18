@@ -122,11 +122,11 @@ require_once './dao/theme_colors.php';
 }
   </style>
 </head>
-<body class="body">
+<body class="body" style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
 
   <!-- ここからがヘッダー -->
   <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
-  <div class="header_size">
+  <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
         require_once('./dao/Users.php');
         $users = new Users;
@@ -138,7 +138,7 @@ require_once './dao/theme_colors.php';
       ?>
       <div class="horizontal">
         <a href="./questiontimeline.php">
-          <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+          <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         </a>
         <div class="right">
 
