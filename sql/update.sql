@@ -2,10 +2,6 @@ START TRANSACTION;
 
 ALTER TABLE posts ADD COLUMN parent_post_id INT;
 
-ALTER TABLE thema_colors
-ADD sub_color_code VARCHAR(128) NOT NULL,
-ADD rogo_img VARCHAR(128) NOT NULL;
-
 UPDATE thema_colors SET sub_color_code = '#FAEEFF',
 rogo_img = 'logo.png'
 WHERE thema_color_id = 1;
