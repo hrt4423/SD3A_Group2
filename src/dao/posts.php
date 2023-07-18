@@ -18,29 +18,31 @@
       $this->dsn = $connection->getDsn();
     }    
 
-    public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id) {
+    public function insertPosts($title, $detail, $user_id, $post_priority, $post_category_id, $post_detail_markdown) {
       // 検索
       $sql = "INSERT INTO posts (user_id,
                                 post_category_id,
                                 post_time,
                                 post_title,
                                 post_detail,
-                                post_priority
-                                ) 
+                                post_priority,
+                                post_detail_markdown
+                              ) 
               VALUES (:user_id,
                       :post_category_id, 
                       :post_time,
                       :post_title,
                       :post_detail,
-                      :post_priority
+                      :post_priority,
+                      :post_detail_markdown
                     )";
-
+  
       // プリペアドステートメントを作成
       $stmt = $this->pdo->prepare($sql);
-
+  
       // 日時をセット
       $post_time = date("Y-m-d H:i:s");
-
+  
       // パラメータをバインド
       $stmt->bindParam(':user_id', $user_id);
       $stmt->bindParam(':post_category_id', $post_category_id);
@@ -48,20 +50,50 @@
       $stmt->bindParam(':post_title', $title);
       $stmt->bindParam(':post_detail', $detail);
       $stmt->bindParam(':post_priority', $post_priority);
-
+      $stmt->bindParam(':post_detail_markdown', $post_detail_markdown);
+  
       // ステートメントを実行
       $stmt->execute();
-
+  
       $post_id = (int)$this->pdo->lastInsertId(); // 最後に挿入されたレコードのIDを整数(int)として取得
-
+  
       try {
           echo "データが正常に挿入されました。";
       } catch (PDOException $e) {
           echo "エラー: " . $e->getMessage();
       }
-
+  
       return $post_id; // $post_idを整数(int)として返す
-    }
+  }
+  
+
+  public function updatePosts($post_id, $title, $detail, $post_priority, $post_detail_markdown)
+  {
+      // 更新クエリを作成
+      $sql = "UPDATE posts SET post_title = :post_title, post_detail = :post_detail, post_priority = :post_priority, post_detail_markdown = :post_detail_markdown WHERE post_id = :post_id";
+  
+      // プリペアドステートメントを作成
+      $stmt = $this->pdo->prepare($sql);
+  
+      // パラメータをバインド
+      $stmt->bindParam(':post_title', $title);
+      $stmt->bindParam(':post_detail', $detail);
+      $stmt->bindParam(':post_priority', $post_priority);
+      $stmt->bindParam(':post_detail_markdown', $post_detail_markdown);
+      $stmt->bindParam(':post_id', $post_id);
+  
+      // ステートメントを実行
+      $stmt->execute();
+  
+      try {
+          echo "データが正常に更新されました。";
+      } catch (PDOException $e) {
+          echo "エラー: " . $e->getMessage();
+      }
+  }
+  
+
+
 
     public function insertpost($title, $detail, $user_id, $post_priority) {
       try {
@@ -147,7 +179,7 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        throw new Exception('キーワードに該当する投稿はありませんでした');
+        throw new Exception('キーワードに該当する投稿はありませんでした: posts->fetchAllPostsByCategory()');
       }else{
         return $result;
       }

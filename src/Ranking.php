@@ -186,9 +186,13 @@ require_once './dao/theme_colors.php';
             <td class="rank">
             <image src="./images/rank1.png">
             </td>
-            <td class="user_icon">
-             '.$row["user_icon"].'
-            </td>
+            ';
+
+            if(isset($row['user_icon'])){
+              echo '<td><img src="' .$row['user_icon']. '"style="width: 30px"></td>';
+            }
+
+            echo '
             <td class="user_name">
            '.$row["user_name"].'
             </td>
@@ -203,9 +207,13 @@ require_once './dao/theme_colors.php';
             <td class="rank">
             <image src="./images/rank2.png">
             </td>
-            <td class="user_icon">
-             '.$row["user_icon"].'
-            </td>
+            ';
+
+            if(isset($row['user_icon'])){
+              echo '<td><img src="' .$row['user_icon']. '" style="width: 30px"></td>';
+            }
+
+            echo '
             <td class="user_name">
            '.$row["user_name"].'
             </td>
@@ -220,9 +228,13 @@ require_once './dao/theme_colors.php';
             <td class="rank">
             <image src="./images/rank3.png">
             </td>
-            <td class="user_icon">
-             '.$row["user_icon"].'
-            </td>
+
+            ';
+            if(isset($row['user_icon'])){
+              echo '<td><img src="' .$row['user_icon']. '" style="width: 30px""></td>';
+            }
+
+            echo '
             <td class="user_name">
            '.$row["user_name"].'
             </td>
@@ -237,9 +249,13 @@ require_once './dao/theme_colors.php';
             <td class="rank">
             '.$rank.'
             </td>
-            <td class="user_icon">
-             '.$row["user_icon"].'
-            </td>
+            ';
+            
+            if(isset($row['user_icon'])){
+              echo '<td><img src="' .$row['user_icon']. '" style="width: 30px""></td>';
+            }
+
+            echo '
             <td class="user_name">
            '.$row["user_name"].'
             </td>

@@ -58,14 +58,13 @@
     }
     
     public function updateProfile($id, $userData){
-      $sql = "UPDATE users SET user_name=?, user_mail=?, user_pass=?, user_profile=?, thema_color_id=? WHERE user_id=?";
+      $sql = "UPDATE users SET user_name=?, user_mail=?, user_profile=?, thema_color_id=? WHERE user_id=?";
       $ps = $this->pdo->prepare($sql);
       $ps->bindValue(1, $userData['user_name'], PDO::PARAM_STR);
       $ps->bindValue(2, $userData['user_mail'], PDO::PARAM_STR);
-      $ps->bindValue(3, password_hash($userData['user_pass'],PASSWORD_DEFAULT), PDO::PARAM_STR);
-      $ps->bindValue(4, $userData['user_profile'], PDO::PARAM_STR);
-      $ps->bindValue(5, $userData['thema_color_id'], PDO::PARAM_INT);
-      $ps->bindValue(6, $id, PDO::PARAM_INT); 
+      $ps->bindValue(3, $userData['user_profile'], PDO::PARAM_STR);
+      $ps->bindValue(4, $userData['thema_color_id'], PDO::PARAM_INT);
+      $ps->bindValue(5, $id, PDO::PARAM_INT); 
       
       $ps->execute();
     }

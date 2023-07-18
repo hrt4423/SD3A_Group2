@@ -51,6 +51,50 @@
         return $tagIds; // 追加または既存のタグのtag_idの配列を返す
     }
 
+    public function upsertTags($tagNames)
+    {
+        // タグ名が空の場合は処理しない
+        if (empty($tagNames)) {
+            return [];
+        }
+    
+        // タグ名が文字列であれば配列に変換
+        if (!is_array($tagNames)) {
+            $tagNames = explode(',', $tagNames);
+        }
+    
+        $tagIds = []; // 追加または既存のタグのtag_idを格納する配列
+    
+        foreach ($tagNames as $tagName) {
+            // タグが既に存在するかチェック
+            $existingTag = $this->getTagByName($tagName);
+            if ($existingTag !== null) {
+                // 既に存在する場合はそのタグのtag_idを整数に変換して配列に追加
+                $tagIds[] = (int)$existingTag['tag_id'];
+                continue;
+            }
+    
+            // タグをデータベースに更新
+            $sql = "UPDATE tags SET tag_name = :tagName WHERE tag_name = :tagName";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':tagName', $tagName, PDO::PARAM_STR);
+    
+            if ($stmt->execute()) {
+                echo "タグが更新されました: $tagName<br>";
+    
+                // 更新されたタグのtag_idを取得して整数に変換し、配列に追加
+                $tagId = (int)$this->pdo->lastInsertId();
+                $tagIds[] = $tagId;
+            } else {
+                echo "タグの更新に失敗しました: " . $stmt->errorInfo()[2] . "<br>";
+            }
+        }
+    
+        return $tagIds; // 追加または既存のタグのtag_idの配列を返す
+    }
+    
+
+
     // タグ名による既存タグの取得
     private function getTagByName($tagName)
     {
@@ -95,23 +139,27 @@
       return $search;
     }
 
-      public function postTags($post_id) {
+    //タグが設定されていない場合はエラーを投げる
+    public function postTags($post_id) {
 
-        $sql = "
-          SELECT tags.tag_name
-          FROM tags
-          INNER JOIN attached_tags ON tags.tag_id = attached_tags.tag_id
-          WHERE attached_tags.post_id = :post_id
-        ";
+      $sql = "
+        SELECT tags.tag_name
+        FROM tags
+        INNER JOIN attached_tags ON tags.tag_id = attached_tags.tag_id
+        WHERE attached_tags.post_id = :post_id
+      ";
 
-        $ps = $this->pdo->prepare($sql);
-        $ps->bindValue(':post_id', $post_id, PDO::PARAM_INT);
-        $ps->execute();
-        $tags = $ps->fetchAll(PDO::FETCH_COLUMN);
+      $ps = $this->pdo->prepare($sql);
+      $ps->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+      $ps->execute();
+      $tags = $ps->fetchAll(PDO::FETCH_COLUMN);
 
+      if(empty($tags)){
+        throw new Exception('指定したIDに該当するデータはありません。');
+      }else{
         return $tags;
-      }
-      
+      } 
+    }
   }
 
 ?>
