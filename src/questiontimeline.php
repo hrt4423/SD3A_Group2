@@ -84,9 +84,9 @@
       }
     }
   }catch(Exception $ex){
-    echo $ex->getMessage();
+    //echo $ex->getMessage();
   }catch (Error $err){
-    echo $err->getMessage();
+    //echo $err->getMessage();
   }
   
 
