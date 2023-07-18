@@ -27,6 +27,14 @@
     //   echo $tag_name;
     // }
 
+    require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
+
 ?>
 <?php
 
@@ -339,11 +347,11 @@
         }
     </style>
   </head>
-  <body>
+  <body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
     <!-- body部分とstyle部分とscript部分をコピーして使ってください -->
-    <div class="header_size">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ" />
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ" />
         <div class="right">
           <div class="input-group mb-3 search">
             <div class="input-group-prepend">
@@ -376,8 +384,8 @@
               投稿する
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">質問</a>
-              <a class="dropdown-item" href="#">記事</a>
+              <a class="dropdown-item" href="./questionCreation.php">質問</a>
+              <a class="dropdown-item" href="./articleCreation.php">記事</a>
             </div>
           </div>
         </div>
