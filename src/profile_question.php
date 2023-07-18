@@ -119,7 +119,7 @@ require_once('config.php');
   <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
     <div class="header_size">
       <?php
-        require_once('./dao/Users.php');
+        require_once('./dao/users.php');
         $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
