@@ -227,7 +227,7 @@ echo '</script>';
     <div class="my_area">
       <p class="p1">投稿したコメント</p>
       <div class="question_area">
-          <div class="horizontal1">
+          <div class="horizontal1" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
             <a href="profile_question.php" class="text1">質問</a>
             <a href="profile_kizi.php" class="text1 ">記事</a>
             <a href="#" class="text2 ">コメント</a>
