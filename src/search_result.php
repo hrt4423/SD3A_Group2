@@ -3,6 +3,8 @@
   if(!isset($_GET['sort_type'])){
     $_GET['sort_type'] = 0;
   }
+  require_once './dao/users.php';
+  $users = new Users;
   require_once './dao/theme_colors.php';
   $themeColors = new ThemeColors;
   if(isset($_SESSION['user_id'])){

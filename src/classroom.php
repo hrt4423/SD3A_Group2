@@ -1,18 +1,13 @@
 <?php session_start(); 
 require_once './dao/theme_colors.php';
 $themeColors = new ThemeColors;
+require_once './dao/users.php';
+$users = new Users;
 if(isset($_SESSION['user_id'])){
   $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
 }else{
   $currentThemeColorId = 1;
 }
-require_once './dao/theme_colors.php';
-    $themeColors = new ThemeColors;
-    if(isset($_SESSION['user_id'])){
-      $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
-    }else{
-      $currentThemeColorId = 1;
-    }
 ?>
 <!DOCTYPE html>
 <html>
