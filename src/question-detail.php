@@ -7,7 +7,7 @@
           $USESR_ID = $_SESSION['user_id'];
           $userIconPath = $users->getUserIconPathById($USESR_ID);
         }
-?>
+      ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -140,7 +140,10 @@
         echo '<script>';
         echo 'console.log(' . json_encode($coment2) . ')';
         echo '</script>';
+        // $count_search = $coment[0]['post_id'];
+        // $user_search = $coment[0]['user_id'];
 
+        // $goodcount = $goodAll->goodCount($count_search);//それに対する返信のgoodcount
         echo '<script>';
         echo 'console.log(' . json_encode($goodcount) . ')';
         echo '</script>';
@@ -214,12 +217,20 @@
           </div>
         </div>
         
+          
+
+          
+
         </div>
         <div class="row">
           <div class="col-9">
             <div class="card-title">
               <h4 class="text-center"><?php echo $search[0]['post_title'] ?></h4>
               </div>
+
+
+
+
               <div name="card-tags">
                 <i class="bi bi-tags"></i>
                 <?php 
@@ -294,8 +305,7 @@
                 <!-- ここまで -->
                 <div class="comment-write-area">
                   <!--コメント入力欄-->
-                  <form action="commentSubmit.php" method="post" id="comment-form-<?php echo $index + 1; ?>">
-                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                  <form action="" method="post" id="comment-form-<?php echo $index + 1; ?>">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
                       <?php if ($item['destination_post_id'] !== null): ?>
@@ -369,8 +379,7 @@
 
     <div class="answer-write-area">
       <!--回答入力欄-->
-      <form action="commentSubmit.php" method="post" id="comment-form">
-        <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+      <form action="" method="post" id="comment-form">
         <div class="form-floating" id="comment-text-area-3">
           <textarea
             class="form-control"

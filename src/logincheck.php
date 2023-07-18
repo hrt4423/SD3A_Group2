@@ -10,10 +10,7 @@ if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 }
 //DB内でPOSTされたメールアドレスを検索
 try {
-  require_once('./dao/connection.php');
-  $connection = new Connection();
-  $pdo = $connection->getPdo();
-
+  $pdo = new PDO(DSN, DB_USER, DB_PASS);
   $stmt = $pdo->prepare('select * from users where user_mail = ?');
   $stmt->execute([$_POST['mail']]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
