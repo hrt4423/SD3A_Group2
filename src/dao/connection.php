@@ -1,11 +1,11 @@
 <?php
   class Connection {
     private $pdo;
-    private $dsn = 'mysql:dbname=asoda;host=localhost';
-    private $username = 'root';
-    private $password = 'root';
-    private $dbname = 'asoda';
-    private $hostname = "localhost";
+    private $dsn = 'mysql:dbname=LAA1417809-asoda;host=mysql215.phy.lolipop.lan';
+    private $username = 'LAA1417809';
+    private $password = '2023AsodaDB';
+    private $dbname = 'LAA1417809-asoda';
+    private $hostname = "mysql215.phy.lolipop.lan";
 
 
     public function __construct() {

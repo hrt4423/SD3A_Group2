@@ -1,13 +1,19 @@
 <?php
-session_start();
+  session_start();
 
-function h($s){
-  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
-}
+  function h($s){
+    return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+  }
 
-$id=$_SESSION['user_id'];
-require_once('config.php');
-  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+  $id=$_SESSION['user_id'];
+  require_once('config.php');
+
+  //$pdo = new PDO(DSN, DB_USER, DB_PASS);
+
+  require_once('./dao/connection.php');
+  $connection = new Connection();
+  $pdo = $connection->getPdo();
+
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -192,27 +198,27 @@ require_once('config.php');
       <a href='./logout.php' class="link1">ログアウト</a>
     </div>
 
-    <?php
+<?php
 
-try{
-  require_once './DAO/posts.php';
-  $postAll = new DAO_post();
-  $search = $postAll->prof_post();//データ取得
-  echo '<script>';
-echo 'console.log(' . json_encode($search) . ')';
-echo '</script>';
+  try{
+    require_once './dao/posts.php';
+    $postAll = new DAO_post();
+    $search = $postAll->prof_post();//データ取得
+    echo '<script>';
+    echo 'console.log(' . json_encode($search) . ')';
+    echo '</script>';
 
-require_once './dao/tags.php';
-$tagAll = new DAO_tag();
-$search2 = $tagAll->tags();
-echo '<script>';
-echo 'console.log(' . json_encode($search2) . ')';
-echo '</script>';
-}catch(Exception $ex){
-  echo $ex->getMessage();
-}catch(Error $err){
-  echo $err->getMessage();
-}
+    require_once './dao/tags.php';
+    $tagAll = new DAO_tag();
+    $search2 = $tagAll->tags();
+    echo '<script>';
+    echo 'console.log(' . json_encode($search2) . ')';
+    echo '</script>';
+  }catch(Exception $ex){
+    echo $ex->getMessage();
+  }catch(Error $err){
+    echo $err->getMessage();
+  }
 ?>
 
     <div class="my_area">
