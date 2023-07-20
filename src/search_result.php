@@ -93,7 +93,7 @@
 
     </div>
   <!-- ここまでがヘッダー -->
-<div class="background">
+<div class="background" style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
   <h1>検索結果</h1>
   <form action="./search_result.php" method="GET" id="sort-form">
     <select name="sort_type" id="sort-type">
