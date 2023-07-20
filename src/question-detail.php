@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-        require_once('./dao/Users.php');
+        require_once('./dao/users.php');
         $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
@@ -127,11 +127,11 @@
       try{
         require_once './DAO/posts.php';
         require_once './dao/good.php';
-        require_once './dao/users.php';
+        //require_once './dao/users.php';
         $postAll = new DAO_post();
         $findPost = new posts();
         $goodAll = new Good();
-        $userAll = new Users();
+        //$userAll = new Users();
         $post_id = $_GET['post_id'];
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
         echo '<script>';

@@ -35,8 +35,8 @@
   <!-- ここからがヘッダー -->
     <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
+        // require_once('./dao/Users.php');
+        // $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
           $USESR_ID = $_SESSION['user_id'];
@@ -125,8 +125,8 @@
   <?php
     require_once('./dao/posts.php');
     $posts = new DAO_post;
-    require_once('./dao/users.php');
-    $users = new Users;
+    // require_once('./dao/users.php');
+    // $users = new Users;
     require_once('./dao/good.php');
     $good = new Good;
     require_once('./dao/attached_tags.php');

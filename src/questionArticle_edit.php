@@ -2,7 +2,7 @@
   session_start();
 ?>
 <?php
-    require_once('./dao/Users.php');
+    require_once('./dao/users.php');
     $users = new Users;
     $USESR_ID = $_SESSION['user_id'];
     $userIconPath = $users->getUserIconPathById($USESR_ID);

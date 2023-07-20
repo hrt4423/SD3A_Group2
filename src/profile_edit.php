@@ -149,8 +149,8 @@ require_once './dao/theme_colors.php';
 
 <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
   <?php
-    require_once('./dao/Users.php');
-    $users = new Users;
+    // require_once('./dao/Users.php');
+    // $users = new Users;
     // ユーザセッションがある場合はセッションを入れて処理を実行
     if (!empty($_SESSION['user_id'])) {
       $USESR_ID = $_SESSION['user_id'];
@@ -208,8 +208,8 @@ require_once './dao/theme_colors.php';
 <!-- ↑ヘッダー -->
 
   <?php
-    require_once('./dao/Users.php');
-    $users = new Users;
+    // require_once('./dao/Users.php');
+    // $users = new Users;
     $USESR_ID = $_SESSION['user_id'];
     $userIconPath = $users->getUserIconPathById($USESR_ID);
     $userData[] = $users->getUserDataById($USESR_ID);
