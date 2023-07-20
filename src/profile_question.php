@@ -11,6 +11,15 @@ require_once('config.php');
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  require_once './dao/users.php';
+$users = new Users;
+require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -113,14 +122,14 @@ require_once('config.php');
 }
   </style>
 </head>
-<body class="body">
+<body class="body" style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
 
   <!-- ここからがヘッダー -->
   <!--変更点：ヘッダーの高さを150pxから100pxに変更-->
-    <div class="header_size">
+    <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
-        require_once('./dao/Users.php');
-        $users = new Users;
+        // require_once('./dao/users.php');
+        // $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
           $USESR_ID = $_SESSION['user_id'];
@@ -129,7 +138,7 @@ require_once('config.php');
       ?>
       <div class="horizontal">
         <a href="./questiontimeline.php">
-          <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+          <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         </a>
         <div class="right">
 
@@ -164,7 +173,7 @@ require_once('config.php');
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
+                <a class="dropdown-item" href="./articleCreation.php">記事</a>
               </div>
           </div>
         </div>
@@ -218,7 +227,7 @@ echo '</script>';
     <div class="my_area">
       <p class="p1">投稿した質問</p>
       <div class="question_area">
-          <div class="horizontal1">
+          <div class="horizontal1" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
             <a href="#" class="text2">質問</a>
             <a href="profile_kizi.php" class="text1 ">記事</a>
             <a href="profile_coment.php" class="text1 ">コメント</a>

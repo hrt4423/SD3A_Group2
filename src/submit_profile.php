@@ -1,7 +1,7 @@
 <?php
   session_start();
   //プロフィールのアップデート処理
-  require_once('./dao/Users.php');
+  require_once('./dao/users.php');
   $users = new Users;
   
   $id = $_SESSION['user_id'];

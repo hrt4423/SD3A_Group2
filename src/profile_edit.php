@@ -1,4 +1,15 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+require_once './dao/users.php';
+$users = new Users;
+require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
+  ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -134,12 +145,12 @@
       }
   </style>
 </head>
-<body >
+<body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
 
-<div class="header_size">
+<div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
   <?php
-    require_once('./dao/Users.php');
-    $users = new Users;
+    // require_once('./dao/Users.php');
+    // $users = new Users;
     // ユーザセッションがある場合はセッションを入れて処理を実行
     if (!empty($_SESSION['user_id'])) {
       $USESR_ID = $_SESSION['user_id'];
@@ -147,7 +158,7 @@
     }
   ?>
   <div class="horizontal">
-    <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+    <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
     <div class="right">
 
       <!-- 検索フォーム -->
@@ -181,7 +192,7 @@
         </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="./questionCreation.php">質問</a>
-            <a class="dropdown-item" href="#">記事</a>
+            <a class="dropdown-item" href="./articleCreation.php">記事</a>
           </div>
       </div>
     </div>
@@ -197,15 +208,15 @@
 <!-- ↑ヘッダー -->
 
   <?php
-    require_once('./dao/Users.php');
-    $users = new Users;
+    // require_once('./dao/Users.php');
+    // $users = new Users;
     $USESR_ID = $_SESSION['user_id'];
     $userIconPath = $users->getUserIconPathById($USESR_ID);
     $userData[] = $users->getUserDataById($USESR_ID);
     //var_dump($userData);
     $userName = $userData[0]['user_name'];
     $userMail = $userData[0]['user_mail'];
-    $userPassword = $userData[0]['user_pass'];
+    // $userPassword = $userData[0]['user_pass'];
     $userColor = $userData[0]['thema_color_id'];
     $userProfile = $userData[0]['user_profile'];
   ?>
@@ -243,14 +254,6 @@
                 </div>
                 <div class="col">
                   <input type="text" name="user_mail" value="<?= $userMail ?>">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p>パスワード</p>
-                </div>
-                <div class="col">
-                  <input type="text" name="user_pass" value="<?= $userPassword ?>">
                 </div>
               </div>
               <div class="row">
