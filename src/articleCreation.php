@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-        require_once('./dao/Users.php');
+        require_once('./dao/users.php');
         $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
