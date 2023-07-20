@@ -9,13 +9,13 @@
   try{
     $users->updateProfile($id, $_POST);
   }catch(PDOException $pdoE) {
-    echo 'メールアドレスが重複しています。編集画面へ戻ります。';
     header('Refresh: 2; ./profile_edit.php');
+    echo 'メールアドレスが重複しています。編集画面へ戻ります。';
     exit;
   }
   
   $users->updateProfile($id, $_POST);
-  echo '更新しました。プロフィール画面に戻ります';
   header('Refresh: 2; ./profile_question.php');
+  echo '更新しました。プロフィール画面に戻ります';
 
 ?>

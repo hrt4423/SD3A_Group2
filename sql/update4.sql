@@ -1,0 +1,1 @@
+ALTER TABLE `theme_colors` CHANGE `rogo_path` `logo_path` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
