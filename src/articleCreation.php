@@ -1,12 +1,19 @@
 <?php session_start(); ?>
 <?php
-        require_once('./dao/Users.php');
+        require_once('./dao/users.php');
         $users = new Users;
         // ユーザセッションがある場合はセッションを入れて処理を実行
         if (!empty($_SESSION['user_id'])) {
           $USESR_ID = $_SESSION['user_id'];
           $userIconPath = $users->getUserIconPathById($USESR_ID);
         }
+        require_once './dao/theme_colors.php';
+  $themeColors = new ThemeColors;
+  if(isset($_SESSION['user_id'])){
+    $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+  }else{
+    $currentThemeColorId = 1;
+  }
 ?>
 <?php
 
@@ -345,12 +352,12 @@
         }
     </style>
   </head>
-  <body>
+  <body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
 
       <!-- ここからがヘッダー -->
-      <div class="header_size">
+      <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <div class="horizontal">
-        <img class="logo" src="./images/logo.png" height="60" alt="ロゴ">
+        <img class="logo" src="./images/<?=$themeColors->getLogoPath($currentThemeColorId)?>" height="60" alt="ロゴ">
         <div class="right">
 
           <!-- 検索フォーム -->
@@ -384,7 +391,7 @@
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="./questionCreation.php">質問</a>
-                <a class="dropdown-item" href="#">記事</a>
+                <a class="dropdown-item" href="./articleCreation.php">記事</a>
               </div>
           </div>
         </div>

@@ -60,6 +60,9 @@
 
   try {
     //テーマカラ機能
+    
+    //TODO: ボタンカラーの取得
+
     require_once './dao/theme_colors.php';
     $themeColors = new ThemeColors;
     if(isset($_SESSION['user_id'])){
@@ -84,9 +87,9 @@
       }
     }
   }catch(Exception $ex){
-    echo $ex->getMessage();
+    //echo $ex->getMessage();
   }catch (Error $err){
-    echo $err->getMessage();
+    //echo $err->getMessage();
   }
   
 

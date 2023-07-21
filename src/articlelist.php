@@ -1,7 +1,17 @@
 <?php 
   session_start(); 
-  if(!isset($_GET['sort_type']))
+  if(!isset($_GET['sort_type'])){
     $_GET['sort_type'] = 0;
+  }
+  require_once './dao/users.php';
+  $users = new Users;
+    require_once './dao/theme_colors.php';
+    $themeColors = new ThemeColors;
+    if(isset($_SESSION['user_id'])){
+      $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+    }else{
+      $currentThemeColorId = 1;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -143,7 +153,7 @@
 <body id="body" class="container-fluid" 
   style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>
 ">
-
+  
   <!-- ここからがヘッダー -->
     <div class="header_size" style="background-color: <?=$themeColors->getThemeColorCode($currentThemeColorId)?> ;">
       <?php
