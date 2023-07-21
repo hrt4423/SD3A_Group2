@@ -1,7 +1,9 @@
 <?php
 require_once('config.php');
 try {
-  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+  require_once('./dao/connection.php');
+  $connection = new Connection;
+  $pdo = $connection->getPdo();
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
   echo $e->getMessage() . PHP_EOL;
