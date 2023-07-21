@@ -24,8 +24,8 @@ $prof=$_POST['purof'];
 try {
   $stmt = $pdo->prepare("insert into users(user_id,user_name,user_mail,user_pass,user_profile) value(null,?,?,?,?)");
   $stmt->execute([$name,$mail,$password,$prof]);
-  echo '登録完了しました。ログイン画面に戻ります。';
   header('Refresh: 3; URL=login.php');
+  echo '登録完了しました。ログイン画面に戻ります。';
 } catch (\Exception $e) {
   echo '登録済みのメールアドレスです。';
 }
