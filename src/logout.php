@@ -19,8 +19,8 @@ if (ini_get("session.use_cookies")) {
 //セッションクリア
 @session_destroy();
 
-echo $output;
 //echo "<br><a href='login.php'>ログインはこちら。</a>";
 // 1秒後にquestiontimeline.phpへリダイレクト
+echo $output;
 header("refresh:1;url=questiontimeline.php");
 ?>
