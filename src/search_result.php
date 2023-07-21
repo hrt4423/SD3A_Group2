@@ -160,7 +160,9 @@
   ?>
 
     <!-- 投稿者、タイトル、投稿日時 -->
-    <div class="article_area">  
+    <div class="article_area">
+      <form action="question-detail.php" method="GET">
+      <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
     <button class="result">          
     <p class="user2">
       <?= $users -> getUserNameById($row['user_id']) ?>
@@ -196,6 +198,7 @@
                 </div>
                 <p class="good"><?= $good -> goodCount($row['post_id']) ?></p>
     </button>
+    </form>
              
 </div>
   <?php
