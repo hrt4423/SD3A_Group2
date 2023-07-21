@@ -264,7 +264,7 @@
         ?>
         <?php foreach($result as $row) : ?>
           <div>
-            <form action="article-detail.php" method="GET">
+            <form action="article_detail.php" method="GET">
               <input type="hidden" name="post_id" value="<?=$row['post_id']?>">
               <button class="question">
                 <p class="user2"> <?=$users->getUserNameById($row['user_id'])?> </p>
