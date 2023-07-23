@@ -1,21 +1,29 @@
 <?php
   class Good{
-    //非推奨
-    private function dbConnect(){
-      $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
-                      'root', 'root');
-      return $pdo;
-    }
+    private $pdo;
 
-    //DB接続にはこちらの関数を推奨
-    private function connect(){
+    public function __construct() {
       require_once('connection.php');
       $connection = new Connection;
-      return $connection->dbConnect();
+      $this->pdo = $connection->getPdo();
     }
 
+    // //非推奨
+    // private function dbConnect(){
+    //   $pdo = new PDO('mysql:host=localhost; dbname=asoda; charset=utf8',
+    //                   'root', 'root');
+    //   return $pdo;
+    // }
+
+    // //DB接続にはこちらの関数を推奨
+    // private function connect(){
+    //   require_once('connection.php');
+    //   $connection = new Connection;
+    //   return $connection->dbConnect();
+    // }
+
     public function goodCount($postId){
-      $pdo = $this -> connect();
+      $pdo = $this -> pdo;
       //SQLの生成
       $sql = "SELECT count(post_id) FROM goods WHERE post_id=?";
 
@@ -37,7 +45,7 @@
     }
 
     public function insertgood($user_id,$post_id,$user_point_id){
-      $pdo = $this->dbConnect();
+      $pdo = $this->pdo;
       $sql = "INSERT INTO goods (user_id,post_id) VALUES (?, ?)";
       $sqlUpdatePoints = "UPDATE users SET user_point = user_point + 20, point_sum = point_sum + 20 WHERE user_id = ?";
 
