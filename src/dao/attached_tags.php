@@ -168,6 +168,7 @@
       }
     }
 
+    //修正を推奨。SQLでIN句を使えばより簡潔に記述できるため。
     //タグIDを元に投稿を絞り込む
     public function filterPostByTag(array $tagIds){
       require_once('posts.php');
