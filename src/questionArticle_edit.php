@@ -11,7 +11,7 @@
     // var_dump($post_id);
     
     //投稿もってくる
-    require_once './DAO/posts.php';
+    require_once './dao/posts.php';
     $postAll = new Posts();
     $search = $postAll->findPostById($post_id);
     // var_dump($search);
