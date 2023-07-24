@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  ob_start(); // バッファリングを開始
 ?>
 <?php
 
@@ -88,7 +89,7 @@ require_once './dao/theme_colors.php';
       $attachedClass->addTags($post_id, $tagIds);
 
 
-      ob_start(); // バッファリングを開始
+      // ob_start(); // バッファリングを開始
       header("Location: questiontimeline.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
