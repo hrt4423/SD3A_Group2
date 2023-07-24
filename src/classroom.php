@@ -8,6 +8,9 @@ if(isset($_SESSION['user_id'])){
 }else{
   $currentThemeColorId = 1;
 }
+
+require_once './dao/classrooms.php';
+$classrooms=new Classrooms;
 ?>
 <!DOCTYPE html>
 <html>
@@ -112,6 +115,8 @@ if(isset($_SESSION['user_id'])){
     <div style="text-align:center">
         <div class="example2">
 	        <div class="container">
+                <?php
+                ?>
 		        <div class="row">
                     <div class="col">
                         <input type="checkbox" id="131" name="example2"><label for="131" >131</label>
