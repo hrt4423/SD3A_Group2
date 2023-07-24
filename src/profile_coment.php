@@ -27,7 +27,7 @@ require_once './dao/theme_colors.php';
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/Profile_question.css">
+  <link rel="stylesheet" href="./css/Profile_coment.css">
   <title>Profile_question</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -217,6 +217,8 @@ $search2 = $tagAll->tags();
 echo '<script>';
 echo 'console.log(' . json_encode($search2) . ')';
 echo '</script>';
+require_once './dao/attached_tags.php';
+$attachedTags = new AttachedTags();
 }catch(Exception $ex){
   echo $ex->getMessage();
 }catch(Error $err){
@@ -234,38 +236,41 @@ echo '</script>';
           </div>
           
           <div class="naiyou_area">
-          <?php foreach($search as $post){
-        echo '<div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-          		<p class="user2">
-           		'.$post['user_name'].'
-          		</p>
-		  </div>
-		<div class="syousai_area">
-          	  <p class="day">
-            	  ' . $post['post_time'] . 'に投稿
-          	  </p>
-		  <p class="title">
-                  ' . $post['post_title'] . '
-                  </p>
-          	  <div class="tag_area">
-                  <img src="./images/pin.png" alt="" class="img2">
-                  <p class="tag">タグ</p>
-                  </div>
-		</div>
-          
-          <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
-                <p class="good">'.$post['good_count'].'</p>
-      </div>';
-    }
-    ?>
+          <?php
+              foreach ($search as $post) {
+                  echo '<div class="naiyou">
+                          <div class="syousai_area">
+                              <p class="day">' . $post['post_time'] . 'に投稿</p>
+                              <p class="title">' . $post['post_title'] . '</p>
+                              <div class="tag_area">
+                                  <img src="./images/pin.png" alt="" class="img2">';
+                  
+                                  try {
+                                      $attachedTag = $attachedTags->getAttachedTagsByPostId($post['post_id']);
+                                      if (!empty($attachedTag)) {
+                                          foreach ($attachedTag as $tag) {
+                                              echo '<span>' . $tag['tag_name'] . '</span>';
+                                          }
+                                      } else {
+                                          echo 'タグなし';
+                                      }
+                                  } catch (Exception $ex) {
+                                      echo 'タグなし';
+                                  } catch (Error $err) {
+                                      echo 'タグなし';
+                                  }
+
+                                      echo '</div>
+                                              </div>
+                                              <div class="good_area">
+                                                  <div class="good_img">
+                                                      <img src="./images/good.png" alt="" class="img3">
+                                                  </div>
+                                              </div>
+                                              <p class="good">' . $post['good_count'] . '</p>
+                                            </div>';
+                                  }
+                                  ?>
 
           </div>
 
