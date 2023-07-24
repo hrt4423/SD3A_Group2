@@ -3,6 +3,9 @@
 ?>
 <!DOCTYPE html>
 <?php
+require_once './dao/connection.php';
+$connection = new Connection;
+
 require_once './dao/users.php';
 $users = new Users;
 require_once './dao/theme_colors.php';
@@ -177,7 +180,7 @@ require_once './dao/theme_colors.php';
         $rank=1;
         $count=1;
         $beforepoint=0;
-        $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
+        $pdo = $connection->getPdo();
         $stmt = $pdo->prepare('select * from users ORDER BY point_sum DESC');
         $stmt ->execute();
         echo "<table>";
