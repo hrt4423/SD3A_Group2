@@ -9,7 +9,7 @@ public function __construct() {
 }
 
 public function getclassroom(){
-    $sql="SELECT classroom_name FROM classrooms";
+    $sql="SELECT * FROM classrooms";
     $ps = $this->pdo->prepare($sql);
     $ps->execute();
     $result = $ps->fetchAll(PDO::FETCH_ASSOC);

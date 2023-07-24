@@ -116,6 +116,13 @@ $classrooms=new Classrooms;
         <div class="example2">
 	        <div class="container">
                 <?php
+                $pdo = new PDO('mysql:host=localhost;dbname=asoda;charset=utf8','root','root');
+                $stmt = $pdo->prepare('select * from classrooms');
+                $stmt ->execute();
+                $row=$stmt->fetchAll();
+                echo '<div class="col">
+                        <input type="checkbox" id="131" name="example2"><label for="131" ><?='.$row['classroom_name'].'?></label>
+                      </div>';
                 ?>
 		        <div class="row">
                     <div class="col">
