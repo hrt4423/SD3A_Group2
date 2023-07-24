@@ -204,7 +204,7 @@ require_once './dao/theme_colors.php';
     <?php
 
 try{
-  require_once './DAO/posts.php';
+  require_once './dao/posts.php';
   $postAll = new DAO_post();
   $search = $postAll->prof_kizi_post();//データ取得
   echo '<script>';
