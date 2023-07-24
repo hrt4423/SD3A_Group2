@@ -125,7 +125,7 @@
 
     <?php
       try{
-        require_once './DAO/posts.php';
+        require_once './dao/posts.php';
         require_once './dao/good.php';
         //require_once './dao/users.php';
         $postAll = new DAO_post();
@@ -171,7 +171,7 @@
         }
 
         //タグ処理
-        require_once './DAO/tags.php';
+        require_once './dao/tags.php';
         $tagAll = new DAO_tag();
         //$tag = $tagAll->postTags($post_id);
         echo '<script>';

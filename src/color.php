@@ -125,7 +125,7 @@ a:hover {
 <?php
 try {
 
-  require_once './DAO/users.php';
+  require_once './dao/users.php';
     $postAll = new Users();
     $search = $postAll->getUsercolor_code(1);//データ取得
     echo '<script>';
@@ -170,7 +170,7 @@ try {
   var selectedColor = document.getElementById("color").value;
   // AJAXリクエストなどでcolor_codeに値を渡す処理を実装する
   // 以下は例として、fetchを使用した非同期リクエストの例です
-  fetch('./DAO/thema_colors.php', {
+  fetch('./dao/thema_colors.php', {
     method: 'POST',
     body: JSON.stringify({ color: selectedColor }),
     headers: {

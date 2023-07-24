@@ -17,7 +17,7 @@
     // var_dump($search);
 
     //対応するタグ
-    require_once './DAO/attached_tags.php';
+    require_once './dao/attached_tags.php';
     $attached_tags = new AttachedTags();
     $tags = $attached_tags->getAttachedTagsByPostId($post_id);
 
