@@ -208,14 +208,13 @@ require_once './dao/theme_colors.php';
     </div>
 
 <?php
-
-  try{
-    require_once './dao/posts.php';
-    $postAll = new DAO_post();
-    $search = $postAll->prof_post();//データ取得
-    echo '<script>';
-    echo 'console.log(' . json_encode($search) . ')';
-    echo '</script>';
+try{
+  require_once './dao/posts.php';
+  $postAll = new DAO_post();
+  $search = $postAll->prof_post();//データ取得
+  echo '<script>';
+echo 'console.log(' . json_encode($search) . ')';
+echo '</script>';
 
 require_once './dao/tags.php';
 $tagAll = new DAO_tag();
