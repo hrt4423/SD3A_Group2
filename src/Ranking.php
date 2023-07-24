@@ -1,6 +1,8 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <?php
-session_start();
 require_once './dao/users.php';
 $users = new Users;
 require_once './dao/theme_colors.php';
