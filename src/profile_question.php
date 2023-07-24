@@ -217,17 +217,19 @@ require_once './dao/theme_colors.php';
     echo 'console.log(' . json_encode($search) . ')';
     echo '</script>';
 
-    require_once './dao/tags.php';
-    $tagAll = new DAO_tag();
-    $search2 = $tagAll->tags();
-    echo '<script>';
-    echo 'console.log(' . json_encode($search2) . ')';
-    echo '</script>';
-  }catch(Exception $ex){
-    echo $ex->getMessage();
-  }catch(Error $err){
-    echo $err->getMessage();
-  }
+require_once './dao/tags.php';
+$tagAll = new DAO_tag();
+$search2 = $tagAll->tags();
+echo '<script>';
+echo 'console.log(' . json_encode($search2) . ')';
+echo '</script>';
+require_once './dao/attached_tags.php';
+$attachedTags = new AttachedTags();
+}catch(Exception $ex){
+  echo $ex->getMessage();
+}catch(Error $err){
+  echo $err->getMessage();
+}
 ?>
 
     <div class="my_area">
@@ -240,38 +242,41 @@ require_once './dao/theme_colors.php';
           </div>
           
           <div class="naiyou_area">
-          <?php foreach($search as $post){
-        echo '<div class="naiyou">
-                <div class="circle_area2">
-                  <div class="circle2"></div>
-          		<p class="user2">
-           		'.$post['user_name'].'
-          		</p>
-		  </div>
-		<div class="syousai_area">
-          	  <p class="day">
-            	  ' . $post['post_time'] . 'に投稿
-          	  </p>
-		  <p class="title">
-                  ' . $post['post_title'] . '
-                  </p>
-          	  <div class="tag_area">
-                  <img src="./images/pin.png" alt="" class="img2">
-                  <p class="tag">タグ</p>
-                  </div>
-		</div>
-          
-          <div class="good_area">
-                  <div class="good_img">
-                    <img src="./images/good.png" alt="" class="img3">
-                  </div>
-                </div>
-                <p class="good">134</p>
-              </div>
-                <p class="good">'.$post['good_count'].'</p>
-      </div>';
-    }
-    ?>
+          <?php
+              foreach ($search as $post) {
+                  echo '<div class="naiyou">
+                          <div class="syousai_area">
+                              <p class="day">' . $post['post_time'] . 'に投稿</p>
+                              <p class="title">' . $post['post_title'] . '</p>
+                              <div class="tag_area">
+                                  <img src="./images/pin.png" alt="" class="img2">';
+                  
+                                  try {
+                                      $attachedTag = $attachedTags->getAttachedTagsByPostId($post['post_id']);
+                                      if (!empty($attachedTag)) {
+                                          foreach ($attachedTag as $tag) {
+                                              echo '<span>' . $tag['tag_name'] . '</span>';
+                                          }
+                                      } else {
+                                          echo 'タグなし';
+                                      }
+                                  } catch (Exception $ex) {
+                                      echo 'タグなし';
+                                  } catch (Error $err) {
+                                      echo 'タグなし';
+                                  }
+
+                                      echo '</div>
+                                              </div>
+                                              <div class="good_area">
+                                                  <div class="good_img">
+                                                      <img src="./images/good.png" alt="" class="img3">
+                                                  </div>
+                                              </div>
+                                              <p class="good">' . $post['good_count'] . '</p>
+                                            </div>';
+                                  }
+                                  ?>
 
           </div>
 
