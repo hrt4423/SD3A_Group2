@@ -79,14 +79,15 @@
     }
     
     //記事を取得
-    $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
+    $result = $posts->fetchAllPostsByCategory(2, $_GET['sort_type']);
     //タグを取得
     $allTags = $dao_tag->tags();
 
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
+      //該当する記事を取得
       $tagIds = $_GET['tag-checkbox'];
-      $result = $attachedTags->filterPostByTag($tagIds);
+      $result = $attachedTags->filterPostByTag(2, $tagIds);
 
       //検索しているタグの名前を取得
       foreach($tagIds as $tagId){
@@ -220,11 +221,11 @@
       </div>
     </div>
   <!-- ここまでがヘッダー -->
-
+  <h3>記事</h3>
   <div class="row">
     <!-- タグ検索 -->
     <div class="col-3" >
-      <form action="./questiontimeline.php" method="GET" id="tag-filter-form"></form> 
+      <form action="./articlelist.php" method="GET" id="tag-filter-form"></form> 
 
       <div>
         <?php if(isset($tagNames)) foreach($tagNames as $tagName) : ?>
@@ -322,7 +323,7 @@
     <!-- ソート -->
     <div class="col-3 pr-0">
       <div class="sele_area2">
-        <form action="./questiontimeline.php" method="get" id="sort-form">
+        <form action="./articlelist.php" method="get" id="sort-form">
           <div class="row">
             <div class="col-3 p-0 mr-3">
               <select name=sort_type class="select2 form-select">

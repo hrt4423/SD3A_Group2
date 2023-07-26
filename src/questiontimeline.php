@@ -79,7 +79,7 @@
     //絞り込み検索時の処理
     if(isset($_GET['tag-checkbox'])){
       $tagIds = $_GET['tag-checkbox'];
-      $result = $attachedTags->filterPostByTag($tagIds);
+      $result = $attachedTags->filterPostByTag(1, $tagIds);
 
       //検索しているタグの名前を取得
       foreach($tagIds as $tagId){
@@ -87,9 +87,9 @@
       }
     }
   }catch(Exception $ex){
-    //echo $ex->getMessage();
+    echo $ex->getMessage();
   }catch (Error $err){
-    //echo $err->getMessage();
+    echo $err->getMessage();
   }
   
 
@@ -213,6 +213,8 @@
       </div>
     </div>
   <!-- ここまでがヘッダー -->
+
+  <h3>質問</h3>
 
   <div class="row">
     <!-- タグ検索 -->

@@ -142,7 +142,8 @@
       $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
       if(empty($result)){
-        throw new Exception('指定したIDに該当するデータはありません。');
+        return $result;
+        //throw new Exception('指定したIDに該当するデータはありません。');
       }else{
         return $result;
       } 
@@ -168,36 +169,53 @@
       }
     }
 
-    //修正を推奨。SQLでIN句を使えばより簡潔に記述できるため。
-    //タグIDを元に投稿を絞り込む
-    public function filterPostByTag(array $tagIds){
-      require_once('posts.php');
-      $posts = new Posts();
-      $postIds = array();
-      $postRecords = array();
+    //タグIDからに投稿を絞り込む
+    public function filterPostByTag(int $category ,array $tagIds){
+      //タグIDをカンマ区切りの文字列に変換
+      $validatedTagIds = implode(",", $tagIds);
+      //タグID（複数）から投稿（複数）を取得
+      $sql = "SELECT DISTINCT P.*  FROM attached_tags as AT
+              LEFT OUTER JOIN posts as P ON AT.post_id = P.post_id
+              WHERE AT.tag_id IN ($validatedTagIds)
+              AND P.post_category_id = $category
+              ORDER BY P.post_time DESC;
+              ";
+      
+      $ps = $this->pdo -> prepare($sql);
 
-      //タグIDを元に'post_id'を取得（タグが複数の場合があるのでforeach）
-      //配列に格納
-      foreach($tagIds as $tagId){
-        $tmp = $this->searchPostIdsByTag($tagId);
-        foreach($tmp as $row){
-          array_push($postIds, $row['post_id']);
-        }
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+      
+      // require_once('posts.php');
+      // $posts = new Posts();
+      // $postIds = array();
+      // $postRecords = array();
+
+      // //タグIDを元に'post_id'を取得（タグが複数の場合があるのでforeach）
+      // //配列に格納
+      // foreach($tagIds as $tagId){
+      //   $tmp = $this->searchPostIdsByTag($tagId);
+      //   foreach($tmp as $row){
+      //     array_push($postIds, $row['post_id']);
+      //   }
+      // }
+
+      // //'post_id'から投稿を取得
+      // foreach($postIds as $row){
+      //   $tmp = $posts->findPostById($row);
+      //   array_push($postRecords, $tmp);
+      // }
+
+      // //post_time列だけ抽出
+      // $timeArray = array_column( $postRecords, "post_time" );
+
+      // //post_timeを基準にソート
+      // array_multisort( array_map( "strtotime", $timeArray ), SORT_DESC, $postRecords );
+      if(empty($result)){
+        throw new Exception('at filterPostByTag');
+      }else{
+        return $result;
       }
-
-      //'post_id'から投稿を取得
-      foreach($postIds as $row){
-        $tmp = $posts->findPostById($row);
-        array_push($postRecords, $tmp);
-      }
-
-      //post_time列だけ抽出
-      $timeArray = array_column( $postRecords, "post_time" );
-
-      //post_timeを基準にソート
-      array_multisort( array_map( "strtotime", $timeArray ), SORT_DESC, $postRecords );
-
-      return $postRecords;
     }
   }
 ?>
