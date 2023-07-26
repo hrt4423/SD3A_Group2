@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+  session_start(); 
+  ob_start(); // バッファリングを開始
+?>
 <?php
         require_once('./dao/users.php');
         $users = new Users;
@@ -118,7 +121,7 @@
       $attachedClass->addTags($post_id, $tagIds);
 
 
-      ob_start(); // バッファリングを開始
+      
       header("Location: questiontimeline.php");
       exit();
       ob_end_flush(); // バッファの内容を出力
