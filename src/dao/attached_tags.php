@@ -180,11 +180,18 @@
               AND P.post_category_id = $category
               ORDER BY P.post_time DESC;
               ";
-      
-      $ps = $this->pdo -> prepare($sql);
+      try{
+        $ps = $this->pdo -> prepare($sql);
+  
+        $ps->execute();
+        $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+      }catch(Exception $ex){
+        throw $ex;
+      }catch(Error $err){
+        throw $err;
+      }
 
-      $ps->execute();
-      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+      return $result;
       
       // require_once('posts.php');
       // $posts = new Posts();
@@ -211,11 +218,7 @@
 
       // //post_timeを基準にソート
       // array_multisort( array_map( "strtotime", $timeArray ), SORT_DESC, $postRecords );
-      if(empty($result)){
-        throw new Exception('at filterPostByTag');
-      }else{
-        return $result;
-      }
+      
     }
   }
 ?>
