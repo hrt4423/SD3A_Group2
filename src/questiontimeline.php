@@ -20,6 +20,68 @@
   <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
   
   <!-- <script src="js/questiontimeline.js"></script> -->
+  <?php
+    try{
+      require_once './dao/posts.php';
+      require_once './dao/users.php';
+      require_once './dao/good.php';
+      require_once './dao/attached_tags.php';
+      require_once './dao/tags.php';
+      
+
+      $posts = new Posts;
+      $users = new Users;
+      $good = new Good;
+      $attachedTags = new AttachedTags;
+      $dao_tag = new DAO_tag;
+      $tags = new Tags;
+
+    }catch(Exception $ex){
+      echo $ex->getMessage();
+    }catch(Error $err){
+      echo $err->getMessage();
+    }
+
+    try {
+      //テーマカラ機能
+      
+      //TODO: ボタンカラーの取得
+
+      require_once './dao/theme_colors.php';
+      $themeColors = new ThemeColors;
+      if(isset($_SESSION['user_id'])){
+        $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
+      }else{
+        $currentThemeColorId = 1;
+      }
+      
+      //質問を取得
+      $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
+      //タグを取得
+      $allTags = $dao_tag->tags();
+
+      //絞り込み検索時の処理
+      if(isset($_GET['tag-checkbox'])){
+        $tagIds = $_GET['tag-checkbox'];
+        $result = $attachedTags->filterPostByTag(1, $tagIds);
+
+        //検索しているタグの名前を取得
+        foreach($tagIds as $tagId){
+          $tagNames[] = $tags->getTagNameByTagId($tagId);
+        }
+      }
+    }catch(Exception $ex){
+      echo $ex->getMessage();
+    }catch (Error $err){
+      echo $err->getMessage();
+    }
+    
+
+    //コンソールでの確認用
+    echo '<script>';
+    echo 'console.log(' . json_encode($allTags) . ')';
+    echo '</script>';
+  ?>
   <style>
     .tag-text{
       color: brack;
@@ -34,70 +96,13 @@
       height: 100px;
       background-color: #b164ff;
     }
+    .btn{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+      color: white;
+    }
   </style>
 </head>
-<?php
-  try{
-    require_once './dao/posts.php';
-    require_once './dao/users.php';
-    require_once './dao/good.php';
-    require_once './dao/attached_tags.php';
-    require_once './dao/tags.php';
-    
 
-    $posts = new Posts;
-    $users = new Users;
-    $good = new Good;
-    $attachedTags = new AttachedTags;
-    $dao_tag = new DAO_tag;
-    $tags = new Tags;
-
-  }catch(Exception $ex){
-    echo $ex->getMessage();
-  }catch(Error $err){
-    echo $err->getMessage();
-  }
-
-  try {
-    //テーマカラ機能
-    
-    //TODO: ボタンカラーの取得
-
-    require_once './dao/theme_colors.php';
-    $themeColors = new ThemeColors;
-    if(isset($_SESSION['user_id'])){
-      $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
-    }else{
-      $currentThemeColorId = 1;
-    }
-    
-    //質問を取得
-    $result = $posts->fetchAllPostsByCategory(1, $_GET['sort_type']);
-    //タグを取得
-    $allTags = $dao_tag->tags();
-
-    //絞り込み検索時の処理
-    if(isset($_GET['tag-checkbox'])){
-      $tagIds = $_GET['tag-checkbox'];
-      $result = $attachedTags->filterPostByTag(1, $tagIds);
-
-      //検索しているタグの名前を取得
-      foreach($tagIds as $tagId){
-        $tagNames[] = $tags->getTagNameByTagId($tagId);
-      }
-    }
-  }catch(Exception $ex){
-    echo $ex->getMessage();
-  }catch (Error $err){
-    echo $err->getMessage();
-  }
-  
-
-  //コンソールでの確認用
-  echo '<script>';
-  echo 'console.log(' . json_encode($allTags) . ')';
-  echo '</script>';
-?>
 <script>
   //ページが読み込まれたときに チェックボックスをクリア
   $(document).ready(function(){
@@ -194,7 +199,8 @@
           </a>
           
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle" type="button" 
+            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -231,7 +237,7 @@
       </div>
 
       <div id="selected-tags"></div>
-      <button type="submit" form="tag-filter-form" class="btn btn-purple" id="filter-button">絞り込む</button>
+      <button type="submit" form="tag-filter-form" class="btn" id="filter-button">絞り込む</button>
       <hr>
 
       <?php 
@@ -342,7 +348,7 @@
               </select>
             </div>
             <div class="col-6 p-0">
-              <button type="submit" class="btn btn-purple ml-3">並び替え</button>
+              <button type="submit" class="btn ml-3">並び替え</button>
             </div>
           </div>
 
