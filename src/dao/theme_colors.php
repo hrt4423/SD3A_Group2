@@ -48,10 +48,22 @@
       }else{
         throw new Exception('logo_pathが取得できませんでした。');
       }
-
     }
 
     //ボタンカラーの取得
+    public function getButtonColorCode($themeColorId){
+      $sql = "SELECT button_color_code FROM theme_colors WHERE theme_color_id = ?";
+      $ps = $this->pdo->prepare($sql);
+      $ps->bindValue(1, $themeColorId, PDO::PARAM_INT);
+      $ps->execute();
+      $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+      if(isset($result[0]['button_color_code'])) {
+        return $result[0]['button_color_code'];
+      }else{
+        throw new Exception('button_color_codeが取得できませんでした。');
+      }
+    }
 
   }
 ?>
