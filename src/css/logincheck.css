@@ -1,12 +1,4 @@
-  .logincheck2{
-    background-color: #FAEEFF;
-  }
-
- .logincheck3{
-    background-color: #FAEEFF;
-  }
-
-  .return_button{
+ .return_button{
     width: 4vw;
     height: 2vw;
     color:white;
@@ -16,7 +8,6 @@
     justify-content: center;
     align-items: center;
   }
-
 
   .body{
     background-color: #FAEEFF;

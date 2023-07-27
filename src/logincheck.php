@@ -15,6 +15,7 @@
   <link href="css/logincheck.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
+  <div class="body">
 <?php 
 
 session_start(); 
@@ -39,7 +40,9 @@ try {
 //emailがDB内に存在しているか確認
 if (!isset($row['user_mail'])) {
   echo 'メールアドレスが間違っています。';
+  echo "<div class=return_button>";
   echo "<br><a href='login.php'>戻る</a>";
+  echo "</div>";
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
@@ -55,8 +58,10 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   echo "</div>";
   return false;
 }
+?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
