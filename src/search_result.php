@@ -27,6 +27,15 @@
  
   <title>search-result</title>
 </head>
+<style>
+  .btn{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+      color: white;
+    }
+    .good_img{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+    }
+  </style>
 <body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
   <?php 
     //優先度を減算する処理
@@ -73,7 +82,7 @@
           </a>
          
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
