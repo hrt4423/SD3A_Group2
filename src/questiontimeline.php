@@ -96,10 +96,16 @@
       height: 100px;
       background-color: #b164ff;
     }
+
+    /* ボタンカラー */
     .btn{
       background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
       color: white;
     }
+    .good_img{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+    }
+
   </style>
 </head>
 

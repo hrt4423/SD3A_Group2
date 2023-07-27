@@ -70,7 +70,7 @@ option{
 .good_img{
   width: 5vw;
   height: 3vw;
-  background-color: #B164FF;
+  /* background-color: #B164FF; */
   border-radius: 50px; /* 角丸を10pxに設定 */
   display: flex;
   justify-content: center;
