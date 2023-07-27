@@ -145,15 +145,15 @@
         $post_id = $_SESSION['post_id'];
 
         //コメントのインサート処理
-        if (isset($_POST['commentSubmit'])) {
-          $formIndex = $_POST['commentSubmit']; // 送信されたフォームのインデックスを取得
-          $comment = $_POST['comment'][$formIndex]; // 対応するコメントの値を取得
+        if (isset($_GET['commentSubmit'])) {
+          $formIndex = $_GET['commentSubmit']; // 送信されたフォームのインデックスを取得
+          $comment = $_GET['comment'][$formIndex]; // 対応するコメントの値を取得
           
-          $postAll->insertpost($_POST['postID'], $comment, $USESR_ID, $post_id);
+          $postAll->insertpost($_GET['postID'], $comment, $USESR_ID, $post_id);
           
         }
-        if(isset($_POST['answerSubmit'])){
-          $postAll->insertpost($post_id, $_POST['comment_answer'], $USESR_ID, $post_id);
+        if(isset($_GET['answerSubmit'])){
+          $postAll->insertpost($post_id, $_GET['comment_answer'], $USESR_ID, $post_id);
         }
 
         //投稿、コメントの表示
@@ -326,12 +326,14 @@
                 <div class="comment-write-area">
 
                   <!--コメント入力フォーム-->
-                  <form action="question-detail.php?post_id=<?=$post_id?>" method="post" id="comment-form-<?php echo $index + 1; ?>">
+                  <form action="question-detail.php?post_id=<?=$post_id?>" method="GET" id="comment-form-<?php echo $index + 1; ?>">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
                       <?php if ($item['destination_post_id'] !== null): ?>
                         <input value="<?php echo $item['post_id']; ?>" name="postID" style="display:none">
                       <?php endif; ?>
+
+                      <!-- コメント：テキストエリア -->
                       <textarea
                         class="form-control"
                         placeholder=""
@@ -340,6 +342,7 @@
                         form="comment-form-<?php echo $index + 1; ?>"
                         style="height: 150px"
                       ></textarea>
+
                       <label for="">返信</label>
                       <div class="styled-output"></div>
                     </div>
@@ -391,7 +394,7 @@
 
     <div class="answer-write-area">
       <!--回答入力フォーム-->
-      <form action="question-detail.php?post_id=<?=$post_id?>" method="post" id="comment-form">
+      <form action="question-detail.php?post_id=<?=$post_id?>" method="GET" id="comment-form">
         
         <div class="form-floating" id="comment-text-area-3">
           <textarea
