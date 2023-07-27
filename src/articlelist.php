@@ -44,6 +44,13 @@
       height: 100px;
       background-color: #b164ff;
     }
+    .btn{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+      color: white;
+    }
+    .good_img{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+    }
   </style>
 </head>
 <?php
@@ -202,7 +209,7 @@
           </a>
           
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -237,7 +244,7 @@
       </div>
 
       <div id="selected-tags"></div>
-      <button type="submit" form="tag-filter-form" class="btn btn-purple" id="filter-button">絞り込む</button>
+      <button type="submit" form="tag-filter-form" class="btn" id="filter-button">絞り込む</button>
       <hr>
 
       <?php 
@@ -348,7 +355,7 @@
               </select>
             </div>
             <div class="col-6 p-0">
-              <button type="submit" class="btn btn-purple ml-3">並び替え</button>
+              <button type="submit" class="btn ml-3">並び替え</button>
             </div>
           </div>
 
