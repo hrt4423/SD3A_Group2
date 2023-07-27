@@ -1,6 +1,7 @@
-<?php
+<link href="css/logincheck.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+<?php 
 
-session_start();
+session_start(); 
 require_once('config.php');
 
 //POSTのvalidate
@@ -9,7 +10,7 @@ if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
   return false;
 }
 //DB内でPOSTされたメールアドレスを検索
-try {
+try { 
   require_once('./dao/connection.php');
   $connection = new Connection;
   $pdo = $connection->getPdo();
@@ -21,8 +22,10 @@ try {
 }
 //emailがDB内に存在しているか確認
 if (!isset($row['user_mail'])) {
+  echo "<div class=logincheck>";
   echo 'メールアドレスが間違っています。';
   echo "<br><a href='login.php'>戻る</a>";
+  echo "</div>";
   return false;
 }
 //パスワード確認後sessionにメールアドレスを渡す
@@ -30,9 +33,15 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['user_id'] = $row['user_id'];
   header('Refresh: 3; URL=questiontimeline.php');
+  echo "<div class=logincheck2>";
   echo 'ログインしました。ホーム画面へ移動します';
+  echo "</div>";
 } else {
+  echo "<div class=logincheck3>";
   echo 'メールアドレス又はパスワードが間違っています。';
+  echo "<div class=return_button>";
   echo "<br><a href='login.php'>戻る</a>";
+  echo "</div>";
+  echo "</div>";
   return false;
 }

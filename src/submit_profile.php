@@ -1,3 +1,4 @@
+<link href="css/submit_profile.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 <?php
   session_start();
   //プロフィールのアップデート処理

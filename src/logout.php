@@ -1,3 +1,4 @@
+<link href="css/logout.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 <?php
 session_start();
 $output = '';

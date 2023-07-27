@@ -1,0 +1,23 @@
+ .logincheck{
+    background-color: #FAEEFF;
+  }
+
+ .logincheck2{
+    background-color: #FAEEFF;
+  }
+
+ .logincheck3{
+    background-color: #FAEEFF;
+  }
+
+  .return_button{
+    width: 4vw;
+    height: 2vw;
+    color:white;
+    background-color: #B164FF;
+    border-radius: 50px; /* 角丸を10pxに設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

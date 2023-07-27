@@ -1,3 +1,4 @@
+<link href="css/signup.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 <?php
 require_once('config.php');
 try {
@@ -19,7 +20,7 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
 } else {
   echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください。';
   return false;
-}
+} 
 $name=$_POST['name'];
 $prof=$_POST['purof'];
 //登録処理
