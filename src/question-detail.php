@@ -310,7 +310,7 @@
                 <div class="comment-write-area">
 
                   <!--コメント入力フォーム-->
-                  <form action="question-detail.php" method="post" id="comment-form-<?php echo $index + 1; ?>">
+                  <form action="question-detail.php?post_id=<?=$post_id?>" method="post" id="comment-form-<?php echo $index + 1; ?>">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
                       <?php if ($item['destination_post_id'] !== null): ?>
