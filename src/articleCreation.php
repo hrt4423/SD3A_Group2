@@ -353,6 +353,13 @@
         .tag-select {
           margin-top: 10px;
         }
+        .btn{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+      color: white;
+    }
+    .good_img{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+    }
     </style>
   </head>
   <body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
@@ -389,7 +396,7 @@
           </a>
           
           <div class="dropdown">
-            <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               投稿する
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

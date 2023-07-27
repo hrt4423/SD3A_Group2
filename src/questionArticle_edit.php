@@ -345,6 +345,13 @@
         .tag-select {
           margin-top: 10px;
         }
+        .btn{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+      color: white;
+    }
+    .good_img{
+      background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
+    }
     </style>
   </head>
   <body style="background-color: <?=$themeColors->getSubColorCode($currentThemeColorId) ?>">
@@ -374,7 +381,7 @@
 
           <div class="dropdown">
             <button
-              class="btn btn-purple dropdown-toggle"
+              class="btn dropdown-toggle"
               type="button"
               id="dropdownMenuButton"
               data-toggle="dropdown"
