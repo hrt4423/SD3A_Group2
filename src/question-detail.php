@@ -1,20 +1,20 @@
 <?php session_start(); ?>
 <?php
-        require_once('./dao/users.php');
-        $users = new Users;
-        // ユーザセッションがある場合はセッションを入れて処理を実行
-        if (!empty($_SESSION['user_id'])) {
-          $USESR_ID = $_SESSION['user_id'];
-          $userIconPath = $users->getUserIconPathById($USESR_ID);
-        }
-        require_once './dao/theme_colors.php';
+  require_once('./dao/users.php');
+  $users = new Users;
+  // ユーザセッションがある場合はセッションを入れて処理を実行
+  if (!empty($_SESSION['user_id'])) {
+    $USESR_ID = $_SESSION['user_id'];
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+  }
+  require_once './dao/theme_colors.php';
   $themeColors = new ThemeColors;
   if(isset($_SESSION['user_id'])){
     $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
   }else{
     $currentThemeColorId = 1;
   }
-      ?>
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -132,7 +132,11 @@
         $findPost = new posts();
         $goodAll = new Good();
         //$userAll = new Users();
-        $post_id = $_GET['post_id'];
+        if(isset($_GET['post_id']))
+          $_SESSION['post_id'] = $_GET['post_id'];
+
+        $post_id = $_SESSION['post_id'];
+
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
         echo '<script>';
         echo 'console.log(' . json_encode($search) . ')';
@@ -198,6 +202,8 @@
         <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
           <!-- ボタンの位置 -->
           <div class="text-center">
+
+          <!-- 編集：フォーム -->
           <form method="POST" action="questionArticle_edit.php">
             <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <?php
@@ -210,9 +216,11 @@
 
             <br />
             <div class="good">
+
+              <!-- いいね：フォーム -->
               <!-- 記事に対するいいね処理 ↓-->
               <form method="POST" action="goodinsert.php">
-                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
+                <input type="hidden" name="post_id" value="<?php echo $post_id?>">
                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
                 <input type="hidden" name="user_point_id" value="<?php echo $search[0]['user_id'];?>">
                 <button class="btn" id="good" type="submit">
@@ -223,10 +231,6 @@
             </div>
           </div>
         </div>
-        
-          
-
-          
 
         </div>
         <div class="row">
@@ -234,10 +238,6 @@
             <div class="card-title">
               <h4 class="text-center"><?php echo $search[0]['post_title'] ?></h4>
               </div>
-
-
-
-
               <div name="card-tags">
                 <i class="bi bi-tags"></i>
                 <?php 
@@ -297,9 +297,6 @@
                       <span name="user-rank"><i class="bi bi-gem"></i></span>
                       <span name="user-name"><?php echo $item2['user_name']; ?></span>
                     </div>
-
-                    
-
                     <div class="card-text">
                       <!--回答文-->
                       <?php echo $item2['post_detail']; ?>
@@ -311,8 +308,9 @@
 
                 <!-- ここまで -->
                 <div class="comment-write-area">
-                  <!--コメント入力欄-->
-                  <form action="" method="post" id="comment-form-<?php echo $index + 1; ?>">
+
+                  <!--コメント入力フォーム-->
+                  <form action="question-detail.php" method="post" id="comment-form-<?php echo $index + 1; ?>">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
                       <?php if ($item['destination_post_id'] !== null): ?>
@@ -341,7 +339,6 @@
                         プレビュー
                       </button>
 
-
                       <div class="comment-write-area-button">
                         <label id="upload-image-icon">
                           <input type="file" name="file" />
@@ -364,20 +361,12 @@
                 </div>
                 <!--/コメント入力欄-->
               </div>
-
-
               <?php endforeach; ?>
-
             </div>
-
-
                 <!---card-body-->
               </div>
               <!--/回答１-->
           </div>
-
-          
-
           </div>
           <!-- 基のボタンの場所 -->
         </div>
@@ -385,8 +374,9 @@
     </div>
 
     <div class="answer-write-area">
-      <!--回答入力欄-->
-      <form action="" method="post" id="comment-form">
+      <!--回答入力フォーム-->
+      <form action="question-detail.php?post_id=<?=$post_id?>" method="post" id="comment-form">
+        
         <div class="form-floating" id="comment-text-area-3">
           <textarea
             class="form-control"
