@@ -1,8 +1,4 @@
- .logincheck{
-    background-color: #FAEEFF;
-  }
-
- .logincheck2{
+  .logincheck2{
     background-color: #FAEEFF;
   }
 
@@ -20,4 +16,10 @@
     justify-content: center;
     align-items: center;
   }
+
+
+  .body{
+    background-color: #FAEEFF;
+  }
+  
   
