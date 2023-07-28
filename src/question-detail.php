@@ -1,20 +1,20 @@
 <?php session_start(); ?>
 <?php
-        require_once('./dao/users.php');
-        $users = new Users;
-        // ユーザセッションがある場合はセッションを入れて処理を実行
-        if (!empty($_SESSION['user_id'])) {
-          $USESR_ID = $_SESSION['user_id'];
-          $userIconPath = $users->getUserIconPathById($USESR_ID);
-        }
-        require_once './dao/theme_colors.php';
+  require_once('./dao/users.php');
+  $users = new Users;
+  // ユーザセッションがある場合はセッションを入れて処理を実行
+  if (!empty($_SESSION['user_id'])) {
+    $USESR_ID = $_SESSION['user_id'];
+    $userIconPath = $users->getUserIconPathById($USESR_ID);
+  }
+  require_once './dao/theme_colors.php';
   $themeColors = new ThemeColors;
   if(isset($_SESSION['user_id'])){
     $currentThemeColorId =  $users->getThemeColorId($_SESSION['user_id']);
   }else{
     $currentThemeColorId = 1;
   }
-      ?>
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -139,14 +139,43 @@
         $findPost = new posts();
         $goodAll = new Good();
         //$userAll = new Users();
-        $post_id = $_GET['post_id'];
+        if(isset($_GET['post_id']))
+          $_SESSION['post_id'] = $_GET['post_id'];
+
+        $post_id = $_SESSION['post_id'];
+
+        // //コメントのインサート処理
+        // if (isset($_GET['commentSubmit'])) {
+        //   $formIndex = $_GET['commentSubmit']; // 送信されたフォームのインデックスを取得
+        //   $comment = $_GET['comment'][$formIndex]; // 対応するコメントの値を取得
+          
+        //   $postAll->insertpost($_GET['postID'], $comment, $USESR_ID, $post_id);            
+        // }
+
+        // if(isset($_GET['answerSubmit'])){
+        //   $postAll->insertpost($post_id, $_GET['comment_answer'], $USESR_ID, $post_id);
+        // }
+
+        //投稿、コメントの表示
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
-        echo '<script>';
-        echo 'console.log(' . json_encode($search) . ')';
-        echo '</script>';
         $result = $postAll->post_return($post_id);//それに対する返信検索
         $coment1 = $result['coment1'];
         $coment2 = $result['coment2'];
+        
+
+        $post = $findPost->findPostById($post_id);
+
+        // $username = $userAll->getUserNameById($user_search);
+
+        //タグ処理
+        require_once './dao/tags.php';
+        $tagAll = new DAO_tag();
+
+        //---------------------------------------------------------------------------------------------
+        echo '<script>';
+        echo 'console.log(' . json_encode($search) . ')';
+        echo '</script>';
+
         echo '<script>';
         echo 'console.log(' . json_encode($coment1) . ')';
         echo '</script>';
@@ -162,24 +191,6 @@
         echo 'console.log(' . json_encode($goodcount) . ')';
         echo '</script>';
 
-        $post = $findPost->findPostById($post_id);
-
-        // $username = $userAll->getUserNameById($user_search);
-
-        if (isset($_POST['commentSubmit'])) {
-          $formIndex = $_POST['commentSubmit']; // 送信されたフォームのインデックスを取得
-          $comment = $_POST['comment'][$formIndex]; // 対応するコメントの値を取得
-          
-          $postAll->insertpost($_POST['postID'], $comment, $USESR_ID, $post_id);
-          
-        }
-        if(isset($_POST['answerSubmit'])){
-              $postAll->insertpost($post_id, $_POST['comment_answer'], $USESR_ID, $post_id);
-        }
-
-        //タグ処理
-        require_once './dao/tags.php';
-        $tagAll = new DAO_tag();
         //$tag = $tagAll->postTags($post_id);
         echo '<script>';
         echo 'console.log(' . json_encode($tag) . ')';
@@ -191,6 +202,11 @@
         echo $err->getMessage();
       }
     ?>
+    <script>
+      // window.onload = function(){
+      //   window.location.replace('question-detail.php?post_id=<?=$post_id?>');
+      // }
+    </script>
 
     <div class="card">
       <div class="card-body">
@@ -205,6 +221,8 @@
         <div class="col-3 offset-md-8 text-center"><?php echo $search[0]['post_time'] ?></div>
           <!-- ボタンの位置 -->
           <div class="text-center">
+
+          <!-- 編集：フォーム -->
           <form method="POST" action="questionArticle_edit.php">
             <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <?php
@@ -217,9 +235,11 @@
 
             <br />
             <div class="good">
+
+              <!-- いいね：フォーム -->
               <!-- 記事に対するいいね処理 ↓-->
               <form method="POST" action="goodinsert.php">
-                <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'];?>">
+                <input type="hidden" name="post_id" value="<?php echo $post_id?>">
                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
                 <input type="hidden" name="user_point_id" value="<?php echo $search[0]['user_id'];?>">
                 <button class="btn" id="good" type="submit">
@@ -230,10 +250,6 @@
             </div>
           </div>
         </div>
-        
-          
-
-          
 
         </div>
         <div class="row">
@@ -241,10 +257,6 @@
             <div class="card-title">
               <h4 class="text-center"><?php echo $search[0]['post_title'] ?></h4>
               </div>
-
-
-
-
               <div name="card-tags">
                 <i class="bi bi-tags"></i>
                 <?php 
@@ -304,9 +316,6 @@
                       <span name="user-rank"><i class="bi bi-gem"></i></span>
                       <span name="user-name"><?php echo $item2['user_name']; ?></span>
                     </div>
-
-                    
-
                     <div class="card-text">
                       <!--回答文-->
                       <?php echo $item2['post_detail']; ?>
@@ -318,13 +327,17 @@
 
                 <!-- ここまで -->
                 <div class="comment-write-area">
-                  <!--コメント入力欄-->
-                  <form action="" method="post" id="comment-form-<?php echo $index + 1; ?>">
+
+                  <!--コメント入力フォーム-->
+                  <form action="./insertComment.php" method="GET" 
+                  id="comment-form-<?php echo $index + 1; ?>" class="com-form">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
                       <?php if ($item['destination_post_id'] !== null): ?>
                         <input value="<?php echo $item['post_id']; ?>" name="postID" style="display:none">
                       <?php endif; ?>
+
+                      <!-- コメント：テキストエリア -->
                       <textarea
                         class="form-control"
                         placeholder=""
@@ -333,6 +346,7 @@
                         form="comment-form-<?php echo $index + 1; ?>"
                         style="height: 150px"
                       ></textarea>
+
                       <label for="">返信</label>
                       <div class="styled-output"></div>
                     </div>
@@ -347,7 +361,6 @@
                       >
                         プレビュー
                       </button>
-
 
                       <div class="comment-write-area-button">
                         <label id="upload-image-icon">
@@ -371,20 +384,12 @@
                 </div>
                 <!--/コメント入力欄-->
               </div>
-
-
               <?php endforeach; ?>
-
             </div>
-
-
                 <!---card-body-->
               </div>
               <!--/回答１-->
           </div>
-
-          
-
           </div>
           <!-- 基のボタンの場所 -->
         </div>
@@ -392,8 +397,10 @@
     </div>
 
     <div class="answer-write-area">
-      <!--回答入力欄-->
-      <form action="" method="post" id="comment-form">
+      <!--回答入力フォーム-->
+      <form action="./insertComment.php" method="GET" 
+      id="comment-form" class="com-form">
+        
         <div class="form-floating" id="comment-text-area-3">
           <textarea
             class="form-control"
@@ -484,7 +491,6 @@
         var div = document.getElementById("styled-output");
         div.classList.toggle("active");
       }
-
 
     </script>
 
