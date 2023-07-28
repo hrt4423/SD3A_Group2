@@ -144,18 +144,17 @@
 
         $post_id = $_SESSION['post_id'];
 
-        //コメントのインサート処理
-
-        if (isset($_GET['commentSubmit'])) {
-          $formIndex = $_GET['commentSubmit']; // 送信されたフォームのインデックスを取得
-          $comment = $_GET['comment'][$formIndex]; // 対応するコメントの値を取得
+        // //コメントのインサート処理
+        // if (isset($_GET['commentSubmit'])) {
+        //   $formIndex = $_GET['commentSubmit']; // 送信されたフォームのインデックスを取得
+        //   $comment = $_GET['comment'][$formIndex]; // 対応するコメントの値を取得
           
-          $postAll->insertpost($_GET['postID'], $comment, $USESR_ID, $post_id);            
-        }
+        //   $postAll->insertpost($_GET['postID'], $comment, $USESR_ID, $post_id);            
+        // }
 
-        if(isset($_GET['answerSubmit'])){
-          $postAll->insertpost($post_id, $_GET['comment_answer'], $USESR_ID, $post_id);
-        }
+        // if(isset($_GET['answerSubmit'])){
+        //   $postAll->insertpost($post_id, $_GET['comment_answer'], $USESR_ID, $post_id);
+        // }
 
         //投稿、コメントの表示
         $search = $postAll->post_detail($post_id);//記事や質問の投稿詳細
@@ -167,8 +166,6 @@
         $post = $findPost->findPostById($post_id);
 
         // $username = $userAll->getUserNameById($user_search);
-
-        
 
         //タグ処理
         require_once './dao/tags.php';
@@ -205,6 +202,11 @@
         echo $err->getMessage();
       }
     ?>
+    <script>
+      // window.onload = function(){
+      //   window.location.replace('question-detail.php?post_id=<?=$post_id?>');
+      // }
+    </script>
 
     <div class="card">
       <div class="card-body">
@@ -327,7 +329,7 @@
                 <div class="comment-write-area">
 
                   <!--コメント入力フォーム-->
-                  <form action="question-detail.php?post_id=<?=$post_id?>" method="GET" 
+                  <form action="./insertComment.php" method="GET" 
                   id="comment-form-<?php echo $index + 1; ?>" class="com-form">
                     <!-- ここの値のIDをPHPで動的に与えてあげてください comment-text-area-1 -->
                     <div class="form-floating" id="comment-text-area-<?php echo $index + 1; ?>">
@@ -396,7 +398,7 @@
 
     <div class="answer-write-area">
       <!--回答入力フォーム-->
-      <form action="question-detail.php?post_id=<?=$post_id?>" method="GET" 
+      <form action="./insertComment.php" method="GET" 
       id="comment-form" class="com-form">
         
         <div class="form-floating" id="comment-text-area-3">
@@ -489,7 +491,6 @@
         var div = document.getElementById("styled-output");
         div.classList.toggle("active");
       }
-
 
     </script>
 
