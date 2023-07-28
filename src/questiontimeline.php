@@ -115,7 +115,6 @@
     $('input[name="tag-checkbox"]').prop('checked', false);
   });
 
-
   $(document).ready(function(){
     //タグがクリックされた時の処理
     $('input[name="tag-checkbox[]"]').change(function(){
