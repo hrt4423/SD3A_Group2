@@ -1,3 +1,4 @@
+<?= session_start() ?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head>
@@ -17,7 +18,6 @@
 <body>
   <div class="body">
 <?php
-  session_start();
   //プロフィールのアップデート処理
   require_once('./dao/users.php');
   $users = new Users;
@@ -33,8 +33,8 @@
   }
   
   $users->updateProfile($id, $_POST);
-  header('Refresh: 2; ./profile_question.php');
   echo '更新しました。プロフィール画面に戻ります';
+  header('Refresh: 2; ./profile_question.php');
 
 ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
