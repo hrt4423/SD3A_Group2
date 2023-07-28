@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja"> 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    signup
+  </title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+  <link href="css/logout.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
+</head>
+<body>
+  <div class="body">
 <?php
 require_once('config.php');
 try {
@@ -7,7 +25,7 @@ try {
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
   echo $e->getMessage() . PHP_EOL;
-}
+} 
 //POSTのValidate。
 if (!$mail = filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
   echo '入力された値が不正です。';
@@ -19,7 +37,7 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
 } else {
   echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください。';
   return false;
-}
+} 
 $name=$_POST['name'];
 $prof=$_POST['purof'];
 //登録処理
@@ -31,3 +49,10 @@ try {
 } catch (\Exception $e) {
   echo '登録済みのメールアドレスです。';
 }
+?>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>
