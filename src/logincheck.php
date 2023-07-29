@@ -8,11 +8,6 @@
   <title>
     logincheck
   </title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="./css/header.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
   <link href="css/logincheck.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
@@ -59,9 +54,5 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   return false;
 }
 ?>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</div>
 </body>
 </html>
