@@ -11,7 +11,9 @@
   <link href="css/logincheck.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
-  <div class="body">
+  
+</body>
+</html>
 <?php 
 
 require_once('config.php');
@@ -55,5 +57,4 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   return false;
 }
 ?>
-</body>
-</html>
+
