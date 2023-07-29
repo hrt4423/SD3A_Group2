@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head>
@@ -17,7 +20,7 @@
 <body>
   <div class="body">
 <?php
-session_start();
+
 $output = '';
 if (isset($_SESSION["EMAIL"])) {
   $output = 'Logoutしました。';
@@ -40,7 +43,6 @@ if (ini_get("session.use_cookies")) {
 //echo "<br><a href='login.php'>ログインはこちら。</a>";
 // 1秒後にquestiontimeline.phpへリダイレクト
 echo $output;
-header("refresh:1;url=questiontimeline.php");
 ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -48,3 +50,6 @@ header("refresh:1;url=questiontimeline.php");
 </div>
 </body>
 </html>
+<?php
+  header("refresh:1;url=questiontimeline.php");
+?>
