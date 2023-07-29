@@ -20,11 +20,12 @@
   <link href="css/logout.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
-  <div class="body">
+</body>
+</html>
 <?php
 
 $output = '';
-if (isset($_SESSION["EMAIL"])) {
+if (isset($_SESSION["user_id"])) {
   $output = 'Logoutしました。';
 } else {
   $output = 'SessionがTimeoutしました。';
@@ -33,11 +34,11 @@ if (isset($_SESSION["EMAIL"])) {
 $_SESSION = array();
 //セッションクッキーも削除
 if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+  $params = session_get_cookie_params();
+  setcookie(session_name(), '', time() - 42000,
+      $params["path"], $params["domain"],
+      $params["secure"], $params["httponly"]
+  );
 }
 //セッションクリア
 @session_destroy();
@@ -46,9 +47,3 @@ if (ini_get("session.use_cookies")) {
 // 1秒後にquestiontimeline.phpへリダイレクト
 echo $output;
 ?>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</div>
-</body>
-</html>
