@@ -1,6 +1,7 @@
 <?php
   session_start();
-  ob_start();
+  header("refresh:1.5;url=questiontimeline.php");
+  
 ?>
 <!DOCTYPE html>
 <html lang="ja"> 
@@ -51,7 +52,3 @@ echo $output;
 </div>
 </body>
 </html>
-<?php
-  ob_end_clean();
-  header("refresh:1;url=questiontimeline.php");
-?>
