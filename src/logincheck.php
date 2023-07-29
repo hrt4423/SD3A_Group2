@@ -1,6 +1,7 @@
 <?php 
   session_start();
-  ob_start();
+  header('Refresh: 1.5; URL=questiontimeline.php');
+  
 ?>
 <!DOCTYPE html>
 <html lang="ja"> 
@@ -50,8 +51,6 @@ if (password_verify($_POST['password'],$row['user_pass'])) {
   //session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['user_id'] = $row['user_id'];
   echo 'ログインしました。ホーム画面へ移動します';
-  ob_end_clean();
-  header('Refresh: 3; URL=questiontimeline.php');
   exit;
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
