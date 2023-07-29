@@ -44,8 +44,8 @@ if (!isset($row['user_mail'])) {
 if (password_verify($_POST['password'],$row['user_pass'])) {
   session_regenerate_id(true); //session_idを新しく生成し、置き換える
   $_SESSION['user_id'] = $row['user_id'];
-  header('Refresh: 3; URL=questiontimeline.php');
   echo 'ログインしました。ホーム画面へ移動します';
+  header('Refresh: 3; URL=questiontimeline.php');
 } else {
   echo 'メールアドレス又はパスワードが間違っています。';
   echo "<div class=return_button>";
