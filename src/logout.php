@@ -25,7 +25,7 @@
 
 $output = '';
 if (isset($_SESSION["user_id"])) {
-  $output = 'Logoutしました。';
+  $output = 'ログアウトしました。';
 } else {
   $output = 'SessionがTimeoutしました。';
 }
