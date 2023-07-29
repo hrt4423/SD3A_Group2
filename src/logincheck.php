@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head>
@@ -18,7 +19,6 @@
   <div class="body">
 <?php 
 
-session_start(); 
 require_once('config.php');
 
 //POSTのvalidate
