@@ -1,7 +1,6 @@
 <?php
   session_start();
   header("refresh:1.5;url=questiontimeline.php");
-  
 ?>
 <!DOCTYPE html>
 <html lang="ja"> 
@@ -30,16 +29,16 @@ if (isset($_SESSION["user_id"])) {
 } else {
   $output = 'SessionがTimeoutしました。';
 }
-//セッション変数のクリア 
-$_SESSION = array();
-//セッションクッキーも削除
-if (ini_get("session.use_cookies")) {
-  $params = session_get_cookie_params();
-  setcookie(session_name(), '', time() - 42000,
-      $params["path"], $params["domain"],
-      $params["secure"], $params["httponly"]
-  );
-}
+// //セッション変数のクリア 
+// $_SESSION = array();
+// //セッションクッキーも削除
+// if (ini_get("session.use_cookies")) {
+//   $params = session_get_cookie_params();
+//   setcookie(session_name(), '', time() - 42000,
+//       $params["path"], $params["domain"],
+//       $params["secure"], $params["httponly"]
+//   );
+// }
 //セッションクリア
 @session_destroy();
 
