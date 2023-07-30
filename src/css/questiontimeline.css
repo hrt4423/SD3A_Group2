@@ -40,7 +40,7 @@ option{
 }
 .question_area{
   margin-top: 3vw;
-  margin-left: 1.5vw;
+  margin-left: 8.3vw;
   width: 40vw;
   height: 33vw;
   /* overflow:auto; */
@@ -159,6 +159,7 @@ option{
 
 .row{
   margin-top: 1rem;
+  padding-left: 3rem;
 }
 
 .remove-button{
@@ -174,4 +175,9 @@ option{
 
 .login_atag{
   color: white;
+}
+
+#contents{
+  margin-top: 3rem;
+  text-align: center;
 }

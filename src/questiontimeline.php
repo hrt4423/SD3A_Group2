@@ -225,11 +225,11 @@
     </div>
   <!-- ここまでがヘッダー -->
 
-  <h3>質問</h3>
+  <h2 id="contents">質問</h2>
 
   <div class="row">
     <!-- タグ検索 -->
-    <div class="col-3" >
+    <div class="col-2" >
       <form action="./questiontimeline.php" method="GET" id="tag-filter-form"></form> 
 
       <div>
@@ -272,7 +272,7 @@
     <!-- /タグ検索 -->
 
     <!-- 質問一覧 -->
-    <div class="col-6 pl-10">
+    <div class="col-7 pl-10">
       <div class="question_area">
         <?php 
           //質問データがある場合は表示
@@ -330,7 +330,7 @@
       <div class="sele_area2">
         <form action="./questiontimeline.php" method="get" id="sort-form">
           <div class="row">
-            <div class="col-3 p-0 mr-3">
+            <div class="col-3.5 p-0 mr-3">
               <select name=sort_type class="select2 form-select">
                 <option value="" disabled selected>
                   <?php
@@ -352,8 +352,8 @@
                 <option value="2">新着順</a></option>
               </select>
             </div>
-            <div class="col-6 p-0">
-              <button type="submit" class="btn ml-3">並び替え</button>
+            <div class="col-5 p-0">
+              <button type="submit" class="btn ">並び替え</button>
             </div>
           </div>
 
