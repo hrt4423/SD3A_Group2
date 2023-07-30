@@ -1,3 +1,6 @@
+<?php
+   header('Refresh: 1.5; URL=login.php');
+?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head>
@@ -15,7 +18,8 @@
   <link href="css/logout.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
-  <div class="body">
+</body>
+</html>
 <?php
 require_once('config.php');
 try {
@@ -44,15 +48,9 @@ $prof=$_POST['purof'];
 try {
   $stmt = $pdo->prepare("insert into users(user_id,user_name,user_mail,user_pass,user_profile) value(null,?,?,?,?)");
   $stmt->execute([$name,$mail,$password,$prof]);
-  header('Refresh: 3; URL=login.php');
   echo '登録完了しました。ログイン画面に戻ります。';
 } catch (\Exception $e) {
   echo '登録済みのメールアドレスです。';
 }
 ?>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</div>
-</body>
-</html>
+

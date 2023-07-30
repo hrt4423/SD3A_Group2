@@ -7,7 +7,13 @@ function h($s){
 
 $id=$_SESSION['user_id'];
 require_once('config.php');
-  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+
+  require_once('./dao/connection.php');
+  $connection = new Connection();
+  $pdo = $connection->getPdo();
+
+  // $pdo = new PDO(DSN, DB_USER, DB_PASS);
+
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
