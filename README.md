@@ -1,5 +1,4 @@
 # Asoda
-## 2023システム開発演習Ⅱ前期チームリポジトリ
 - 自分で記事を書いたり、分からないことがあったら質問を投稿したりして、ユーザー同士で教えあえるサイトです。
 - リンク：[Asoda](http://bold-obi-8187.littlestar.jp/Asoda/src/questiontimeline.php "Asoda Home")
 - ログインまたは新規登録をしてご利用ください。
