@@ -2,12 +2,4 @@
 2023システム開発演習Ⅱ前期チームリポジトリ
 
 [Asoda](http://bold-obi-8187.littlestar.jp/Asoda/src/questiontimeline.php "Asoda Home")
-# データベース作成の手順
-1. XAMPPのコントロールパネルを開き、Apache, MySQLを ***start***
-2. MySQLの ***admin*** からphpMyAdminへ
-3. 新規作成から以下の仕様でデータベースを作成
-    - データベース名：<font color="orange">**asoda** </font>
-    - <font color="orange"> **utf8_general_ci** </font>
-4. 作成した ***asoda*** へ移動し、***SQL*** を押す。
-5. **create_table.sql**をコピペして実行
----
+
