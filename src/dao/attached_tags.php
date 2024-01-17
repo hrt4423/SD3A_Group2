@@ -65,6 +65,9 @@
               $existingTagIds = array();
               while ($row = $result->fetch_assoc()) {
                   $existingTagIds[] = $row["tag_id"];
+                  echo '<script>';
+        echo 'console.log("tagsIDs1:' . json_encode($existingTagIds) . '")';
+        echo '</script>';
               }
               $existingStmt->close();
 

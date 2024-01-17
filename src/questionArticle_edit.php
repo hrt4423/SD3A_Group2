@@ -102,16 +102,15 @@
 
 
       // タグを変更
-      $tagValues = $_POST['tagValues'];
+       $tagValues = $_POST['tagValues'];
       $tagIds = $tagClass->upsertTags($tagValues);
         //コンソールでの確認用
-        echo '<script>';
-        echo 'console.log(' . json_encode($tagValues) . ')';
-        echo '</script>';
+        // echo '<script>';
+        // echo 'console.log("tagsIDs:' . json_encode($tagIds) . '")';
+        // echo '</script>';
 
       // タグを投稿に関連付ける
       $attachedClass->updateTags($post_id, $tagIds);
-
 
       ob_start(); // バッファリングを開始
       header("Location: questiontimeline.php");
@@ -344,6 +343,7 @@
         }
         .tag-select {
           margin-top: 10px;
+          margin-left: 40px;
         }
         .btn{
       background-color: <?=$themeColors->getButtonColorCode($currentThemeColorId)?>;
@@ -408,9 +408,9 @@
 
     <!-- <input type="text" id="tag-input" class="tag-input" placeholder="タグを入力してください"> -->
     <div style="display: flex;">
-      <input class="form-control tag-input" id="tag-input" type="text" placeholder="タグを入力してください">
-      <!-- <button id="add-tag-btn" type="button">追加</button> -->
-      <button type="button"  id="add-tag-btn" class="btn btn-secondary tag-select">追加</button>
+      <!-- <input class="form-control tag-input" id="tag-input" type="text" placeholder="タグを入力してください" name="tagValues">
+      <button id="add-tag-btn" type="button">追加</button>
+      <button type="button"  id="add-tag-btn" class="btn btn-secondary tag-select">追加</button> -->
 
       <select id="tag-select"  class="form-select tag-select" aria-label="Default select example">
 
@@ -442,8 +442,12 @@
             if (!in_array($tag_name, $existingTags)) {
                 echo '<div class="tag">' . $tag_name . '<span>×</span></div>';
                 echo '<input type="hidden" name="tagValues[]" value="' . $tag_name . '">';
+                echo '<script>';
+                echo 'console.log("tagsIDs:' . json_encode($tag_name) . '")';
+                echo '</script>';
                 // 既存のタグを配列に追加
                 $existingTags[] = $tag_name;
+
             }
         }
       ?>
