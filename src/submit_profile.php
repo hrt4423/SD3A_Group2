@@ -1,4 +1,6 @@
-<?php session_start() ?>
+<?php session_start();
+  header('Refresh: 1.5; ./profile_question.php');
+?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head>
@@ -16,7 +18,8 @@
   <link href="css/logout.css?<?php echo date('YmdHis'); ?>" rel="stylesheet">
 </head>
 <body>
-  <div class="body">
+</body>
+</html>
 <?php
   //プロフィールのアップデート処理
   require_once('./dao/users.php');
@@ -34,12 +37,6 @@
   
   $users->updateProfile($id, $_POST);
   echo '更新しました。プロフィール画面に戻ります';
-  header('Refresh: 2; ./profile_question.php');
-
 ?>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</div>
-</body>
-</html>
+
+

@@ -1,13 +1,19 @@
 <?php
-session_start();
+  session_start();
 
-function h($s){
-  return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
-}
+  function h($s){
+    return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+  }
 
-$id=$_SESSION['user_id'];
-require_once('config.php');
-  $pdo = new PDO(DSN, DB_USER, DB_PASS);
+  $id=$_SESSION['user_id'];
+  require_once('config.php');
+
+  //$pdo = new PDO(DSN, DB_USER, DB_PASS);
+
+  require_once('./dao/connection.php');
+  $connection = new Connection();
+  $pdo = $connection->getPdo();
+
   $stmt = $pdo->prepare('select * from users where user_id = ?');
   $stmt->execute([$id]);
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -208,8 +214,7 @@ require_once './dao/theme_colors.php';
       <a href='./logout.php' class="link1">ログアウト</a>
     </div>
 
-    <?php
-
+<?php
 try{
   require_once './dao/posts.php';
   $postAll = new DAO_post();
